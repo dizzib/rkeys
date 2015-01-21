@@ -1,9 +1,22 @@
+mixin script(src)
+  script(type='text/javascript', src=src)
+
+mixin link(href)
+  link(rel='stylesheet', type='text/css', href=href)
+
 doctype html
 html
   meta(charset='utf-8')
   head
     title typey-pad
-    script(type='text/javascript', src='app.js')
-    link(rel='stylesheet', type='text/css', href='app.css')
+    +link('index.css')
+    +script('/lib-3p/jquery.js')
+    +script('/socket.io/socket.io.js')
   body
-    h1 typey-pad yeah!
+    h1 typey-pad
+    .key#A A
+    .key#B B
+    .key#F7 F7
+    .key#Shift Shift
+    .key#Bksp Bksp
+  +script('app.js')

@@ -3,5 +3,14 @@
 # 'illegal invocation' errors, since console.log expects 'this' to be console.
 window.log = -> console.log ...&
 
-log \boot
+socket = io!
 
+$ '.key' .on \touchstart, ->
+  ($key = $ this).addClass \down
+  socket.emit \keydown, $key.attr \id
+  false
+
+$ '.key' .on \touchend, ->
+  ($key = $ this).removeClass \down
+  socket.emit \keyup, $key.attr \id
+  false

@@ -7,6 +7,8 @@ engines:
 dependencies:
   express               : \3.1.1
   'http-status'         : \0.1.8
+  'socket.io'           : \1.3.2
+  'wait.for'            : \0.6.3
   x11                   : \1.0.2
 devDependencies:
   brfs                  : \~0.0.9
@@ -24,6 +26,6 @@ devDependencies:
   lodash                : \~2.4.1
   marked                : \~0.3.1
   memdown               : \~0.10.2 # cacheify
+  nib                   : \~0.9.0
   shelljs               : \~0.2.6
   stylus                : \~0.31.0
-  'wait.for'            : \~0.6.3
