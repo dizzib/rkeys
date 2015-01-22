@@ -1,34 +1,41 @@
 global.log = console.log
 
-Express  = require \express
-Http     = require \http
-HttpCode = require \http-status
-WFib     = require \wait.for .launchFiber
-W4m      = require \wait.for .forMethod
+<- require \wait.for .launchFiber
 
-<- WFib
+Express = require \express
+Http    = require \http
+Nib     = require \nib
+Shell   = require \shelljs/global
+Stylus  = require \stylus
+W4m     = require \wait.for .forMethod
+Keypad  = require \./io/keypad
 
-Keypad = require \./io/keypad
+Keypad.init http = Http.Server (express = Express!)
 
-express = Express!
-http = Http.Server express
-Keypad.init http
-
-env = express.settings.env
+const PATH_KEYPAD = "#{__dirname}/keypad"
+const PATH_USER_KEYPAD = "#{env.HOME}/.typey-pad/keypad"
 
 express
-  ..set \port, process.env.PORT || 7000
-#  ..use Express.logger \dev if env in <[ development ]>
-  ..use Express.bodyParser!
-#  ..use express.router
-  ..use Express.static "#{__dirname}/app"
-  ..use handle-error
+  ..set \port, env.PORT || 7000
+  ..set 'view engine', \jade
+  ..set \views, PATH_USER_KEYPAD
+  ..use Express.logger \dev
+#  ..use Stylus.middleware do
+#    src: PATH_USER_KEYPAD
+#    dest: "#PATH_USER_KEYPAD/.css"
+#    compile: (src, path) ->
+#      log path
+#      Stylus src .set(\filename, path).use Nib!
+  ..get /^\/([A-Za-z]+)$/, (req, res) -> res.render req.params.0
+  ..use Express.static PATH_KEYPAD
   ..use Express.errorHandler!
 
-function handle-error err, req, res, next
-  log (msg = if err.stack then err.stack else err.message)
-  res.send HttpCode.INTERNAL_SERVER_ERROR, msg
-  next err
-
 W4m http, \listen, port = express.settings.port
-console.log "Express server http listening on port #{port}"
+console.log "Express http server listening on port #{port}"
+
+# set symlinks to let user keypads access base resources
+set-symlink \base.jade
+set-symlink \base.styl
+
+function set-symlink fname
+  ln \-sf, "#{__dirname}/keypad/#fname", "#PATH_USER_KEYPAD/#fname"

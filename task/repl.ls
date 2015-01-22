@@ -22,7 +22,7 @@ const COMMANDS =
   * cmd:'b.r  ' lev:0 desc:'build - recycle'        fn:Run.recycle-site
 
 config.fatal  = true # shelljs doesn't raise exceptions, so set this process to die on error
-config.silent = true # otherwise too much noise
+#config.silent = true # otherwise too much noise
 
 cd DirBld # for safety, set working directory to build
 
@@ -41,7 +41,7 @@ rl = Rl.createInterface input:process.stdin, output:process.stdout
     rl.prompt!
 
 Build.on \built, Run.recycle-site
-Build.on \built-app, Bundle.app
+#Build.on \built-app, Bundle.app
 Build.start!
 Run.recycle-site!
 

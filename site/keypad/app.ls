@@ -5,12 +5,12 @@ window.log = -> console.log ...&
 
 socket = io!
 
-$ '.key' .on \touchstart, ->
+$ \.key .on \touchstart, ->
   ($key = $ this).addClass \down
   socket.emit \keydown, $key.attr \id
   false
 
-$ '.key' .on \touchend, ->
+$ \.key .on \touchend, ->
   ($key = $ this).removeClass \down
   socket.emit \keyup, $key.attr \id
   false

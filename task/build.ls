@@ -19,11 +19,11 @@ const NMODULES = './node_modules'
 
 pruner = new Cron.CronJob cronTime:'*/10 * * * *', onTick:prune-empty-dirs
 tasks  =
-  jade:
-    cmd : "node #NMODULES/jade/bin/jade.js --out $OUT $IN"
-    ixt : \jade
-    oxt : \html
-    mixn: \_
+  #  jade:
+  #  cmd : "node #NMODULES/jade/bin/jade.js --out $OUT $IN"
+  #  ixt : \jade
+  #  oxt : \html
+  #  mixn: \_
   livescript:
     cmd : "#NMODULES/LiveScript/bin/lsc --output $OUT $IN"
     ixt : \ls
@@ -35,12 +35,12 @@ tasks  =
     oxt : \html
   static:
     cmd : 'cp $IN $OUT'
-    ixt : '+(css|eot|gif|html|jpg|js|json|otf|pem|png|svg|ttf|txt|woff)'
-  stylus:
-    cmd : "#NMODULES/stylus/bin/stylus -u nib --out $OUT $IN"
-    ixt : \styl
-    oxt : \css
-    mixn: \_
+    ixt : '+(css|jade|js|styl)'
+ # stylus:
+ #   cmd : "#NMODULES/stylus/bin/stylus -u nib --out $OUT $IN"
+ #   ixt : \styl
+ #   oxt : \css
+ #   mixn: \_
 
 module.exports = me = (new Emitter!) with
   all: ->
@@ -136,7 +136,7 @@ function finalise ipath, opath
   me.emit \built
 
 function prune-empty-dirs
-  unless pwd! is Dir.build.DEV then return log 'bypass prune-empty-dirs'
+  unless pwd! is Dir.BUILD then return log 'bypass prune-empty-dirs'
   code, out <- exec "find . -type d -empty -delete"
   G.err "prune failed: #code #out" if code
 

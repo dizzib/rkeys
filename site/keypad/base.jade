@@ -1,0 +1,20 @@
+mixin link(href)
+  link(rel='stylesheet', type='text/css', href=href)
+
+mixin script(src)
+  script(type='text/javascript', src=src)
+
+doctype
+html
+  head
+    title typey-pad
+    style(type='text/css')
+      include:stylus base.styl
+    style(type='text/css')
+      block css
+  body
+    block layout
+
+  +script('/lib-3p/jquery.js')
+  +script('/socket.io/socket.io.js')
+  +script('/app.js')
