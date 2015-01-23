@@ -5,6 +5,7 @@ engines:
   node: '>=0.10.x'
   npm : '>=1.0.x'
 dependencies:
+  commander    : \2.6.0
   errorhandler : \1.3.2
   express      : \4.11.1
   jade         : \1.9.1
