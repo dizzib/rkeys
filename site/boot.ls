@@ -2,8 +2,10 @@ global.log = console.log
 
 <- require \wait.for .launchFiber
 
+ErrHan  = require \errorhandler
 Express = require \express
 Http    = require \http
+Morgan  = require \morgan
 Nib     = require \nib
 Shell   = require \shelljs/global
 Stylus  = require \stylus
@@ -19,7 +21,7 @@ express
   ..set \port, env.PORT || 7000
   ..set 'view engine', \jade
   ..set \views, PATH_USER_KEYPAD
-  ..use Express.logger \dev
+  ..use Morgan \dev
 #  ..use Stylus.middleware do
 #    src: PATH_USER_KEYPAD
 #    dest: "#PATH_USER_KEYPAD/.css"
@@ -28,7 +30,7 @@ express
 #      Stylus src .set(\filename, path).use Nib!
   ..get /^\/([A-Za-z]+)$/, (req, res) -> res.render req.params.0
   ..use Express.static PATH_KEYPAD
-  ..use Express.errorHandler!
+  ..use ErrHan!
 
 W4m http, \listen, port = express.settings.port
 console.log "Express http server listening on port #{port}"
