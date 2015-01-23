@@ -1,14 +1,13 @@
 X11 = require \x11
 W4m = require \wait.for .forMethod
 
-# see https://github.com/sidorares/node-x11/blob/master/examples/smoketest/xtesttest.js
+# https://github.com/sidorares/node-x11/blob/master/examples/smoketest/xtesttest.js
 disp = W4m X11, \createClient
 root = disp.screen.0.root
 x = disp.client
 x.on \error, -> log \error, it
 xt = W4m x, \require, \xtest
 ks2kc = get-keysym-to-keycode!
-log ks2kc
 
 module.exports =
   keydown: -> fake-input xt.KeyPress, it
@@ -19,7 +18,7 @@ module.exports =
 function fake-input direction, keysym
   xt.FakeInput direction, ks2kc[keysym], 0, root, 0, 0
 
-# see https://github.com/sidorares/node-x11/blob/ae71050a5d61ee7aab65369fab1efa2fc2404a7d/examples/smoketest/keyboard/getkeyboardmapping.js
+# https://github.com/sidorares/node-x11/blob/ae71050a5d61ee7aab65369fab1efa2fc2404a7d/examples/smoketest/keyboard/getkeyboardmapping.js
 function get-keysym-to-keycode
   ks2name = {}
   for key of (ks = X11.keySyms) then ks2name[ks[key]] = key

@@ -20,7 +20,7 @@ express
   ..set \views, "#{Args.defdir}/#DIR-KEYPAD"
   ..use Morgan \dev
   ..get /^\/([A-Za-z]+)$/, (req, res) -> res.render req.params.0
-  ..use Express.static "#{__dirname}/#DIR-KEYPAD"
+  ..use Express.static "#__dirname/#DIR-KEYPAD"
   ..use ErrHan!
 
   # allow 'extend /keypad/base' in user keypad

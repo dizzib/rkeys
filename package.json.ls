@@ -9,6 +9,7 @@ dependencies:
   errorhandler : \1.3.2
   express      : \4.11.1
   jade         : \1.9.1
+  'js-yaml'    : \3.2.5
   morgan       : \1.5.1
   shelljs      : \0.3.0
   'socket.io'  : \1.3.2

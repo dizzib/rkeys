@@ -30,7 +30,7 @@ tasks  =
     oxt : \html
   static:
     cmd : 'cp $IN $OUT'
-    ixt : '+(css|jade|js|styl)'
+    ixt : '+(css|jade|js|styl|yaml)'
 
 module.exports = me = (new Emitter!) with
   all: ->

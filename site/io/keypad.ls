@@ -1,33 +1,29 @@
-_    = require \lodash
-Io   = require \socket.io
-Kseq = require \./keyseq.json
-X    = require \./x
+_   = require \lodash
+Io  = require \socket.io
+Cmd = require \./command
+X   = require \./x
 
 module.exports.init = (http) ->
-  io = Io http
-
-  socket <- io.on \connection
+  socket <- (io = Io http).on \connection
   log \connect
-
   socket.on \disconnect, -> log \disconnect
-
-  socket.on \keydown, -> send-key-sequence 0, it
-  socket.on \keyup  , -> send-key-sequence 1, it
+  socket.on \keydown   , -> run-command 0, it
+  socket.on \keyup     , -> run-command 1, it
 
   ## helpers
 
-  function send-key-sequence origin-dirn, id
-    return unless directive = Kseq[id]
+  function run-command origin-dirn, id
+    return unless command = Cmd.get id
 
-    if _.isArray directive
+    if _.isArray command
       # verbose sequence
-      return unless kseq = directive[origin-dirn]
+      return unless kseq = command[origin-dirn]
       for act in acts = kseq.split ' '
         return log "Invalid action #act" unless (flag = act.0) in <[ + - ]>
         fn = if flag is \+ then X.keydown else X.keyup
         fn act.slice 1
     else
-      if (acts = directive.split ' ').length is 1
+      if (acts = command.split ' ').length is 1
         # simple key
         return [ X.keydown, X.keyup ][origin-dirn] acts.0
       # one-shot sequence on keydown
