@@ -8,7 +8,7 @@ const PORT   = 7000
 Commdr
   .version P-Json.version
   .option '-p, --port [port]', "listening port (default:#PORT)", PORT
-  .option '-d, --defdir [dir]', "definitions directory (default:#DEFDIR)", DEFDIR
+  .option '-d, --defdir [dir]', "custom definitions directory (default:#DEFDIR)", DEFDIR
   .parse process.argv
 
 module.exports = Commdr
