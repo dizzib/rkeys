@@ -10,7 +10,6 @@ dependencies:
   express      : \4.11.1
   jade         : \1.9.1
   morgan       : \1.5.1
-  nib          : \1.1.0
   shelljs      : \0.3.0
   'socket.io'  : \1.3.2
   stylus       : \0.49.3
