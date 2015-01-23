@@ -1,4 +1,4 @@
-mixin link(href)
+//mixin link(href)
   link(rel='stylesheet', type='text/css', href=href)
 
 mixin script(src)
@@ -7,14 +7,24 @@ mixin script(src)
 doctype
 html
   head
-    title typey-pad
-    style(type='text/css')
+    block title
+      title typey-pad
+
+    // base (minimal) style
+    style
       include:stylus base.styl
-    style(type='text/css')
-      block css
+
+    // optional user style can override base style
+    style
+      block stylus
+
   body
+    // user layout mandatory
     block layout
 
-  +script('/lib-3p/jquery.js')
-  +script('/socket.io/socket.io.js')
-  +script('/app.js')
+    // libs
+    +script('/lib-3p/jquery.js')
+    +script('/socket.io/socket.io.js')
+
+    // app
+    +script('/app.js')
