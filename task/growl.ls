@@ -1,8 +1,8 @@
 Chalk = require \chalk
 Gntp  = require \gntp
 Util  = require \util
+Const = require \./constants
 
-const APPNAME = \typey-pad
 const INFO    = create-note \info   , Chalk.stripColor
 const ERROR   = create-note \error  , Chalk.red
 const SUCCESS = create-note \success, Chalk.green
@@ -24,10 +24,10 @@ else log "growl disabled"
 ## helpers
 
 function create-note name, chalk
-  new Gntp.Notification! <<< name:name, displayName:"#APPNAME #name", chalk:chalk
+  new Gntp.Notification! <<< name:name, displayName:"#{Const.APPNAME} #name", chalk:chalk
 
 function register
-  req = (new Gntp.Application APPNAME).toRequest!
+  req = (new Gntp.Application Const.APPNAME).toRequest!
   for note in [INFO, ERROR, SUCCESS] then req.addNotification note
   client.sendMessage req.toRequest!
 
@@ -35,5 +35,5 @@ function send note, text, opts = {}
   if text instanceof Error then text .= message
   Util.log note.chalk text unless opts.nolog
   return unless enabled
-  req = note.toRequest! <<< (applicationName:APPNAME, text:text) <<< opts
+  req = note.toRequest! <<< (applicationName:Const.APPNAME, text:text) <<< opts
   client.sendMessage req.toRequest!

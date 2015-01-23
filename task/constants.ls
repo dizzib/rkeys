@@ -11,13 +11,14 @@ root = pwd!
 dir =
   BUILD: "#root/#{DIRNAME.BUILD}"
   build:
-    SITE : "#root/#{DIRNAME.BUILD}/#{DIRNAME.SITE}"
-    TASK : "#root/#{DIRNAME.BUILD}/#{DIRNAME.TASK}"
+    SITE: "#root/#{DIRNAME.BUILD}/#{DIRNAME.SITE}"
+    TASK: "#root/#{DIRNAME.BUILD}/#{DIRNAME.TASK}"
   ROOT : root
   SITE : "#root/#{DIRNAME.SITE}"
   TASK : "#root/#{DIRNAME.TASK}"
 
 module.exports =
+  APPNAME: \typey-pad
   dirname: DIRNAME
   dir    : dir
 
