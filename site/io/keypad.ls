@@ -12,21 +12,26 @@ module.exports.init = (http) ->
 
   ## helpers
 
-  function run-command origin-dirn, id
-    return unless command = Cmd.get id
+  function run-command touch-dirn, id
+    return log "Invalid command #id" unless command = Cmd.get id
 
     if _.isArray command
-      # verbose sequence
-      return unless kseq = command[origin-dirn]
-      for act in acts = kseq.split ' '
-        return log "Invalid action #act" unless (flag = act.0) in <[ + - ]>
-        fn = if flag is \+ then X.keydown else X.keyup
-        fn act.slice 1
+      # explicit command on down/up: index 0=down, 1=up (optional)
+      return unless directives = command[touch-dirn]
+      for d in directives.split ' '
+        switch d.0
+          case \+ then X.keydown d.slice 1
+          case \- then X.keyup d.slice 1
+          default
+            X.keydown d
+            X.keyup d
     else
-      if (acts = command.split ' ').length is 1
-        # simple key
-        return [ X.keydown, X.keyup ][origin-dirn] acts.0
-      # one-shot sequence on keydown
-      return unless origin-dirn is 0
-      for act in acts then X.keydown act
-      for act in acts then X.keyup act
+      if (directives = command.split ' ').length is 1
+        # simple behaviour: emitted key down/up follows touch down/up
+        # to simulate a real keyboard
+        return [ X.keydown, X.keyup ][touch-dirn] directives.0
+      return unless touch-dirn is 0 # touchdown ?
+      # simple macro on touchdown only. To allow modifiers to take
+      # effect we apply all keydowns followed by all keyups
+      for d in directives then X.keydown d
+      for d in directives then X.keyup d
