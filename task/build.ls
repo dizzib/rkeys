@@ -19,11 +19,6 @@ const NMODULES = './node_modules'
 
 pruner = new Cron.CronJob cronTime:'*/10 * * * *', onTick:prune-empty-dirs
 tasks  =
-  #  jade:
-  #  cmd : "node #NMODULES/jade/bin/jade.js --out $OUT $IN"
-  #  ixt : \jade
-  #  oxt : \html
-  #  mixn: \_
   livescript:
     cmd : "#NMODULES/LiveScript/bin/lsc --output $OUT $IN"
     ixt : \ls
@@ -36,11 +31,6 @@ tasks  =
   static:
     cmd : 'cp $IN $OUT'
     ixt : '+(css|jade|js|styl)'
- # stylus:
- #   cmd : "#NMODULES/stylus/bin/stylus -u nib --out $OUT $IN"
- #   ixt : \styl
- #   oxt : \css
- #   mixn: \_
 
 module.exports = me = (new Emitter!) with
   all: ->
@@ -105,10 +95,6 @@ function compile-batch tid
   for f in files then W4 compile, t, f
   G.ok "...done #info!"
 
-function copy-package-json
-  # ensure package.json resides alongside /api and /app
-  cp \-f, './package.json', './site'
-
 function get-opath t, ipath
   p = ipath.replace("#{Dir.ROOT}/", '').replace t.ixt, t.oxt
   return p unless (xsub = t.xsub?split '->')?
@@ -119,20 +105,8 @@ function markdown ipath, opath, cb
   html.to opath unless e?
   cb e
 
-function finalise ipath, opath
-  const API = <[ /api/ ]>
-  const APP = <[ /app/ ]>
-  function contains then _.any it, -> _.contains ipath, it
-  function contains-base then contains ["#{Dir.ROOT}/#it/"]
-  if ipath # partial build
-    log ipath
-    return if contains-base \task
-    me.emit \built-api, ... if contains API
-    me.emit \built-app, ... if contains APP
-  else # full build
-    me.emit \built-api
-    me.emit \built-app
-  copy-package-json!
+function finalise
+  cp \-f, './package.json', './site'
   me.emit \built
 
 function prune-empty-dirs
@@ -156,16 +130,16 @@ function start-watching tid
       if t.mixn? and (Path.basename ipath).0 is t.mixn then
         try
           compile-batch tid
-          finalise ipath
+          finalise!
         catch e then G.err e
       else switch act
         | \added, \changed, \renamed
           try opath = W4 compile, t, ipath
           catch e then return G.err e
           G.ok opath
-          finalise ipath, opath
+          finalise!
         | \deleted
           try W4m Fs, \unlink, opath = get-opath t, ipath
           catch e then throw e unless e.code is \ENOENT # not found i.e. already deleted
           G.ok "Delete #opath"
-          finalise ipath, opath
+          finalise!

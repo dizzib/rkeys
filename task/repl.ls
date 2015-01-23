@@ -15,7 +15,7 @@ const COMMANDS =
   * cmd:'h    ' lev:0 desc:'help  - show commands'  fn:show-help
   * cmd:'b.a  ' lev:0 desc:'build - all'            fn:Build.all
   * cmd:'b.d  ' lev:2 desc:'build - delete'         fn:Build.delete-files
-  * cmd:'b.nd ' lev:1 desc:'build - npm delete'     fn:Build.delete-modules
+  * cmd:'b.nd ' lev:2 desc:'build - npm delete'     fn:Build.delete-modules
   * cmd:'b.nr ' lev:1 desc:'build - npm refresh'    fn:Build.refresh-modules
   * cmd:'b.r  ' lev:0 desc:'build - recycle'        fn:Run.recycle-site
 
@@ -39,7 +39,6 @@ rl = Rl.createInterface input:process.stdin, output:process.stdout
     rl.prompt!
 
 Build.on \built, Run.recycle-site
-#Build.on \built-app, Bundle.app
 Build.start!
 Run.recycle-site!
 
