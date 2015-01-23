@@ -8,8 +8,10 @@ dependencies:
   commander    : \2.6.0
   errorhandler : \1.3.2
   express      : \4.11.1
+  gaze         : \0.6.4
   jade         : \1.9.1
   'js-yaml'    : \3.2.5
+  lodash       : \2.4.1
   morgan       : \1.5.1
   shelljs      : \0.3.0
   'socket.io'  : \1.3.2
@@ -19,9 +21,7 @@ dependencies:
 devDependencies:
   chalk        : \~0.4.0
   cron         : \~1.0.3
-  gaze         : \~0.6.4
   globule      : \~0.2.0 # TODO: remove when gaze fixes issue 104
   gntp         : \~0.1.1
   LiveScript   : \~1.3.0
-  lodash       : \~2.4.1
   marked       : \~0.3.1
