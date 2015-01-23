@@ -6,7 +6,6 @@ Rl      = require \readline
 Shell   = require \shelljs/global
 WFib    = require \wait.for .launchFiber
 Build   = require \./build
-Bundle  = require \./bundle
 DirBld  = require \./constants .dir.BUILD
 Run     = require \./run
 G       = require \./growl
@@ -15,7 +14,6 @@ const CHALKS = [Chalk.stripColor, Chalk.yellow, Chalk.red]
 const COMMANDS =
   * cmd:'h    ' lev:0 desc:'help  - show commands'  fn:show-help
   * cmd:'b.a  ' lev:0 desc:'build - all'            fn:Build.all
-  * cmd:'b.b  ' lev:0 desc:'build - bundle'         fn:Bundle.app
   * cmd:'b.d  ' lev:2 desc:'build - delete'         fn:Build.delete-files
   * cmd:'b.nd ' lev:1 desc:'build - npm delete'     fn:Build.delete-modules
   * cmd:'b.nr ' lev:1 desc:'build - npm refresh'    fn:Build.refresh-modules
