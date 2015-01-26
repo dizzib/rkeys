@@ -4,13 +4,11 @@
 window.log = -> console.log ...&
 
 socket = io!
+set-event-handler \touchstart, \addClass, \keydown
+set-event-handler \touchend, \removeClass, \keyup
 
-$ \.key .on \touchstart, ->
-  ($key = $ this).addClass \down
-  socket.emit \keydown, $key.attr \id
-  false
-
-$ \.key .on \touchend, ->
-  ($key = $ this).removeClass \down
-  socket.emit \keyup, $key.attr \id
-  false
+function set-event-handler touch-evname, class-fn-name, io-evname
+  $ \.key .on touch-evname, ->
+    ($key = $ this)[class-fn-name] \down
+    socket.emit io-evname, $key.attr \id
+    false
