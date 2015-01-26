@@ -1,3 +1,6 @@
+mixin link(href)
+  link(rel='stylesheet', href=href)
+
 mixin script(src)
   script(type='text/javascript', src=src)
 
@@ -7,21 +10,15 @@ html
     block title
       title typey-pad
 
-    // base (minimal) style
-    style
+    block styles
       include:stylus base.styl
 
-    // optional user style can override base style
-    style
-      block stylus
-
-  body
-    // user layout mandatory
-    block layout
-
-    // libs
-    +script('/lib-3p/jquery.js')
     +script('/socket.io/socket.io.js')
 
-    // app
-    +script('/app.js')
+  body
+    block layout
+      .key#A A
+
+    block app
+      +script('/lib-3p/jquery.js')
+      +script('/app.js')

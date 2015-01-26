@@ -17,7 +17,7 @@ module.exports =
 ## helpers
 
 function fake-input direction, keysym
-  return log "Invalid keysym #keysym" unless _.contains keysym, \XK_
+  return log "Invalid keysym #keysym" unless ks2kc[keysym]
   xt.FakeInput direction, ks2kc[keysym], 0, root, 0, 0
 
 # https://github.com/sidorares/node-x11/blob/ae71050a5d61ee7aab65369fab1efa2fc2404a7d/examples/smoketest/keyboard/getkeyboardmapping.js
