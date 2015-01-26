@@ -21,6 +21,4 @@ function load
   if test \-e, fpath
     log "load yaml from #fpath"
     yaml += Fs.readFileSync fpath
-  cmds = Yaml.safeLoad yaml
-  log cmds
-  cmds
+  Yaml.safeLoad yaml

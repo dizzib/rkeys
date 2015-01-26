@@ -11,6 +11,8 @@ xt = W4m x, \require, \xtest
 ks2kc = get-keysym-to-keycode!
 
 module.exports =
+  get-keysym-by-name: -> "XK_#it" # e.g. 'a' maps to 'XK_a'
+
   keydown: -> fake-input xt.KeyPress, it
   keyup  : -> fake-input xt.KeyRelease, it
 

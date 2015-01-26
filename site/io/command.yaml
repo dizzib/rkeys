@@ -1,11 +1,4 @@
 # base command.yaml
 
-1: XK_1
-A: [ +XK_a, -XK_a ]
-B: XK_b
-F7: XK_F7
-
-Bksp: XK_BackSpace
+# aliases
 Shift: XK_Shift_L
-
-C: foo

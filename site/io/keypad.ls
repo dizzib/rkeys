@@ -13,7 +13,7 @@ module.exports.init = (http) ->
   ## helpers
 
   function run-command touch-dirn, id
-    return log "Invalid command #id" unless command = Cmd.get id
+    command = X.get-keysym-by-name id unless command = Cmd.get id
 
     if _.isArray command
       # explicit command on down/up: index 0=down, 1=up (optional)
