@@ -4,14 +4,17 @@ mixin link(href)
 mixin script(src)
   script(type='text/javascript', src=src)
 
+// override any blocks to customise to your requirement
+
 doctype
 html
   head
     block title
-      title typey-pad
+      title typey-pad base
 
     block styles
-      include:stylus base.styl
+      style
+        include:stylus base.styl
 
     +script('/socket.io/socket.io.js')
 

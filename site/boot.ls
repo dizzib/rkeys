@@ -18,7 +18,7 @@ const DIR-KEYPAD = "#__dirname/#KEYPAD"
 express
   ..set \port, Args.port
   ..set 'view engine', \jade
-  ..set \views, "#{Args.defdir}/#KEYPAD"
+  ..set \views, [ DIR-KEYPAD, "#{Args.defdir}/#KEYPAD" ]
   ..use Morgan \dev
   ..get /^\/l$/, (, res) -> res.send 'todo: typey left hand'
   ..get /^\/r$/, (, res) -> res.send 'todo: typey right hand'
