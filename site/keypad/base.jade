@@ -4,6 +4,12 @@ mixin link(href)
 mixin script(src)
   script(type='text/javascript', src=src)
 
+mixin key(id, label)
+  - var label = label || id
+  - var labcls = 'len-' + label.length
+  .key(id=id)
+    .label(class=labcls)= label
+
 // override any blocks to customise to your requirement
 
 doctype
@@ -12,20 +18,23 @@ html
     block title
       title typey-pad base
 
-    block styles
+    block styles-core
       style
         include:stylus base.styl
 
-    +script('/socket.io/socket.io.js')
+    block styles
 
   body
-    block layout
-      .key#a a
-      .key#b b
-      .key#c c
-      .key#Shift Shift
-      .key#BackSpace Back- space
+    block layout // example layout, typically overridden
+      +key('a')
+      +key('b')
+      +key('c')
+      +key('Shift')
+      +key('BackSpace', 'Back- space')
 
-    block app
+    block app-core
+      +script('/socket.io/socket.io.js')
       +script('/lib-3p/jquery.js')
       +script('/app.js')
+
+    block app
