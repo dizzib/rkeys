@@ -25,7 +25,8 @@ html
     block styles
 
   body
-    block layout // example layout, typically overridden
+    // example layout, typically overridden
+    block layout
       +key('a')
       +key('b')
       +key('c')
@@ -35,6 +36,6 @@ html
     block app-core
       +script('/socket.io/socket.io.js')
       +script('/lib-3p/jquery.js')
-      +script('/app.js')
+      +script('/keypad/app.js')
 
     block app

@@ -12,9 +12,8 @@ Keypad  = require \./io/keypad
 
 Keypad.init http = Http.Server (express = Express!)
 
-const KEYPAD = \keypad
-const DIR-KEYPAD-BASE   = "#__dirname/#KEYPAD"
-const DIR-KEYPAD-CUSTOM = "#{Args.defdir}/#KEYPAD"
+const DIR-KEYPAD-BASE   = "#__dirname/ui/keypad"
+const DIR-KEYPAD-CUSTOM = "#{Args.defdir}/keypad"
 
 express
   ..set \port, Args.port
@@ -25,7 +24,7 @@ express
   ..get /^\/r$/, (, res) -> res.send 'todo: typey right hand'
   ..get /^\/([A-Za-z]+)$/, (req, res) -> res.render req.params.0
   ..use Express.static DIR-KEYPAD-CUSTOM
-  ..use Express.static DIR-KEYPAD-BASE
+  ..use Express.static "#__dirname/ui" # DIR-KEYPAD-BASE
   ..use ErrHan!
 
   # allow 'extend /base' in custom keypad
