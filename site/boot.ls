@@ -12,24 +12,25 @@ Keypad  = require \./io/keypad/director
 
 Keypad.init http = Http.Server (express = Express!)
 
-const DIR-KEYPAD-BASE   = "#__dirname/ui/keypad"
-const DIR-KEYPAD-CUSTOM = "#{Args.defdir}/keypad"
+const DIR-BASE-UI     = "#__dirname/ui"
+const DIR-BASE-KEYPAD = "#DIR-BASE-UI/keypad"
+const DIR-CUSTOM-UI   = "#{Args.defdir}/ui"
 
 express
   ..set \port, Args.port
   ..set 'view engine', \jade
-  ..set \views, [ DIR-KEYPAD-CUSTOM, DIR-KEYPAD-BASE ]
+  ..set \views, [ DIR-CUSTOM-UI, DIR-BASE-KEYPAD ]
   ..use Morgan \dev
   ..get /^\/l$/, (, res) -> res.send 'todo: typey left hand'
   ..get /^\/r$/, (, res) -> res.send 'todo: typey right hand'
   ..get /^\/([A-Za-z]+)$/, (req, res) -> res.render req.params.0
-  ..use Express.static DIR-KEYPAD-CUSTOM
-  ..use Express.static "#__dirname/ui" # DIR-KEYPAD-BASE
+  ..use Express.static DIR-CUSTOM-UI
+  ..use Express.static DIR-BASE-UI
   ..use ErrHan!
 
   # allow 'extend /base' in custom keypad
   # see http://stackoverflow.com/questions/16525362/how-do-you-set-jade-basedir-option-in-an-express-app-the-basedir-option-is-r
-  ..locals.basedir = DIR-KEYPAD-BASE
+  ..locals.basedir = DIR-BASE-KEYPAD
 
 W4m http, \listen, Args.port
 console.log "Express http server listening on port #{Args.port}"
