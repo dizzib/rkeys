@@ -13,7 +13,7 @@ module.exports =
 ## helpers
 
 function get-start-site-args
-  "boot #{Const.APPNAME}"
+  "server #{Const.APPNAME}"
 
 function kill-node args, cb
   # can't use WaitFor as we need the return code
