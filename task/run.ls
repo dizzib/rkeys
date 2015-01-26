@@ -2,6 +2,7 @@ _     = require \lodash
 Chalk = require \chalk
 Cp    = require \child_process
 Shell = require \shelljs/global
+Args  = require \./args
 Const = require \./constants
 G     = require \./growl
 
@@ -13,7 +14,8 @@ module.exports =
 ## helpers
 
 function get-start-site-args
-  "server #{Const.APPNAME}"
+  opts = if dir = Args.custom-defs-dir then "--custom-defs-dir #dir" else ''
+  "server #opts #{Const.APPNAME}"
 
 function kill-node args, cb
   # can't use WaitFor as we need the return code

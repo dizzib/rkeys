@@ -6,7 +6,7 @@ Args = require \../../args
 
 const FNAME = \command.yaml
 
-fpath = "#{Args.defdir}/io/#FNAME"
+fpath = "#{Args.custom-defs-dir}/io/#FNAME"
 cmds = load!
 
 Gaze fpath, ->

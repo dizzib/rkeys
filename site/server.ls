@@ -14,7 +14,10 @@ Keypad.init http = Http.Server (express = Express!)
 
 const DIR-BASE-UI     = "#__dirname/ui"
 const DIR-BASE-KEYPAD = "#DIR-BASE-UI/keypad"
-const DIR-CUSTOM-UI   = "#{Args.defdir}/ui"
+const DIR-CUSTOM-UI   = "#{Args.custom-defs-dir}/ui"
+
+result = if test \-e, Args.custom-defs-dir then 'Found' else 'Unable to find'
+log "#result custom definitions directory at #{Args.custom-defs-dir}"
 
 express
   ..set \port, Args.port
