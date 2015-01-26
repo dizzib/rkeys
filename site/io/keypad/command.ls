@@ -2,7 +2,7 @@ Fs   = require \fs
 Gaze = require \gaze
 Yaml = require \js-yaml
 Sh   = require \shelljs/global
-Args = require \../args
+Args = require \../../args
 
 const FNAME = \command.yaml
 

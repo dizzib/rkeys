@@ -1,7 +1,7 @@
 _   = require \lodash
 Io  = require \socket.io
 Cmd = require \./command
-X   = require \./x
+X   = require \../x
 
 module.exports.init = (http) ->
   socket <- (io = Io http).on \connection

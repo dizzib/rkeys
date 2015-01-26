@@ -8,7 +8,7 @@ Http    = require \http
 Morgan  = require \morgan
 W4m     = require \wait.for .forMethod
 Args    = require \./args
-Keypad  = require \./io/keypad
+Keypad  = require \./io/keypad/director
 
 Keypad.init http = Http.Server (express = Express!)
 
