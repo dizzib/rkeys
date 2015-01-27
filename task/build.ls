@@ -36,7 +36,7 @@ module.exports = me = (new Emitter!) with
   all: ->
     try
       for tid of tasks then compile-batch tid
-      finalise!
+      me.emit \built
     catch e then G.err e
 
   delete-files: ->
@@ -105,10 +105,6 @@ function markdown ipath, opath, cb
   html.to opath unless e?
   cb e
 
-function finalise
-  cp \-f, './package.json', './site'
-  me.emit \built
-
 function prune-empty-dirs
   unless pwd! is Dir.BUILD then return log 'bypass prune-empty-dirs'
   code, out <- exec "find . -type d -empty -delete"
@@ -127,19 +123,14 @@ function start-watching tid
     return unless t.isMatch ipath # TODO: remove when gaze fixes issue 104
     log act, ipath
     WFib ->
-      if t.mixn? and (Path.basename ipath).0 is t.mixn then
-        try
-          compile-batch tid
-          finalise!
-        catch e then G.err e
-      else switch act
+      switch act
         | \added, \changed, \renamed
           try opath = W4 compile, t, ipath
           catch e then return G.err e
           G.ok opath
-          finalise!
+          me.emit \built
         | \deleted
           try W4m Fs, \unlink, opath = get-opath t, ipath
           catch e then throw e unless e.code is \ENOENT # not found i.e. already deleted
           G.ok "Delete #opath"
-          finalise!
+          me.emit \built

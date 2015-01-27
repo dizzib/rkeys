@@ -1,31 +1,37 @@
 global.log = console.log
 
-Chalk   = require \chalk
-_       = require \lodash
-Rl      = require \readline
-Shell   = require \shelljs/global
-WFib    = require \wait.for .launchFiber
-Build   = require \./build
-DirBld  = require \./constants .dir.BUILD
-Run     = require \./run
-G       = require \./growl
+Chalk  = require \chalk
+_      = require \lodash
+Rl     = require \readline
+Shell  = require \shelljs/global
+WFib   = require \wait.for .launchFiber
+Args   = require \./args
+Build  = require \./build
+DirBld = require \./constants .dir.BUILD
+Dist   = require \./distribute
+Run    = require \./run
+G      = require \./growl
 
 const CHALKS = [Chalk.stripColor, Chalk.yellow, Chalk.red]
 const COMMANDS =
-  * cmd:'h    ' lev:0 desc:'help  - show commands'  fn:show-help
-  * cmd:'b.a  ' lev:0 desc:'build - all'            fn:Build.all
-  * cmd:'b.d  ' lev:0 desc:'build - delete'         fn:Build.delete-files
-  * cmd:'b.nd ' lev:0 desc:'build - npm delete'     fn:Build.delete-modules
-  * cmd:'b.nr ' lev:0 desc:'build - npm refresh'    fn:Build.refresh-modules
-  * cmd:'b.r  ' lev:0 desc:'build - recycle'        fn:Run.recycle-site
+  * cmd:'h   ' lev:0 desc:'help  - show commands'         fn:show-help
+  * cmd:'b.a ' lev:0 desc:'build - all'                   fn:Build.all
+  * cmd:'b.d ' lev:0 desc:'build - delete'                fn:Build.delete-files
+  * cmd:'b.nd' lev:0 desc:'build - npm delete'            fn:Build.delete-modules
+  * cmd:'b.nr' lev:0 desc:'build - npm refresh'           fn:Build.refresh-modules
+  * cmd:'b.r ' lev:0 desc:'build - recycle'               fn:Run.recycle-site
+  * cmd:'d.lo' lev:1 desc:'dist  - publish to local'      fn:Dist.publish-local
+  * cmd:'d.PU' lev:2 desc:'dist  - publish to public npm' fn:Dist.publish-public
+
+max-level = if Args.reggie-server-port then 2 else 0
+commands = _.filter COMMANDS, -> it.level <= max-level
 
 config.fatal  = true # shelljs doesn't raise exceptions, so set this process to die on error
 #config.silent = true # otherwise too much noise
 
 cd DirBld # for safety, set working directory to build
 
-for c in COMMANDS
-  c.display = "#{Chalk.bold CHALKS[c.lev] c.cmd} #{c.desc}"
+for c in COMMANDS then c.display = "#{Chalk.bold CHALKS[c.lev] c.cmd} #{c.desc}"
 
 rl = Rl.createInterface input:process.stdin, output:process.stdout
   ..setPrompt "typey-pad >"
@@ -38,7 +44,9 @@ rl = Rl.createInterface input:process.stdin, output:process.stdout
     rl.resume!
     rl.prompt!
 
-Build.on \built, Run.recycle-site
+Build.on \built ->
+  Dist.prepare!
+  Run.recycle-site!
 Build.start!
 Run.recycle-site!
 
