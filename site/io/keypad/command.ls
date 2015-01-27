@@ -1,5 +1,4 @@
 Fs   = require \fs
-Gaze = require \gaze
 Yaml = require \js-yaml
 Sh   = require \shelljs/global
 Args = require \../../args
@@ -9,9 +8,7 @@ const FNAME = \command.yaml
 fpath = "#{Args.custom-defs-dir}/io/#FNAME"
 cmds = load!
 
-Gaze fpath, ->
-  act, path <- @on \all
-  log act, path
+Fs.watchFile fpath, ->
   cmds := load!
 
 module.exports.get = (id) -> cmds[id]
