@@ -18,4 +18,4 @@ function load
   if test \-e, fpath
     log "load yaml from #fpath"
     yaml += Fs.readFileSync fpath
-  Yaml.safeLoad yaml
+  (Yaml.safeLoad yaml) or []

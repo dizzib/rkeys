@@ -1,5 +1,5 @@
 Commdr = require \commander
-P-Json = require \../package.json
+P-Json = require \./package.json
 
 # default config
 const DEFDIR = "#{process.env.HOME}/.typey-pad"
