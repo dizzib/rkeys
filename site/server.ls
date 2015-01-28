@@ -26,7 +26,7 @@ express
   ..use Morgan \dev
   ..get /^\/l$/, (, res) -> res.send 'todo: typey left hand'
   ..get /^\/r$/, (, res) -> res.send 'todo: typey right hand'
-  ..get /^\/([A-Za-z]+)$/, (req, res) -> res.render req.params.0
+  ..get /^\/([A-Za-z\/]+)$/, (req, res) -> res.render req.params.0
   ..use Express.static DIR-CUSTOM-UI
   ..use Express.static DIR-BASE-UI
   ..use ErrHan!
