@@ -1,19 +1,14 @@
-.key
-  background  cyan
-  display     flex
-  float       left
-  height      100px
-  margin      5px
-  width       100px
+@require mixins
 
-.key.down
-  background  yellow
+// positioning
+.key
+  display     flex  // for label centering
+  float       left
 
 .label
-  font-size   24px
   margin      auto
   text-align  center
 
-.label.len-1
-.label.len-2
-  font-size   48px
+// sizing
+key-size(100px)
+key-col(cyan, yellow)

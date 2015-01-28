@@ -1,3 +1,5 @@
+// mixins
+
 mixin link(href)
   link(rel='stylesheet', href=href)
 
@@ -10,7 +12,7 @@ mixin key(id, label)
   .key(id=id)
     .label(class=labcls)= label
 
-// override any blocks to customise to your requirement
+// base template -- override any blocks to customise to your requirement
 
 doctype
 html
@@ -19,14 +21,13 @@ html
       title typey-pad base
 
     block styles-core
-      style
-        include:stylus base.styl
+      +link('/base.css')
 
     block styles
 
   body
-    // example layout, typically overridden
     block layout
+      h1 Example keypad
       +key('a')
       +key('b')
       +key('c')

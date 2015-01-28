@@ -1,0 +1,28 @@
+key-size(n, margin = 5px)
+  .key
+    margin      margin
+    height      n
+    width       n
+    label-size  n
+
+key-col(up, down = up)
+  .key
+    background  up
+  .key.down
+    background  down
+
+label-col(up, down = up)
+  .key
+    .label
+      color     up
+  .key.down
+    .label
+      color     down
+
+label-size(keysize)
+  .label
+    font-size   (keysize / 4)
+
+  for l in 1 2 3
+    .label.len-{l}
+      font-size   (keysize / 2)
