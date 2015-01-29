@@ -6,7 +6,6 @@ html
     block meta
 
     block title
-      title typey-pad base
 
     block styles-core
       +link('/base.css')
@@ -15,12 +14,7 @@ html
 
   body
     block layout
-      h1 Example keypad
-      +key('a')
-      +key('b')
-      +key('c')
-      +key('Shift_L', 'Shift')
-      +key('BackSpace', 'Back- space')
+      p base layout
 
     block app-core
       +script('/socket.io/socket.io.js')
