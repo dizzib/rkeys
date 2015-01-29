@@ -1,5 +1,9 @@
 // mixins
 
+mixin prevent-zoom
+  // use in meta block
+  meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
+
 mixin link(href)
   link(rel='stylesheet', href=href)
 
@@ -8,7 +12,7 @@ mixin script(src)
 
 mixin key(id, label)
   - var label = label || id
-  - var labcls = 'len-' + label.length
+  - var labcls = 'len-' + label.toString().length
   .key(id=id)
     .label(class=labcls)= label
 
@@ -17,6 +21,8 @@ mixin key(id, label)
 doctype
 html
   head
+    block meta
+
     block title
       title typey-pad base
 
