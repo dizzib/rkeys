@@ -1,8 +1,7 @@
-Commdr = require \commander
+C = require \commander
 
-Commdr
-  .option '--custom-defs-dir [dir]', 'custom definitions directory'
-  .option '--reggie-server-port [port]', 'reggie-server listening port for local publish'
-  .parse process.argv
+C.option '--reggie-server-port [port]', 'reggie-server listening port for local publish'
+C.parse process.argv
+C.keypad-dirs = C.args
 
-module.exports = Commdr
+module.exports = C

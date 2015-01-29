@@ -14,8 +14,7 @@ module.exports =
 ## helpers
 
 function get-start-site-args
-  opts = if dir = Args.custom-defs-dir then "--custom-defs-dir #dir" else ''
-  "server #opts #{Const.APPNAME}"
+  "server #{Args.keypad-dirs * ' '}"
 
 function kill-node args, cb
   # can't use WaitFor as we need the return code

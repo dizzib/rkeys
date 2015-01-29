@@ -114,7 +114,7 @@ function start-watching tid
   log "start watching #tid"
   Assert.equal pwd!, Dir.ROOT
   ixt = (t = tasks[tid]).ixt
-  dirs = "#{Dirname.SITE},#{Dirname.TASK},#{Dirname.TEST}"
+  dirs = "#{Dirname.SITE},#{Dirname.TASK}"
   # TODO: remove t.isMatch when gaze fixes https://github.com/shama/gaze/issues/104
   t.isMatch = (ipath) -> Globule.isMatch t.patterns, (ipath.replace "#{Dir.ROOT}/", '')
   t.gaze = Gaze t.patterns = [ "*.#ixt" "{#dirs}/**/*.#ixt" ], ->

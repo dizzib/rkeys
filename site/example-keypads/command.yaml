@@ -1,0 +1,10 @@
+# example command.yaml
+
+ab: a b
+Pling: 1 500ms Shift_L+1
+
+# emit 'Hello' on keydown and 'World' on keyup
+HelloWorld: [ +Shift_L h -Shift_L e l l o, +Shift_L w -Shift_L o r l d ]
+
+# keyboard macros
+'00': 0 0

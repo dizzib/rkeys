@@ -1,14 +1,14 @@
-Commdr = require \commander
-P-Json = require \./package.json
+C = require \commander
+P = require \./package.json
 
-# default config
-const DEFDIR = "#{process.env.HOME}/.typey-pad"
-const PORT   = 7000
+const DEFAULT-PORT        = 7000
+const DEFAULT-KEYPADS-DIR = "#__dirname/example-keypads"
 
-Commdr
-  .version P-Json.version
-  .option '-p, --port [port]', "listening port (default:#PORT)", PORT
-  .option '-d, --custom-defs-dir [dir]', "custom definitions directory (default:#DEFDIR)", DEFDIR
-  .parse process.argv
+C.version P.version
+C.usage '[Options] <keypad-directory ...>'
+C.option '-p, --port [port]', "listening port (default:#DEFAULT-PORT)", DEFAULT-PORT
+C.parse process.argv
+C.keypad-dirs = C.args
+C.keypad-dirs.push DEFAULT-KEYPADS-DIR unless C.keypad-dirs.length
 
-module.exports = Commdr
+module.exports = C
