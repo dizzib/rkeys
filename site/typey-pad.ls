@@ -6,6 +6,7 @@ ErrHan  = require \errorhandler
 Express = require \express
 Http    = require \http
 Morgan  = require \morgan
+Nib     = require \nib
 Stylus  = require \stylus
 W4m     = require \wait.for .forMethod
 Args    = require \./args
@@ -57,6 +58,6 @@ function set-stylus dir
     compile: (str, path) ->
       Stylus(str)
         .set \filename, path
-        # allow '@require mixins' in keypad stylus
-        .set \paths, [ dir, DIR-BASE-KEYPAD ]
+        .set \paths, [ dir, DIR-BASE-KEYPAD ] # allow '@require mixins'
+        .use Nib!
   express.use Express.static dir-css
