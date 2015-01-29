@@ -1,10 +1,13 @@
 # example command.yaml
 
-ab: a b
-Pling: 1 500ms Shift_L+1
+## macros
+
+# emit 'abc' with time delay
+abc-slow: a 500ms b 1000ms c
+
+# editing
+edit-copy : Control_L+c
+edit-paste: Control_L+v
 
 # emit 'Hello' on keydown and 'World' on keyup
 HelloWorld: [ +Shift_L h -Shift_L e l l o, +Shift_L w -Shift_L o r l d ]
-
-# keyboard macros
-'00': 0 0
