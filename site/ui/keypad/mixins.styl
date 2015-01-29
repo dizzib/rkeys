@@ -1,21 +1,14 @@
 @require nib
 
-border-color(up, down = up)
-  .key
-    border-color  up
-  .key.down
-    border-color  down
-
 key-color(up, down = up)
   .key
     background  up
   .key.down
     background  down
 
-key-size(n, border-percent = 5)
+key-size(n, margin-percent = 5)
   .key
-    border      solid n * border-percent * 0.01
-    box-sizing  border-box // ensure n is total size including border
+    margin      n * margin-percent * 0.01
     height      n
     width       n
     label-size  n
