@@ -1,23 +1,5 @@
-// mixins
-
-mixin prevent-zoom
-  // use in meta block
-  meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
-
-mixin link(href)
-  link(rel='stylesheet', href=href)
-
-mixin script(src)
-  script(type='text/javascript', src=src)
-
-mixin key(id, label)
-  - var label = label || id
-  - var labcls = 'len-' + label.toString().length
-  .key(id=id)
-    .label(class=labcls)= label
-
 // base template -- override any blocks to customise to your requirement
-
+include mixins
 doctype
 html
   head
