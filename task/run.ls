@@ -14,7 +14,7 @@ module.exports =
 ## helpers
 
 function get-start-site-args
-  "server #{Args.keypad-dirs * ' '}"
+  "typey-pad #{Args.keypad-dirs * ' '}"
 
 function kill-node args, cb
   # can't use WaitFor as we need the return code
