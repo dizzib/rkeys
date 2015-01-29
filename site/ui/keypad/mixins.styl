@@ -1,6 +1,12 @@
 @require nib
 
-key-col(up, down = up)
+border-color(up, down = up)
+  .key
+    border-color  up
+  .key.down
+    border-color  down
+
+key-color(up, down = up)
   .key
     background  up
   .key.down
@@ -14,7 +20,7 @@ key-size(n, border-percent = 5)
     width       n
     label-size  n
 
-label-col(up, down = up)
+label-color(up, down = up)
   .key
     .label
       color     up
