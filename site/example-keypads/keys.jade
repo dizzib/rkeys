@@ -1,0 +1,18 @@
+extend /base
+
+block meta
+  +prevent-zoom()
+
+block title
+  title Simple keys example
+
+block styles
+  +link('keys.css')
+
+block layout
+  +keys('a', 'b', 'c', 1, 2, 3)
+  +key('BackSpace', 'Back- space')
+  +key('Shift_L', 'Shift')
+
+  p Press and hold key for standard auto repeat
+  p Try pressing Shift with a key (requires a multi-touchpoint tablet)
