@@ -1,30 +1,39 @@
 @require nib
 
+// auto-wrap a set of keys into columns
+for n in (1..9)
+  .key-cols-{n}
+    .key:nth-child({n}n+1)
+      clear     both
+
 key-color(up, down = up)
   .key
-    background  up
+    background    up
   .key.down
-    background  down
+    background    down
 
-key-size(n, margin-percent = 5)
+key-size(n, gap-percent = +5%)
   .key
-    margin      n * margin-percent * 0.01
     height      n
     width       n
-    label-size  n
+    font-size   n
+
+    if gap-percent >= 0
+      margin      n * gap-percent * 0.01
+    else // internal border allows exact alignments
+      margin      0
+      box-sizing  border-box
+      border      solid n * abs(gap-percent) * 0.01
+
+    .label
+      font-size   25%
+    for l in 1 2 3 // enlarge short labels
+      .label.len-{l}
+        font-size   40%
 
 label-color(up, down = up)
-  .key
-    .label
-      color     up
+  .label
+    color     up
   .key.down
     .label
       color     down
-
-label-size(keysize)
-  .label
-    font-size   (keysize / 4)
-
-  for l in 1 2 3
-    .label.len-{l}
-      font-size   (keysize / 2)
