@@ -2,7 +2,7 @@ C = require \commander
 P = require \./package.json
 
 const DEFAULT-PORT        = 7000
-const DEFAULT-KEYPADS-DIR = "#__dirname/example-keypads"
+const DEFAULT-KEYPADS-DIR = "#__dirname/examples"
 
 C.version P.version
 C.usage '[Options] <keypad-directory ...>'
