@@ -9,7 +9,7 @@ abc-repeat-slow: a 500 b 500 c 1000
 edit-copy : C+c
 edit-paste: C+v
 
-# emit 'Hello' on keydown and 'World' on keyup
+# emit 'Hello' on touchdown and 'World' on touchup
 HelloWorld: [ +Shift_L h -Shift_L e l l o, +Shift_L w -Shift_L o r l d ]
 
 # exec shell command
