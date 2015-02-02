@@ -2,8 +2,10 @@
 
 ## macros
 
-# emit 'abc' with time delay
-abc-slow: a 500ms b 1000ms c
+# auto repeat and time delay
+abc-slow       : a 500 b 1000 c
+abc-repeat     : a b c 500
+abc-repeat-slow: a 500 b 500 c 1000
 
 # editing
 edit-copy : C+c
