@@ -1,7 +1,5 @@
 # example command.yaml
 
-## macros
-
 # auto repeat and time delay
 abc-slow       : a 500 b 1000 c
 abc-repeat     : a b c 500
