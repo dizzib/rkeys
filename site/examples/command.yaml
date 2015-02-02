@@ -13,3 +13,7 @@ edit-paste: C+v
 
 # emit 'Hello' on keydown and 'World' on keyup
 HelloWorld: [ +Shift_L h -Shift_L e l l o, +Shift_L w -Shift_L o r l d ]
+
+# exec shell command
+exec-echo : exec echo hello world!
+exec-xterm: exec xterm -fg red
