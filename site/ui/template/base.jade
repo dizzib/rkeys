@@ -1,0 +1,11 @@
+// base template
+include /mixin/base
+doctype html
+html
+  head
+    block head
+      +script('/socket.io/socket.io.js')
+      +script('/lib-3p/jquery.js')
+  body
+    block layout
+    block script
