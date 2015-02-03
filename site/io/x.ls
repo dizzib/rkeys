@@ -29,14 +29,10 @@ function get-keysym key
 # https://github.com/sidorares/node-x11/blob/ae71050a5d61ee7aab65369fab1efa2fc2404a7d/examples/smoketest/keyboard/getkeyboardmapping.js
 function get-keysym-to-keycode
   # keysym hash can contain aliases e.g.
-  #
   # XK_F11: 0xFFC8
   # XK_L1 : 0xFFC8
-  #
-  # We take the first and ignore the rest
-  #
-  ks2name = {}
-  for key of (ks = X11.keySyms) then ks2name[ks[key]] ||= key
+  ks2names = {}
+  for name of (ks = X11.keySyms) then (ks2names[ks[name]] ||= []).push name
 
   min = disp.min_keycode
   max = disp.max_keycode
@@ -45,6 +41,6 @@ function get-keysym-to-keycode
   ks2kc = {}
   for i from 0 to list.length - 1
     continue unless 0 <= (ksym = list[i].0) < 65536
-    continue unless kname = ks2name[ksym]
-    ks2kc[kname] = (keycode = i + min)
+    continue unless knames = ks2names[ksym]
+    for name in knames then ks2kc[name] = keycode = i + min
   ks2kc
