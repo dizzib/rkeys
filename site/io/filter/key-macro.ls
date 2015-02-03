@@ -1,5 +1,5 @@
 _ = require \lodash
-X = require \../../x
+X = require \../x
 
 const DOWN = 0
 const UP   = 1

@@ -1,9 +1,11 @@
+_  = require \lodash
 Cp = require \child_process
 
 const DOWN = 0
 const UP   = 1
 
 module.exports = (direction, id, command) ->
+  return false unless _.isString command
   return false unless (arr = command.split ' ').0 is \exec
   return true if direction is UP
 

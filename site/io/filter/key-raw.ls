@@ -1,4 +1,4 @@
-X = require \../../x
+X = require \../x
 
 module.exports = (direction, id, command) ->
   return false if command

@@ -10,7 +10,7 @@ Nib     = require \nib
 Stylus  = require \stylus
 W4m     = require \wait.for .forMethod
 Args    = require \./args
-Keypad  = require \./io/keypad/director
+Keypad  = require \./io/director
 
 Keypad.init http = Http.Server (express = Express!)
 

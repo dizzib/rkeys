@@ -2,7 +2,7 @@ Fs   = require \fs
 _    = require \lodash
 Yaml = require \js-yaml
 Sh   = require \shelljs/global
-Args = require \../../args
+Args = require \../args
 
 fdirs  = [ __dirname ] ++ Args.keypad-dirs
 fpaths = [ "#d/command.yaml" for d in fdirs ]
