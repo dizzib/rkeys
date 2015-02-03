@@ -7,15 +7,3 @@ mixin link(href)
 
 mixin script(src)
   script(type='text/javascript', src=src)
-
-mixin key(k, label)
-  - var arr = k.toString().split(' ')
-  - var id = arr[0]
-  - var lbl = label || arr[1] || id
-  - var lblcls = 'len-' + lbl.toString().length
-  .key(id=id)
-    .label(class=lblcls)= lbl
-
-mixin keys(...ks)
-  each k in ks
-    +key(k)
