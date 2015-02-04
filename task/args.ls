@@ -2,6 +2,6 @@ C = require \commander
 
 C.option '--reggie-server-port [port]', 'reggie-server listening port for local publish'
 C.parse process.argv
-C.keypad-dirs = C.args
+C.app-dirs = C.args
 
 module.exports = C

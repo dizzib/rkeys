@@ -7,6 +7,7 @@ Shell  = require \shelljs/global
 WFib   = require \wait.for .launchFiber
 Args   = require \./args
 Build  = require \./build
+Consts = require \./constants
 DirBld = require \./constants .dir.BUILD
 Dist   = require \./distribute
 Run    = require \./run
@@ -34,7 +35,7 @@ cd DirBld # for safety, set working directory to build
 for c in COMMANDS then c.display = "#{Chalk.bold CHALKS[c.lev] c.cmd} #{c.desc}"
 
 rl = Rl.createInterface input:process.stdin, output:process.stdout
-  ..setPrompt "typey-pad >"
+  ..setPrompt "#{Consts.APPNAME} >"
   ..on \line, (cmd) ->
     <- WFib
     rl.pause!

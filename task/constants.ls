@@ -18,7 +18,7 @@ dir =
   TASK : "#root/#{DIRNAME.TASK}"
 
 module.exports =
-  APPNAME: \typey-pad
+  APPNAME: \rkeys
   dirname: DIRNAME
   dir    : dir
 
