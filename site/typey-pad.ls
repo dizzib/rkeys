@@ -17,31 +17,31 @@ Io.init http = Http.Server (express = Express!)
 const DIR-UI  = "#__dirname/ui"
 const DIR-CSS = "#DIR-UI/.css"
 
-keypad-dirs = Args.keypad-dirs ++ DIR-UI # order matters
-log "keypad directories: #{keypad-dirs * ' '}"
+app-dirs = Args.app-dirs ++ DIR-UI # order matters
+log "app directories: #{app-dirs * ' '}"
 
 express
   ..set \port, Args.port
   ..use Morgan \dev
   # jade
   ..set 'view engine', \jade
-  ..set \views, keypad-dirs # order matters
+  ..set \views, app-dirs # order matters
   ..get /^\/tpl$/, (, res) -> res.send 'todo: typey left hand'
   ..get /^\/tpr$/, (, res) -> res.send 'todo: typey right hand'
   ..get /^\/([A-Za-z\/]+)$/, (req, res) -> res.render req.params.0
 
 # 3rd-party library js, css, etc are served by these static handlers
-# keypads statics override base
-for d in Args.keypad-dirs then express.use Express.static d
+# apps statics override base
+for d in Args.app-dirs then express.use Express.static d
 express.use Express.static DIR-UI
 
-# keypads stylus overrides base
-for d in Args.keypad-dirs then set-stylus d
+# apps stylus overrides base
+for d in Args.app-dirs then set-stylus d
 set-stylus DIR-UI
 
 express
   ..use ErrHan!
-  # allow 'extend /base' in custom keypad
+  # allow 'extend /base' in apps
   # see http://stackoverflow.com/questions/16525362/how-do-you-set-jade-basedir-option-in-an-express-app-the-basedir-option-is-r
   ..locals.basedir = DIR-UI
 

@@ -4,7 +4,7 @@ Yaml = require \js-yaml
 Sh   = require \shelljs/global
 Args = require \../args
 
-fdirs  = [ __dirname ] ++ Args.keypad-dirs
+fdirs  = [ __dirname ] ++ Args.app-dirs
 fpaths = [ "#d/command.yaml" for d in fdirs ]
 cmds   = load!
 for p in fpaths then Fs.watchFile p, -> cmds := load!
