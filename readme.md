@@ -36,6 +36,10 @@ TODO
       -V, --version          output the version number
       -p, --port [port]      listening port (default:7000)
 
+## rkeys apps
+
+[megapad](https://github.com/dizzib/megapad)
+
 ## developer build and run
 
     $ npm install -g livescript   # ensure livescript is installed globally
