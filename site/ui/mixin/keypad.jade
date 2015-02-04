@@ -1,10 +1,18 @@
-mixin key(k, label)
+mixin key(k, vis)
+  // k is either "id" or "id vis"
   - var arr = k.toString().split(' ')
   - var id = arr[0]
-  - var lbl = label || arr[1] || id
-  - var lblcls = 'len-' + lbl.toString().length
+  - vis = vis || arr[1]
   .key(id=id)
-    .label(class=lblcls)= lbl
+    if (vis && vis.substring(0,3) == 'fa-')
+      // vis is a font-awesome identifier
+      .label
+        i.fa.fa-2x(class=vis)
+    else
+      // vis is a label
+      - var lbl = vis || id
+      - var lblcls = 'len-' + lbl.toString().length
+      .label(class=lblcls)= lbl
 
 mixin keys(...ks)
   each k in ks
