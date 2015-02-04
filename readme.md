@@ -1,22 +1,24 @@
 ## rkeys
 
-Turn your tablet into a remote control for desktop Linux:
+Setup virtual keypads to control Linux remotely from a tablet:
 
-- define custom keypads with a bit of [jade] and [stylus]
-- define custom macros in [YAML] with optional delays and auto-repeat
+- define keypads with a bit of [jade] and [stylus]
+- define macros in [YAML] with optional delays and auto-repeat
 - simulate raw key press and release
 - trigger shell exec
-- [Font Awesome][fa] icons
+- use [Font Awesome][fa] icons
 - built on [Express] and [node.js]
 
 ## install and run
+
+On the Linux box to be controlled:
 
     $ npm install rkeys
 
     $ cd node_modules/rkeys
     $ node rkeys ./example
 
-Navigate your tablet browser to `http://server:7000/keypad` where `server` is
+Navigate your tablet to `http://server:7000/keypad` where `server` is
 the node.js server running rkeys.
 
 ## define custom keypads
@@ -36,18 +38,12 @@ TODO
 
 ## developer build and run
 
-    $ cd ~
+    $ npm install -g livescript   # ensure livescript is installed globally
     $ git clone git@github.com:dizzib/rkeys.git
-
-    $ npm install -g livescript     # ensure livescript is installed globally
-    $ ./rkeys/task/bootstrap        # compile the task runner and install dependencies
-    $ node rkeys/_build/task/repl   # launch the task runner
-    rkeys > b.a                     # build all
-
-In another terminal:
-
-    $ cd ~/rkeys/_build/site
-    $ node rkeys ./example          # run the example!
+    $ cd rkeys
+    $ ./task/bootstrap            # compile the task runner and install dependencies
+    $ node _build/task/repl       # launch the task runner
+    rkeys > b.a                   # build all and run
 
 ## license
 

@@ -1,6 +1,12 @@
-name   : \rkeys
-version: \0.1.0
-private: true
+name       : \rkeys
+description: "Setup virtual keypads to control Linux remotely from a tablet"
+version    : \0.1.0
+author     : \dizzib
+license:   : \MIT
+keywords   : <[ command control jade font-awesome key keypad linux macro node remote stylus tablet touch yaml ]>
+repository :
+  type: \git
+  url : \https://github.com/dizzib/rkeys
 engines:
   node: '>=0.10.x'
   npm : '>=1.0.x'

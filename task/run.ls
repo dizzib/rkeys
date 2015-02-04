@@ -14,7 +14,7 @@ module.exports =
 ## helpers
 
 function get-start-site-args
-  "rkeys #{Args.app-dirs * ' '}"
+  "rkeys #{Args.app-dirs * ' '}".trim!
 
 function kill-node args, cb
   # can't use WaitFor as we need the return code
