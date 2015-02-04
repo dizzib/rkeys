@@ -1,11 +1,11 @@
 extend /template/keys
 
 append head
-  title rkeypad examples
-  +link('examples.css')
+  title rkeys example keypad
+  +link('keypad.css')
 
 block layout
-  h1 rkeypad examples
+  h1 rkeys example keypad
   .section
     h2 Basic keys
     p Press and hold for standard auto repeat
@@ -22,7 +22,7 @@ block layout
     +key('abc-repeat-slow', 'abc (repeat slow)')
   .section
     h2 Shell exec
-    p Check rkeypad node console for standard output messages
+    p Check rkeys node console for standard output messages
     +key('exec-echo', 'exec echo')
     +key('exec-xterm', 'exec xterm')
   .section
