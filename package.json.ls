@@ -1,9 +1,11 @@
 name       : \rkeys
-description: "Setup virtual keypads to control Linux remotely from a tablet"
 version    : \0.1.0
-author     : \dizzib
+description: "Setup virtual keypads to control Linux remotely from a tablet"
+keywords   : <[ command control jade key keypad linux macro node remote stylus tablet touch ]>
+homepage   : \https://github.com/dizzib/rkeys
+bugs       : \https://github.com/dizzib/rkeys/issues
 license:   : \MIT
-keywords   : <[ command control jade font-awesome key keypad linux macro node remote stylus tablet touch yaml ]>
+author     : \dizzib
 repository :
   type: \git
   url : \https://github.com/dizzib/rkeys
