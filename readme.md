@@ -1,16 +1,16 @@
-## typey-pad
+## rkeys
 
 
 ## install and run
 
-    $ npm install typey-pad
-    $ cd node_modules/typey-pad
-    $ node server
+    $ npm install rkeys
+    $ cd node_modules/rkeys
+    $ node rkeys
 
 ## options
 
-    $ node server --help
-    Usage: server [options]
+    $ node rkeys --help
+    Usage: rkeys [options]
 
     Options:
 
@@ -21,21 +21,21 @@
 ## usage
 
 Navigate to `http://server:7000` where `server` is
-the node.js server running typey-pad.
+the node.js server running rkeys.
 
 ## examples
 
 
 ## build and run locally
 
-    $ git clone git@github.com:dizzib/typey-pad.git
+    $ git clone git@github.com:dizzib/rkeys.git
 
     $ npm install -g livescript   # ensure livescript is installed globally
     $ ./task/bootstrap            # compile the task runner and install dependencies
     $ node dist/task/repl         # launch the task runner
-    typey-pad > b.fc               # compile everything
+    rkeys > b.fc                  # compile everything
 
-    $ node _build/site/server       # run it!
+    $ node _build/site/rkeys      # run it!
 
 ## license
 
