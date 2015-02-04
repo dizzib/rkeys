@@ -10,9 +10,9 @@ Nib     = require \nib
 Stylus  = require \stylus
 W4m     = require \wait.for .forMethod
 Args    = require \./args
-Keypad  = require \./io/director
+Io      = require \./io/handler
 
-Keypad.init http = Http.Server (express = Express!)
+Io.init http = Http.Server (express = Express!)
 
 const DIR-UI  = "#__dirname/ui"
 const DIR-CSS = "#DIR-UI/.css"
