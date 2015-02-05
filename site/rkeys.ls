@@ -26,8 +26,6 @@ express
   # jade
   ..set 'view engine', \jade
   ..set \views, app-dirs # order matters
-  ..get /^\/tpl$/, (, res) -> res.send 'todo: typey left hand'
-  ..get /^\/tpr$/, (, res) -> res.send 'todo: typey right hand'
   ..get /^\/([A-Za-z\/]+)$/, (req, res) -> res.render req.params.0
 
 # 3rd-party library js, css, etc are served by these static handlers
