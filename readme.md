@@ -1,6 +1,6 @@
 ## rkeys
 
-Setup virtual keypads to control Linux remotely from a tablet:
+Setup virtual keypads to control Linux from a remote tablet:
 
 - define keypads with a bit of [jade] and [stylus]
 - define macros in [YAML] with optional delays and auto-repeat
