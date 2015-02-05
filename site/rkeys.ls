@@ -56,6 +56,7 @@ function use-livescript dir
   express.use "*.js", (req, res, next) ->
     return next! unless test \-e, lspath = "#dir#{req.params.0}.ls"
     b = Bify lspath, basedir:dir
+    log "compile #lspath"
     (err, buf) <- b.transform Lsify .bundle
     return next err if err
     res.send buf.toString!
