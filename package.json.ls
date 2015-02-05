@@ -13,12 +13,14 @@ engines:
   node: '>=0.10.x'
   npm : '>=1.0.x'
 dependencies:
+  browserify   : \8.1.3
   commander    : \2.6.0
   errorhandler : \1.3.2
   express      : \4.11.1
   jade         : \1.9.1
   'js-yaml'    : \3.2.5
   lodash       : \2.4.1
+  lsify        : \0.1.0
   morgan       : \1.5.1
   nib          : \1.1.0
   shelljs      : \0.3.0
