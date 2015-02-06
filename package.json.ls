@@ -1,5 +1,5 @@
 name       : \rkeys
-version    : \0.1.0
+version    : \0.2.0
 description: "Setup a virtual keypad to control Linux from a remote tablet"
 keywords   : <[ control key keypad linux macro remote tablet touch virtual ]>
 homepage   : \https://github.com/dizzib/rkeys
@@ -19,6 +19,7 @@ dependencies:
   express      : \4.11.1
   jade         : \1.9.1
   'js-yaml'    : \3.2.5
+  LiveScript   : \1.3.0
   lodash       : \2.4.1
   lsify        : \0.1.0
   morgan       : \1.5.1
@@ -34,5 +35,4 @@ devDependencies:
   gaze         : \~0.6.4
   globule      : \~0.2.0 # TODO: remove when gaze fixes issue 104
   gntp         : \~0.1.1
-  LiveScript   : \~1.3.0
   marked       : \~0.3.1
