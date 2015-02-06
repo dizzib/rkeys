@@ -40,7 +40,8 @@ TODO
 
 ## rkeys apps
 
-[megapad](https://github.com/dizzib/megapad)
+- [megapad](https://github.com/dizzib/megapad)
+- [speakeys](https://github.com/dizzib/speakeys)
 
 ## developer build and run
 
