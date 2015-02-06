@@ -7,10 +7,11 @@ Fsh = require \./filter/shell-exec
 
 module.exports.init = (http) ->
   socket <- (io = Io http).on \connection
-  log \connect
-  socket.on \disconnect, -> log \disconnect
-  socket.on \keydown   , -> run-filters 0, it
-  socket.on \keyup     , -> run-filters 1, it
+  log "connected #{ip = socket.conn.remoteAddress}"
+  socket
+    ..on \disconnect, -> log "disconnected #ip"
+    ..on \keydown   , -> run-filters 0, it
+    ..on \keyup     , -> run-filters 1, it
 
 function run-filters direction, id
   command = Cmd.get id
