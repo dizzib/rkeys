@@ -68,6 +68,6 @@ function use-stylus dir
     compile: (str, path) ->
       Stylus(str)
         .set \filename, path
-        .set \paths, [ dir, DIR-UI ] # allow '@require mixins'
+        .set \paths, [ dir, DIR-UI ] # allow @require of rkeys mixins
         .use Nib!
   express.use Express.static dir-css
