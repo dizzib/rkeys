@@ -5,7 +5,9 @@ global.log = console.log
 Bify    = require \browserify
 ErrHan  = require \errorhandler
 Express = require \express
+Fs      = require \fs
 Http    = require \http
+Https   = require \https
 Lsify   = require \lsify
 Morgan  = require \morgan
 Nib     = require \nib
@@ -15,20 +17,17 @@ W4m     = require \wait.for .forMethod
 Args    = require \./args
 Io      = require \./io/handler
 
-Io.init http = Http.Server (express = Express!)
-
 const DIR-UI  = "#__dirname/ui"
 const DIR-CSS = "#DIR-UI/.css"
 
-app-dirs = Args.app-dirs ++ DIR-UI # order matters
-log "app directories: #{app-dirs * ' '}"
+log "app-dirs: #{Args.app-dirs * ' '}"
 
-express
+express = Express!
   ..set \port, Args.port
   ..use Morgan \dev
   # jade
   ..set 'view engine', \jade
-  ..set \views, app-dirs # order matters
+  ..set \views, Args.app-dirs ++ DIR-UI # order matters
   ..get /^\/([_A-Za-z\-\/]+)$/, (req, res) -> res.render req.params.0
 
 # 3rd-party library js, css, etc are served by these static handlers
@@ -47,10 +46,27 @@ express
   # see http://stackoverflow.com/questions/16525362/how-do-you-set-jade-basedir-option-in-an-express-app-the-basedir-option-is-r
   ..locals.basedir = DIR-UI
 
-W4m http, \listen, Args.port
-console.log "Express http server listening on port #{Args.port}"
+start-http!
+start-https!
 
 ## helpers
+
+function start-http
+  Io.init http = Http.createServer express
+  W4m http, \listen, Args.port
+  log "Express http server listening on port #{Args.port}"
+
+function start-https
+  keys  = ls [ "#dir/*key.pem" for dir in Args.app-dirs ]
+  certs = ls [ "#dir/*cert.pem" for dir in Args.app-dirs ]
+  return unless keys.length and certs.length
+  log "found ssl key #{key-path = keys.0}"
+  log "found ssl cert #{cert-path = certs.0}"
+  key  = Fs.readFileSync key-path
+  cert = Fs.readFileSync cert-path
+  Io.init https = Https.createServer (key:key, cert:cert), express
+  W4m https, \listen, Args.port-ssl
+  log "Express https server listening on port #{Args.port-ssl}"
 
 function use-livescript dir
   express.use "*.js", (req, res, next) ->
