@@ -21,7 +21,6 @@ function load
     if test \-e, p
       log "load yaml from #p"
       yaml += Fs.readFileSync p
-    else log "cannot find #p"
   cfg = (Yaml.safeLoad yaml) or []
 
   # process aliases

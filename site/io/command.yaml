@@ -1,5 +1,10 @@
 # base command.yaml
 
+# symbols
+"'": XK_apostrophe
+',': XK_comma
+' ': XK_space
+
 # modifier prefix aliases, e.g. 'S+C+F4' expands to 'Shift_L+Control_L+F4'
 A+: alias Alt_L+
 C+: alias Control_L+

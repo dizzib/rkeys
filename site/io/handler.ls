@@ -7,9 +7,9 @@ Fsh = require \./filter/shell-exec
 
 module.exports.init = (http) ->
   socket <- (io = Io http).on \connection
-  log "connected #{ip = socket.conn.remoteAddress}"
+  log "connect #{ip = socket.conn.remoteAddress}"
   socket
-    ..on \disconnect, -> log "disconnected #ip"
+    ..on \disconnect, -> log "disconnect #ip"
     ..on \keydown   , -> run-filters 0, it
     ..on \keyup     , -> run-filters 1, it
 
