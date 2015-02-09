@@ -2,7 +2,7 @@ C = require \commander
 P = require \./package.json
 
 const DEFAULT-PORT   = 7000
-const DEFAULT-APPDIR = "#__dirname/example"
+const DEFAULT-APPDIR = "#__dirname/app"
 
 C.version P.version
 C.usage '[Options] <app-directory ...>'

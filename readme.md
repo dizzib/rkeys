@@ -18,9 +18,9 @@ On the Linux box to be controlled:
 
     $ rkeys
 
-Navigate your tablet to `http://server:7000/keypad`
+Navigate your tablet to `http://server:7000/example`
 where `server` is the node.js server running rkeys
-(see [example code](https://github.com/dizzib/rkeys/tree/master/site/example)).
+(see [example code](https://github.com/dizzib/rkeys/tree/master/site/app)).
 
 ## define custom keypads
 
