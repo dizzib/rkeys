@@ -20,8 +20,8 @@ function fake-input direction, key
   return log "Invalid keysym #keysym" unless ks2kc[keysym]
   xt.FakeInput direction, ks2kc[keysym], 0, root, 0, 0
 
+# key is either a full keysym-id like 'XK_a' or just a suffix like 'a'
 function get-keysym key
-  # key can be a keysym e.g. 'XK_a' or a keysym suffix e.g. 'Shift_L'
   const PREFIX = \XK_
   return key if key.substring(0, PREFIX.length) is PREFIX
   "#PREFIX#key" # attach prefix e.g. 'a' maps to 'XK_a'
