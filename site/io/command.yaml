@@ -2,7 +2,15 @@
 
 # symbols
 "'": XK_apostrophe
+'[': XK_bracketleft
+']': XK_bracketright
 ',': XK_comma
+'=': XK_equal
+'-': XK_minus
+'.': XK_period
+'`': XK_quoteleft
+'/': XK_slash
+';': XK_semicolon
 ' ': XK_space
 
 # modifier prefix aliases, e.g. 'S+C+F4' expands to 'Shift_L+Control_L+F4'
