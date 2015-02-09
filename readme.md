@@ -8,14 +8,15 @@ Setup virtual keypads to control Linux from a remote tablet:
 - simulate raw key press and release
 - [chords] on multi-touch tablets
 
-## install and run
+## install
 
 On the Linux box to be controlled:
 
-    $ npm install rkeys
+    $ npm install -g rkeys
 
-    $ cd node_modules/rkeys
-    $ node rkeys ./example
+## run example
+
+    $ rkeys
 
 Navigate your tablet to `http://server:7000/keypad`
 where `server` is the node.js server running rkeys
@@ -27,7 +28,7 @@ TODO
 
 ## options
 
-    $ node rkeys --help
+    $ rkeys --help
     Usage: rkeys [options] <app-directory ...>
 
     Options:
