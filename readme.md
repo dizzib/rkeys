@@ -14,7 +14,7 @@ On the Linux box to be controlled:
 
     $ npm install -g rkeys
 
-## run example
+## run examples
 
     $ rkeys
 
@@ -22,9 +22,7 @@ Navigate your tablet to `http://server:7000/example`
 where `server` is the node.js server running rkeys
 (see [example code](./site/app)).
 
-## define custom keypads
-
-TODO
+Also take a look at the numeric keypad at `http://server:7000/numeric`.
 
 ## options
 
