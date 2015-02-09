@@ -1,0 +1,15 @@
+extend /template/keys
+
+append head
+  title numeric keypad
+  +link('numeric.css')
+
+block layout
+  .numeric
+    .key-cols-1
+      +keys('Escape Esc', 'Tab', 'space Spc', 'BackSpace Bksp')
+    .key-cols-3
+      +keys('equal =', 'KP_Divide /', 'KP_Multiply *')
+      +keys(7,8,9,4,5,6,1,2,3,0,'00', 'KP_Decimal .')
+    .key-cols-1
+      +keys('KP_Subtract -', 'KP_Add +', 'KP_Enter Enter')

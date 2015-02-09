@@ -1,0 +1,39 @@
+// import useful mixins
+@require 'mixin/keys'
+
+COLOR-BG = #007 // background color
+
+// define a custom mixin to return size by key units
+k(n)
+  n * 24mm
+
+// use imported mixins to set key and label up/down colors
+label-color(white, black)
+key-color(blue, yellow)
+
+// set the key size to one unit and set each key to have an internal
+// rather than external border (by -ve percent). This is
+// so double height keys are correctly aligned
+key-size(k(1), -7%)
+
+body
+  background    COLOR-BG
+.key
+  border-color  COLOR-BG
+.key.down
+  border-color  yellow
+.numeric > div
+  float         left
+
+// key styles
+
+#BackSpace
+  background  red
+  height      k(2)
+
+#KP_Add
+  height      k(2)
+
+#KP_Enter
+  background  green
+  height      k(2)
