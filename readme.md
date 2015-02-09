@@ -4,11 +4,9 @@ Setup virtual keypads to control Linux from a remote tablet:
 
 - define keypads with a bit of [jade] and [stylus]
 - define macros in [YAML] with optional delays and auto-repeat
-- use [Font Awesome][fa] icons
+- enhance with [LiveScript] and [Font Awesome][fa] icons
 - simulate raw key press and release
 - [chords] on multi-touch tablets
-- trigger shell exec
-- built on [Express] and [node.js]
 
 ## install and run
 
@@ -60,7 +58,7 @@ MIT
 [chords]: https://en.wikipedia.org/wiki/Chorded_keyboard
 [fa]: http://fortawesome.github.io/Font-Awesome/
 [jade]: http://jade-lang.com
-[LiveScript]: https://github.com/gkz/LiveScript
+[LiveScript]: http://livescript.net
 [node.js]: http://nodejs.org
 [stylus]: https://learnboost.github.io/stylus
 [YAML]: https://en.wikipedia.org/wiki/YAML
