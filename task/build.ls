@@ -20,7 +20,7 @@ const NMODULES = './node_modules'
 pruner = new Cron.CronJob cronTime:'*/10 * * * *', onTick:prune-empty-dirs
 tasks  =
   livescript:
-    cmd : "#NMODULES/LiveScript/bin/lsc --output $OUT $IN"
+    cmd : "#NMODULES/LiveScript/bin/lsc --output $ODIR $IN"
     ixt : \ls
     oxt : \js
     xsub: 'json.js->json'
@@ -30,7 +30,7 @@ tasks  =
     oxt : \html
   static:
     cmd : 'cp $IN $OUT'
-    ixt : '+(css|eot|jade|js|otf|styl|svg|ttf|woff|woff2|yaml)'
+    pat : '+(rkeys|*.css|*.eot|*.jade|*.js|*.otf|*.styl|*.svg|*.ttf|*.woff|*.woff2|*.yaml)'
 
 module.exports = me = (new Emitter!) with
   all: ->
@@ -73,10 +73,11 @@ module.exports = me = (new Emitter!) with
 
 function compile t, ipath, cb
   odir = Path.dirname opath = get-opath t, ipath
-  mkdir '-p', odir # stylus fails if outdir doesn't exist
+  mkdir \-p, odir # stylus fails if outdir doesn't exist
   switch typeof t.cmd
   | \string =>
-    cmd = t.cmd.replace(\$IN, "'#ipath'").replace \$OUT, "'#odir'"
+    cmd = t.cmd.replace(\$IN, "'#ipath'").replace \$OUT, "'#opath'"
+    cmd .= replace \$ODIR, "'#odir'"
     code, res <- exec cmd
     log code, res if code
     cb (if code then res else void), opath
@@ -96,7 +97,8 @@ function compile-batch tid
   G.ok "...done #info!"
 
 function get-opath t, ipath
-  p = ipath.replace("#{Dir.ROOT}/", '').replace t.ixt, t.oxt
+  p = ipath.replace("#{Dir.ROOT}/", '')
+  p = p.replace t.ixt, t.oxt if t.ixt?
   return p unless (xsub = t.xsub?split '->')?
   p.replace xsub.0, xsub.1
 
@@ -114,10 +116,11 @@ function start-watching tid
   log "start watching #tid"
   Assert.equal pwd!, Dir.ROOT
   ixt = (t = tasks[tid]).ixt
+  pat = t.pat or "*.#ixt"
   dirs = "#{Dirname.SITE},#{Dirname.TASK}"
   # TODO: remove t.isMatch when gaze fixes https://github.com/shama/gaze/issues/104
   t.isMatch = (ipath) -> Globule.isMatch t.patterns, (ipath.replace "#{Dir.ROOT}/", '')
-  t.gaze = Gaze t.patterns = [ "*.#ixt" "{#dirs}/**/*.#ixt" ], ->
+  t.gaze = Gaze t.patterns = [ "#pat" "{#dirs}/**/#pat" ], ->
     act, ipath <- t.gaze.on \all
     return if '/' is ipath.slice -1 # BUG: Gaze might fire when dir added
     return unless t.isMatch ipath # TODO: remove when gaze fixes issue 104

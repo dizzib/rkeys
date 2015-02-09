@@ -6,6 +6,7 @@ homepage   : \https://github.com/dizzib/rkeys
 bugs       : \https://github.com/dizzib/rkeys/issues
 license:   : \MIT
 author     : \dizzib
+bin        : \./bin/rkeys
 repository :
   type: \git
   url : \https://github.com/dizzib/rkeys

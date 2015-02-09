@@ -38,7 +38,7 @@ express.use Express.static DIR-UI
 for d in Args.app-dirs
   use-livescript d
   use-stylus d
-use-stylus DIR-UI
+use-stylus DIR-UI, \/tmp/rkeys
 
 express
   ..use ErrHan!
@@ -77,10 +77,10 @@ function use-livescript dir
     return next err if err
     res.send buf.toString!
 
-function use-stylus dir
+function use-stylus dir, tmp = dir
   express.use Stylus.middleware do
     src    : dir
-    dest   : dir-css = "#dir/.css"
+    dest   : dir-css = "#tmp/.css"
     compile: (str, path) ->
       Stylus(str)
         .set \filename, path
