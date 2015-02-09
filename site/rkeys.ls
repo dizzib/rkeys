@@ -15,7 +15,7 @@ Shell   = require \shelljs/global
 Stylus  = require \stylus
 W4m     = require \wait.for .forMethod
 Args    = require \./args
-Io      = require \./io/handler
+Api     = require \./io/api
 
 const DIR-UI  = "#__dirname/ui"
 const DIR-CSS = "#DIR-UI/.css"
@@ -52,7 +52,7 @@ start-https!
 ## helpers
 
 function start-http
-  Io.init http = Http.createServer express
+  Api.init http = Http.createServer express
   W4m http, \listen, Args.port
   log "Express http server listening on port #{Args.port}"
 
@@ -64,7 +64,7 @@ function start-https
   log "found ssl cert #{cert-path = certs.0}"
   key  = Fs.readFileSync key-path
   cert = Fs.readFileSync cert-path
-  Io.init https = Https.createServer (key:key, cert:cert), express
+  Api.init https = Https.createServer (key:key, cert:cert), express
   W4m https, \listen, Args.port-ssl
   log "Express https server listening on port #{Args.port-ssl}"
 
