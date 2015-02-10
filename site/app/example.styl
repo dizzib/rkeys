@@ -1,11 +1,15 @@
+// example.styl -- compiled and served as example.css at runtime
+
+// use the built-in keys mixins...
 @require 'mixin/keys'
 
-body
-  background  cyan
-
+// ...to set the fundamental look of each key
 key-size(25mm)
 key-color(blue, yellow)
 label-color(white, blue)
+
+body
+  background  cyan
 
 #Shift_L
   clear   both

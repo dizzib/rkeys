@@ -1,22 +1,22 @@
 // mixin to generate a single key
 //
-// k  : id or 'id vis'
-// id : a full keysym-id like 'XK_a' or just a suffix like 'a'
-// vis: a label or a font-awesome identifier like 'fa-coffee'
+// k: id or 'id label'
+// id: a full keysym-id like 'XK_a' or just a suffix like 'a'
+// label: text or a font-awesome identifier like 'fa-coffee'
 //
 // See the full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
-mixin key(k, vis)
+mixin key(k, label)
   - var arr = k.toString().split(' ')
   - var id = arr[0]
-  - vis = vis || arr[1]
+  - label = label || arr[1]
   .key(id=id)
-    if (vis && vis.substring(0,3) == 'fa-')
-      // vis is a font-awesome identifier
+    if (label && label.substring(0,3) == 'fa-')
+      // label is a font-awesome identifier
       .label
-        i.fa.fa-2x(class=vis)
+        i.fa.fa-2x(class=label)
     else
-      // vis is a label
-      - var lbl = vis || id
+      // treat label as text
+      - var lbl = label || id
       - var lblcls = 'len-' + lbl.toString().length
       .label(class=lblcls)= lbl
 

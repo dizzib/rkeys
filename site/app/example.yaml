@@ -1,15 +1,29 @@
-# example command.yaml
+# example.yaml
+#
+# A set of commands in format id:directives, where id
+# corresponds to #id.key in the html
 
-# auto repeat and time delay
+# key sequences
+#
+# integers >= 10 denote time delay in milliseconds
+# a trailing integer denotes auto repeat
+abc            : a b c
 abc-slow       : a 500 b 1000 c
 abc-repeat     : a b c 500
 abc-repeat-slow: a 500 b 500 c 1000
 
-# editing
+# key chords denoted by infix +
+#
+# modifier aliases are defined in ../io/command.yaml
 edit-copy : C+c
 edit-cut  : C+x
 edit-paste: C+v
 
+# separate up and down directives denoted by array [down, up]
+#
+# explicit keydown denoted by prefix +
+# explicit keyup denoted by prefix -
+#
 # emit 'Hello' on touchdown and 'World' on touchup
 HelloWorld: [ +Shift_L h -Shift_L e l l o, +Shift_L w -Shift_L o r l d ]
 

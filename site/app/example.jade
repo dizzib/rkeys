@@ -1,7 +1,12 @@
+// example.jade -- compiled and served as html at runtime
+
+// use the built-in keys template
 extend /template/keys
 
+// append to the head block as we want to keep what's already there
 append head
   title rkeys example
+  // example.css is generated on-the-fly from example.styl
   +link('example.css')
 
 block layout
@@ -10,13 +15,20 @@ block layout
     h2 Basic keys
     p Press and hold for standard auto repeat
     p Try pressing Shift with a key (requires a multi-touchpoint tablet)
-    +keys('a', 'b', 'c', 1, 2, 3)
+    // See the full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
+    // single keysym suffix i.e. XK_a minus the XK_
+    +key('a')
+    // sequence of keysym suffixes
+    +keys('b', 'c', 1, 2, 3)
+    // keysym suffixes with labels
     +key('BackSpace', 'Back- space')
     +key('Shift_L', 'Shift')
   .section
-    h2 Macros
+    h2 Key sequences with delay and auto repeat
     p Try press and hold
+    // id is a command-id in example.yaml
     +key('HelloWorld', 'Hello World')
+    +key('abc', 'abc')
     +key('abc-slow', 'abc (slow)')
     +key('abc-repeat', 'abc (repeat)')
     +key('abc-repeat-slow', 'abc (repeat slow)')
@@ -27,4 +39,5 @@ block layout
     +key('exec-xterm', 'exec xterm')
   .section
     h2: a(href='http://fortawesome.github.io/Font-Awesome/icons') Font Awesome icons
+    // we pass fa-* into the label field
     +keys('edit-copy fa-copy', 'edit-cut fa-cut', 'edit-paste fa-paste')

@@ -14,6 +14,10 @@ key-color(up, down = up)
     background    down
 
 // mixin to set key size
+// n: the key size
+// gap-percent: what % of the size to use for the inter-key spacing
+//   > 0 for external margin -- hard to align
+//   < 0 for internal border -- easy to align but needs explicit styling
 key-size(n, gap-percent = +5%)
   .key
     height      n
