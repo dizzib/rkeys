@@ -9,7 +9,7 @@ Create mobile apps to send keystrokes to remote Linux:
 
 ## install
 
-On the target Linux box:
+On the target Linux:
 
     $ npm install -g rkeys
 
@@ -18,7 +18,7 @@ On the target Linux box:
     $ rkeys
 
 Navigate your tablet to `http://server:7000/example` where `server`
-is the target Linux server (see [example code](./site/app)).
+is the target Linux (see [example code](./site/app)).
 
 Also try the numeric keypad at `http://server:7000/numeric`.
 
