@@ -1,16 +1,15 @@
 ## rkeys
 
-Setup virtual keypads to control Linux from a remote tablet:
+Create mobile apps to send keystrokes to remote Linux:
 
-- define keypads with a bit of [jade] and [stylus]
-- define macros in [YAML] with optional delays and auto-repeat
+- [define keypads](./site/app) with a bit of [jade] and [stylus]
+- [define chords and sequences](./site/app/example.yaml) with delays and auto-repeat
+- use [mixins](./site/ui/mixin) and [templates](./site/ui/template) to minimise your code
 - enhance with [LiveScript] and [Font Awesome][fa] icons
-- simulate raw key press and release
-- [chords] on multi-touch tablets
 
 ## install
 
-On the Linux box to be controlled:
+On the target Linux box:
 
     $ npm install -g rkeys
 
@@ -18,11 +17,10 @@ On the Linux box to be controlled:
 
     $ rkeys
 
-Navigate your tablet to `http://server:7000/example`
-where `server` is the node.js server running rkeys
-(see [example code](./site/app)).
+Navigate your tablet to `http://server:7000/example` where `server`
+is the target Linux server (see [example code](./site/app)).
 
-Also take a look at the numeric keypad at `http://server:7000/numeric`.
+Also try the numeric keypad at `http://server:7000/numeric`.
 
 ## options
 

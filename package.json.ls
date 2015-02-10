@@ -1,6 +1,6 @@
 name       : \rkeys
 version    : \0.2.0
-description: "Setup a virtual keypad to control Linux from a remote tablet"
+description: "Create mobile apps to send keystrokes to remote Linux"
 keywords   : <[ control key keypad linux macro remote tablet touch virtual ]>
 homepage   : \https://github.com/dizzib/rkeys
 bugs       : \https://github.com/dizzib/rkeys/issues

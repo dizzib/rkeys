@@ -1,5 +1,11 @@
+// mixin to generate a single key
+//
+// k  : id or 'id vis'
+// id : a full keysym-id like 'XK_a' or just a suffix like 'a'
+// vis: a label or a font-awesome identifier like 'fa-coffee'
+//
+// See the full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
 mixin key(k, vis)
-  // k is either "id" or "id vis"
   - var arr = k.toString().split(' ')
   - var id = arr[0]
   - vis = vis || arr[1]
@@ -14,6 +20,7 @@ mixin key(k, vis)
       - var lblcls = 'len-' + lbl.toString().length
       .label(class=lblcls)= lbl
 
+// mixin to generate a sequence of keys
 mixin keys(...ks)
   each k in ks
     +key(k)

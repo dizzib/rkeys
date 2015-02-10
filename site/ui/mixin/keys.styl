@@ -1,17 +1,19 @@
 @require nib
 
-// auto-wrap a set of keys into columns
+// css classes to auto-wrap a set of keys into n columns
 for n in (1..9)
   .key-cols-{n}
     .key:nth-child({n}n+1)
       clear     both
 
+// mixin to set key colors
 key-color(up, down = up)
   .key
     background    up
   .key.down
     background    down
 
+// mixin to set key size
 key-size(n, gap-percent = +5%)
   .key
     height      n
@@ -31,6 +33,7 @@ key-size(n, gap-percent = +5%)
       .label.len-{l}
         font-size   40%
 
+// mixin to set key label colors
 label-color(up, down = up)
   .label
     color     up
