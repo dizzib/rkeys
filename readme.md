@@ -20,8 +20,6 @@ On the target Linux:
 Navigate your tablet to `http://server:7000/example` where `server`
 is the target Linux (see [example code](./site/app)).
 
-Also try the numeric keypad at `http://server:7000/numeric`.
-
 ## options
 
     $ rkeys --help
