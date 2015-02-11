@@ -9,27 +9,23 @@ for n in (1..9)
 // mixin to set key colors
 key-color(up, down = up)
   .key
-    background    up
+    background-color  up
   .key.down
-    background    down
+    background-color  down
 
 // mixin to set key size
-// n: the key size
-// gap-percent: what % of the size to use for the inter-key spacing
-//   > 0 for external margin -- hard to align
-//   < 0 for internal border -- easy to align but needs explicit styling
-key-size(n, gap-percent = +5%)
+// n: the key size, including internal border
+// gap-percent: % of n to use for the internal border
+key-size(n, gap-percent = 5%)
   .key
     height      n
     width       n
     font-size   n
 
-    if gap-percent >= 0
-      margin      n * gap-percent * 0.01
-    else // internal border allows exact alignments
-      margin      0
-      box-sizing  border-box
-      border      solid n * abs(gap-percent) * 0.01
+    // internal border allows easier alignments
+    background-clip padding-box
+    border          solid transparent n * gap-percent * 0.01
+    box-sizing      border-box
 
     .label
       font-size   25%
