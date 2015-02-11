@@ -19,7 +19,7 @@ function apply-aliases aliases, s
 function get-yaml-paths
   # order matters: later yaml overrides earlier, so load the core
   # rkeys yaml first so it can be overridden by apps.
-  dirs  = [ __dirname ] ++ Args.app-dirs
+  dirs  = [ "#__dirname/commands" ] ++ Args.app-dirs
   _.flatten [ls "#d/*.yaml" for d in dirs]
 
 function load

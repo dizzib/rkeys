@@ -14,7 +14,7 @@ abc-repeat-slow: a 500 b 500 c 1000
 
 # key chords denoted by infix +
 #
-# modifier aliases are defined in ../io/command.yaml
+# modifier aliases are defined in ../io/commands/core.yaml
 edit-copy : C+c
 edit-cut  : C+x
 edit-paste: C+v
