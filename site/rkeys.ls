@@ -17,8 +17,7 @@ W4m     = require \wait.for .forMethod
 Args    = require \./args
 Api     = require \./io/api
 
-const DIR-UI  = "#__dirname/ui"
-const DIR-CSS = "#DIR-UI/.css"
+const DIR-UI = "#__dirname/ui"
 
 log "app-dirs: #{Args.app-dirs * ' '}"
 
