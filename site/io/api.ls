@@ -1,10 +1,10 @@
-_   = require \lodash
-Io  = require \socket.io
-Cmd = require \./command
-Fkm = require \./filter/key-macro
-Fkr = require \./filter/key-raw
-Fks = require \./filter/key-seq
-Fsh = require \./filter/shell-exec
+_    = require \lodash
+Io   = require \socket.io
+Cmd  = require \./command
+Fkm  = require \./filter/key-macro
+Fkr  = require \./filter/key-raw
+Fsh  = require \./filter/shell-exec
+Kseq = require \./keyseq
 
 module.exports.init = (http) ->
   socket <- (io = Io http).on \connection
@@ -13,7 +13,7 @@ module.exports.init = (http) ->
     ..on \disconnect, -> log "disconnect #ip"
     ..on \keydown   , -> apply-filters 0, it
     ..on \keyup     , -> apply-filters 1, it
-    ..on \keyseq    , Fks
+    ..on \keyseq    , Kseq
 
 ## helpers
 

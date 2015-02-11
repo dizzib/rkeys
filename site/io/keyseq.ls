@@ -1,5 +1,5 @@
-Cmd = require \../command
-X   = require \../x
+Cmd = require \./command
+X   = require \./x
 
 const DELAY = 2ms # otherwise keys may be lost in some web input fields
 
