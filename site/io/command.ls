@@ -17,14 +17,14 @@ function apply-aliases aliases, s
   s
 
 function get-yaml-paths
+  # order matters: later yaml overrides earlier, so load the core
+  # rkeys yaml first so it can be overridden by apps.
   dirs  = [ __dirname ] ++ Args.app-dirs
   _.flatten [ls "#d/*.yaml" for d in dirs]
 
 function load
-  # later yaml overrides earlier so read in reverse order
-  # e.g. in [A B C] we want A/command.yaml to take precedence
   yaml = ''
-  for p in fpaths by -1
+  for p in fpaths
     if test \-e, p
       log "load commands from #p"
       yaml += Fs.readFileSync p
