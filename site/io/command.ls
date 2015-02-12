@@ -4,17 +4,14 @@ Yaml = require \js-yaml
 Sh   = require \shelljs/global
 Args = require \../args
 
+var cmds
 fpaths = get-yaml-paths!
-cmds   = load!
-for p in fpaths then Fs.watchFile p, -> cmds := load!
+load!
+for p in fpaths then Fs.watchFile p, load
 
 module.exports.get = (id) -> cmds[id]
 
 ## helpers
-
-function apply-aliases aliases, s
-  for ak, av of aliases then s = s.replace ak, av
-  s
 
 function get-yaml-paths
   # order matters: later yaml overrides earlier, so load the core
@@ -28,17 +25,22 @@ function load
     if test \-e, p
       log "load commands from #p"
       yaml += Fs.readFileSync p
-  cfg = (Yaml.safeLoad yaml) or []
+  y = (Yaml.safeLoad yaml) or []
+  cmds := process-aliases y
 
-  # process aliases
-  cmds = {}
-  as = {}
-  for k, v of cfg
-    if /^alias /.test v then as[k] = v.slice 6 else cmds[k] = v
-  for k, v of cmds
+function process-aliases yaml
+  as = {} # aliases
+  cs = {} # non-alias commands
+  for k, v of yaml
+    if /^alias /.test v then as[k] = v.slice 6 else cs[k] = v
+  for k, v of cs
     if _.isArray v
-      cmds[k] = []
-      for s in v then cmds[k].push apply-aliases as, s
+      cs[k] = []
+      for s in v then cs[k].push apply-aliases as, s
     else if _.isString v
-      cmds[k] = apply-aliases as, v
-  cmds
+      cs[k] = apply-aliases as, v
+  return cs
+
+  function apply-aliases aliases, s
+    for k, v of aliases then s = s.replace k, v
+    s
