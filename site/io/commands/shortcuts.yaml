@@ -1,7 +1,4 @@
-# Standard system and application shortcuts
-#
-# These should be fairly standard but you can always override
-# them in your own yaml.
+# Standard system shortcuts
 
 # editing
 edit-copy : C+c
@@ -10,15 +7,3 @@ edit-paste: C+v
 edit-redo : C+S+z
 edit-save : C+s
 edit-undo : C+z
-
-# firefox shortcuts, as defined by
-# https://support.mozilla.org/en-US/kb/keyboard-shortcuts-perform-firefox-tasks-quickly?redirectlocale=en-US&redirectslug=Keyboard+shortcuts
-firefox-nav-back      : A+Left
-firefox-nav-forward   : A+Right
-firefox-page-zoom-in  : C+plus
-firefox-page-zoom-out : C+minus
-firefox-tab-close     : C+F4
-firefox-tab-groups    : C+S+e
-firefox-tab-next      : C+Page_Down
-firefox-tab-previous  : C+Page_Up
-
