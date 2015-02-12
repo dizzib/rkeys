@@ -35,10 +35,10 @@ function load-file path
       if k is \include
         log "include #v"
         delete cfg.include
-        dirs = (v - \,).split ' '
-        for dir in dirs
-          d = Path.resolve (Path.dirname path), dir
-          for p in ls "#d/*.yaml" then cfg = _.extend cfg, load-file p
+        paths = (v - \,).split ' '
+        for prel in paths
+          p = Path.resolve (Path.dirname path), prel
+          cfg = _.extend cfg, load-file p
     cfg
 
 function process-aliases cfg
