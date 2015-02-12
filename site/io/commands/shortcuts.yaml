@@ -1,9 +1,0 @@
-# Standard system shortcuts
-
-# editing
-edit-copy : C+c
-edit-cut  : C+x
-edit-paste: C+v
-edit-redo : C+S+z
-edit-save : C+s
-edit-undo : C+z
