@@ -12,8 +12,8 @@ append head
 block layout
   h1 rkeys example
   .section
-    h2 Basic keys
-    p Press and hold for standard auto repeat
+    h2 Single keys
+    p Press and hold for native auto-repeat
     p Try pressing Shift with a key (requires a multi-touchpoint tablet)
     // See the full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
     // single keysym suffix i.e. XK_a minus the XK_
@@ -24,9 +24,15 @@ block layout
     +key('Shift_L', 'Shift')
     +key('BackSpace', 'Back- space')
   .section
-    h2 Key sequences with delay and auto repeat
-    p Try press and hold
-    // id is a command-id in example.yaml
+    h2 Key chords
+    p Press and hold for native auto-repeat
+    // the key-id (e.g. 'shift+a') is a command-id in example.yaml
+    +key('shift+a', 'Shift + a')
+    +key('shift+8', 'Shift + 8')
+  .section
+    h2 Key sequences with delay and non-native auto-repeat
+    p Press and hold for non-native auto-repeat
+    // the key-id is a command-id in example.yaml
     +key('HelloWorld', 'Hello World')
     +key('abc', 'abc')
     +key('abc-slow', 'abc (slow)')
