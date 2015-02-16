@@ -14,17 +14,18 @@ key-color(up, down = up)
     background-color  down
 
 // mixin to set key size
-// n: the key size, including internal border
-// gap-percent: % of n to use for the internal border
-key-size(n, gap-percent = 5%)
+//
+// k: the key size, including internal border
+// gap-percent: % of k to use for the internal border
+key-size(k, gap-percent = 5%)
   .key
-    height      n
-    width       n
-    font-size   n
+    height      k
+    width       k
+    font-size   k
 
     // internal border allows easier alignments
     background-clip padding-box
-    border          solid transparent n * gap-percent * 0.01
+    border          solid transparent k * gap-percent * 0.01
     box-sizing      border-box
 
     .label
