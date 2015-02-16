@@ -34,6 +34,12 @@ key-size(k, gap-percent = 5%)
       .label.len-{l}
         font-size   40%
 
+  for n in (2..5)
+    .key.h-{n}
+      height    n * k
+    .key.w-{n}
+      width     n * k
+
 // mixin to set key label colors
 label-color(up, down = up)
   .label

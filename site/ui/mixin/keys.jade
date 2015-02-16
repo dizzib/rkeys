@@ -1,16 +1,16 @@
 // mixin to generate a single key
 //
-// args: id or space-delimited args list
+// args: id or space-delimited args 'id label'
 //
 // id: a full keysym-id like 'XK_a' or just a suffix like 'a'
-// label: text or a font-awesome identifier like 'fa-coffee'
+// label: text or a font-awesome identifier like 'fa-coffee' (optional)
 //
 // Full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
 mixin key(args, label)
   - var arr = args.toString().split(' ')
   - var id = arr[0]
   - label = label || arr[1]
-  .key(id=id)
+  .key(id=id, class=attributes.class)
     if (label && label.substring(0,3) == 'fa-')
       // label is a font-awesome identifier
       .label
