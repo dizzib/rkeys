@@ -7,11 +7,23 @@ for n in (1..9)
       clear     both
 
 // mixin to set key colors
-key-color(up, down = up)
-  .key
-    background-color  up
+key-color(up = false, label-up = false, down = false, label-down = false)
+  if up and label-up and !down and !label-down
+    // default inverts colors on down
+    down = label-up
+    label-down = up
+  .key.up
+    if up
+      background-color  up
+    if label-up
+      .label
+        color     label-up
   .key.down
-    background-color  down
+    if down
+      background-color  down
+    if label-down
+      .label
+        color     label-down
 
 // mixin to set key size
 //
@@ -39,11 +51,3 @@ key-size(k, gap-percent = 5%)
       height    n * k
     .key.w-{n}
       width     n * k
-
-// mixin to set key label colors
-label-color(up, down = up)
-  .label
-    color     up
-  .key.down
-    .label
-      color     down

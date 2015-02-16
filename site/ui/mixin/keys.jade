@@ -10,7 +10,7 @@ mixin key(args, label)
   - var arr = args.toString().split(' ')
   - var id = arr[0]
   - label = label || arr[1]
-  .key(id=id, class=attributes.class)
+  .key.up(id=id, class=attributes.class)
     if (label && label.substring(0,3) == 'fa-')
       // label is a font-awesome identifier
       .label
