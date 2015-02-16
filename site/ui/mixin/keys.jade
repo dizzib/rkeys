@@ -1,12 +1,13 @@
 // mixin to generate a single key
 //
-// k: id or 'id label'
+// args: id or space-delimited args list
+//
 // id: a full keysym-id like 'XK_a' or just a suffix like 'a'
 // label: text or a font-awesome identifier like 'fa-coffee'
 //
-// See the full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
-mixin key(k, label)
-  - var arr = k.toString().split(' ')
+// Full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
+mixin key(args, label)
+  - var arr = args.toString().split(' ')
   - var id = arr[0]
   - label = label || arr[1]
   .key(id=id)
@@ -21,6 +22,6 @@ mixin key(k, label)
       .label(class=lblcls)= lbl
 
 // mixin to generate a sequence of keys
-mixin keys(...ks)
-  each k in ks
-    +key(k)
+mixin keys(...args)
+  each arg in args
+    +key(arg)
