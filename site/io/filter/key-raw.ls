@@ -1,11 +1,15 @@
+_ = require \lodash
 X = require \../x
 
 module.exports = (direction, id, command) ->
-  return false if command
+  keysym = id
+  if command?
+    return false if _.isArray command
+    return false unless (directives = command.split ' ').length is 1
+    return false if _.contains (d = directives.0), \+
+    keysym = d
 
-  # no command in yaml so just simulate raw key behaviour
-  # i.e. emitted key down/up follows touch down/up just like
-  # a real keyboard
+  # emitted key down/up follows touch down/up just like a real keyboard
+  [ X.keydown, X.keyup ][direction] keysym
 
-  [ X.keydown, X.keyup ][direction] id
   true # handled
