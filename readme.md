@@ -1,6 +1,7 @@
 ## rkeys
 
-Quickly create tablet apps to send keystrokes to remote Linux:
+A platform for creating tablet/HTML5 apps to send keystrokes
+to remote Linux:
 
 - [define keypads](./site/app) with a bit of [jade] and [stylus]
 - [define chords and sequences](./site/app/example.yaml) with delays and auto-repeat
