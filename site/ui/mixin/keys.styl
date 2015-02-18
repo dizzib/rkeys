@@ -1,6 +1,7 @@
 @require nib
 
 // css classes to auto-wrap a set of keys into n columns
+// e.g. key-cols-2 for a pair of keys per row
 for n in (1..9)
   .key-cols-{n}
     .key:nth-child({n}n+1)
@@ -9,7 +10,7 @@ for n in (1..9)
 // mixin to set key colors
 key-color(up = false, label-up = false, down = false, label-down = false)
   if up and label-up and !down and !label-down
-    // default inverts colors on down
+    // default behaviour is to invert colors on down
     down = label-up
     label-down = up
   .key.up
@@ -35,7 +36,7 @@ key-size(k, gap-percent = 5%)
     width       k
     font-size   k
 
-    // internal border allows easier alignments
+    // internal border allows precise alignments of different sized keys
     background-clip padding-box
     border          solid transparent k * gap-percent * 0.01
     box-sizing      border-box
@@ -46,7 +47,9 @@ key-size(k, gap-percent = 5%)
       .label.len-{l}
         font-size   40%
 
-  for n in (2..5)
+  // width and height modifiers e.g. h-2 for double height,
+  // w-3 for triple width, etc
+  for n in (2..9)
     .key.h-{n}
       height    n * k
     .key.w-{n}
