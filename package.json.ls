@@ -1,6 +1,6 @@
 name       : \rkeys
 version    : \0.3.0
-description: "Create mobile apps to send keystrokes to remote Linux"
+description: "Quickly create tablet apps to send keystrokes to remote Linux"
 keywords   : <[ chord control key keyboard keypad linux macro mobile remote tablet touch virtual ]>
 homepage   : \https://github.com/dizzib/rkeys
 bugs       : \https://github.com/dizzib/rkeys/issues
