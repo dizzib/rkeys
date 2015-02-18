@@ -1,10 +1,10 @@
 ## rkeys
 
-Create mobile apps to send keystrokes to remote Linux:
+Quickly create tablet apps to send keystrokes to remote Linux:
 
 - [define keypads](./site/app) with a bit of [jade] and [stylus]
 - [define chords and sequences](./site/app/example.yaml) with delays and auto-repeat
-- use [mixins](./site/ui/mixin) and [templates](./site/ui/template) to minimise your code
+- use the built-in [mixins](./site/ui/mixin) and [templates](./site/ui/template) to minimise your code
 - enhance with [LiveScript] and [Font Awesome][fa] icons
 
 ## install
@@ -17,8 +17,10 @@ On the target Linux:
 
     $ rkeys
 
-Navigate your tablet to `http://server:7000/example` where `server`
-is the target Linux (see [example code](./site/app)).
+then navigate your tablet to `http://your-rkeys-server-name-or-ip:7000/example`
+(see [example code](./site/app)).
+
+Also see [rkeys-apps](https://github.com/dizzib/rkeys-apps) for more.
 
 ## options
 
@@ -30,11 +32,6 @@ is the target Linux (see [example code](./site/app)).
       -h, --help             output usage information
       -V, --version          output the version number
       -p, --port [port]      listening port (default:7000)
-
-## rkeys apps
-
-- [megapad](https://github.com/dizzib/megapad)
-- [speakeys](https://github.com/dizzib/speakeys)
 
 ## developer build and run
 
