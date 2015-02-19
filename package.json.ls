@@ -29,7 +29,7 @@ dependencies:
   'socket.io'  : \1.3.2
   stylus       : \0.49.3
   'wait.for'   : \0.6.3
-  x11          : \1.0.2
+  x11          : \1.0.3
 devDependencies:
   chalk        : \~0.4.0
   cron         : \~1.0.3
