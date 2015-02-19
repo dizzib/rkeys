@@ -1,5 +1,5 @@
-_ = require \lodash
-X = require \../x
+_      = require \lodash
+Keysim = require \../x11/keysim
 
 const DOWN = 0
 const UP   = 1
@@ -45,9 +45,9 @@ module.exports = (direction, id, command) ->
 
 function apply-directive d
   # prefix + or - denotes explicit press or release
-  return (X.keydown d.slice 1) if d.0 is \+
-  return (X.keyup d.slice 1) if d.0 is \-
+  return (Keysim.down d.slice 1) if d.0 is \+
+  return (Keysim.up d.slice 1) if d.0 is \-
 
   chord-keys = d.split \+ # infix + denotes a chord e.g. 'Shift+Alt+X'
-  for k in chord-keys then X.keydown k
-  for k in chord-keys then X.keyup k    # implicit release
+  for k in chord-keys then Keysim.down k
+  for k in chord-keys then Keysim.up k    # implicit release

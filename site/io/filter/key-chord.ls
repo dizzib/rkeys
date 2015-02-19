@@ -1,5 +1,5 @@
-_ = require \lodash
-X = require \../x
+_      = require \lodash
+Keysim = require \../x11/keysim
 
 module.exports = (direction, id, command) ->
   return false if _.isArray command
@@ -7,6 +7,6 @@ module.exports = (direction, id, command) ->
   return false if (d = directives.0).0 is \+ # prefix + denotes explicit press
 
   chord-keys = d.split \+ # infix + denotes a chord e.g. 'Shift+Alt+X'
-  for k in chord-keys then [ X.keydown, X.keyup ][direction] k
+  for k in chord-keys then [ Keysim.down, Keysim.up ][direction] k
 
   true # handled

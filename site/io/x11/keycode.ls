@@ -1,24 +1,16 @@
 _   = require \lodash
-X11 = require \x11
 W4m = require \wait.for .forMethod
+X11 = require \x11
+H   = require \./helper
 
-# https://github.com/sidorares/node-x11/blob/master/examples/smoketest/xtesttest.js
-disp  = W4m X11, \createClient
-root  = disp.screen.0.root
-x     = disp.client .on \error, -> log \error, it
-xtest = W4m x, \require, \xtest
 ks2kc = get-keysym-to-keycode!
 
 module.exports =
-  keydown: -> fake-input xtest.KeyPress, it
-  keyup  : -> fake-input xtest.KeyRelease, it
+  get-keycode: (key) ->
+    return kc if kc = ks2kc[keysym = get-keysym key]
+    log "Invalid keysym #keysym"
 
 ## helpers
-
-function fake-input type, key
-  keysym = get-keysym key
-  return log "Invalid keysym #keysym" unless ks2kc[keysym]
-  xtest.FakeInput type, ks2kc[keysym], 0, root, 0, 0
 
 # key is either a full keysym-id like 'XK_a' or just a suffix like 'a'
 function get-keysym key
@@ -34,9 +26,9 @@ function get-keysym-to-keycode
   ks2names = {}
   for name of (ks = X11.keySyms) then (ks2names[ks[name]] ||= []).push name
 
-  min = disp.min_keycode
-  max = disp.max_keycode
-  list = W4m x, \GetKeyboardMapping, min, max - min
+  min = H.display.min_keycode
+  max = H.display.max_keycode
+  list = W4m H.x, \GetKeyboardMapping, min, max - min
 
   ks2kc = {}
   for i from 0 to list.length - 1

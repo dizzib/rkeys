@@ -1,5 +1,5 @@
-_ = require \lodash
-X = require \../x
+_      = require \lodash
+Keysim = require \../x11/keysim
 
 module.exports = (direction, id, command) ->
   keysym = id
@@ -10,6 +10,6 @@ module.exports = (direction, id, command) ->
     keysym = d
 
   # emitted key down/up follows touch down/up just like a real keyboard
-  [ X.keydown, X.keyup ][direction] keysym
+  [ Keysim.down, Keysim.up ][direction] keysym
 
   true # handled
