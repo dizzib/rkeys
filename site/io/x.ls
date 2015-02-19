@@ -6,19 +6,19 @@ W4m = require \wait.for .forMethod
 disp  = W4m X11, \createClient
 root  = disp.screen.0.root
 x     = disp.client .on \error, -> log \error, it
-xt    = W4m x, \require, \xtest
+xtest = W4m x, \require, \xtest
 ks2kc = get-keysym-to-keycode!
 
 module.exports =
-  keydown: -> fake-input xt.KeyPress, it
-  keyup  : -> fake-input xt.KeyRelease, it
+  keydown: -> fake-input xtest.KeyPress, it
+  keyup  : -> fake-input xtest.KeyRelease, it
 
 ## helpers
 
-function fake-input direction, key
+function fake-input type, key
   keysym = get-keysym key
   return log "Invalid keysym #keysym" unless ks2kc[keysym]
-  xt.FakeInput direction, ks2kc[keysym], 0, root, 0, 0
+  xtest.FakeInput type, ks2kc[keysym], 0, root, 0, 0
 
 # key is either a full keysym-id like 'XK_a' or just a suffix like 'a'
 function get-keysym key
