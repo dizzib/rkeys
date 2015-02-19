@@ -30,6 +30,7 @@ dependencies:
   stylus       : \0.49.3
   'wait.for'   : \0.6.3
   x11          : \1.0.3
+  #'x11-prop'   : \0.4.3
 devDependencies:
   chalk        : \~0.4.0
   cron         : \~1.0.3
