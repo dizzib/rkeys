@@ -13,9 +13,8 @@ module.exports =
   down: -> simulate xtest.KeyPress, it
   up  : -> simulate xtest.KeyRelease, it
 
-process.on \exit   , release-keys
-process.on \SIGINT , process.exit
-process.on \SIGTERM, process.exit
+process.on \exit, release-keys
+for sig in <[ SIGINT SIGHUP SIGTERM ]> then process.on sig, process.exit
 
 ## helpers
 
