@@ -7,6 +7,7 @@ to remote Linux:
 - [define chords and sequences](./site/app/example.yaml) with delays and auto-repeat
 - use the built-in [mixins](./site/ui/mixin) and [templates](./site/ui/template) to minimise your code
 - enhance with [LiveScript] and [Font Awesome][fa] icons
+- context sensitivity - show/hide elements matching the active window title
 
 ## install
 
