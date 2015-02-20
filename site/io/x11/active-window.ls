@@ -1,20 +1,26 @@
 Evem = require \events .EventEmitter
 X11  = require \x11
-X11p = require \x11-prop
 Root = require \./helper .root
 X    = require \./helper .x
 
-module.exports = me = new Evem!
+module.exports = me = (new Evem!) with title:''
+
+err, atom <- X.InternAtom false, \_NET_ACTIVE_WINDOW
+return log "X.InternAtom _NET_ACTIVE_WINDOW failed", err if err
 
 X.ChangeWindowAttributes Root, eventMask:X11.eventMask.PropertyChange
-
-X.InternAtom false, \_NET_ACTIVE_WINDOW, (err, atom) ->
-  log "X.InternAtom _NET_ACTIVE_WINDOW failed", err if err
-
 X.on \event, ->
   return unless it.atom is X.atoms._NET_ACTIVE_WINDOW
-  err, wid <- X11p.get_property X, Root, X.atoms._NET_ACTIVE_WINDOW
-  return log "get_property _NET_ACTIVE_WINDOW failed", err if err
-  err, title <- X11p.get_property X, wid, X.atoms.WM_NAME
-  return log "get_property WM_NAME failed: wid=#wid", err if err
-  me.emit \changed, title.toString!
+  <- read-active-window-title
+  me.emit \changed
+
+read-active-window-title!
+
+function read-active-window-title cb
+  err, prop <- X.GetProperty 0, Root, X.atoms._NET_ACTIVE_WINDOW, 0, 0, 10000000
+  return log "X.GetProperty _NET_ACTIVE_WINDOW failed", err if err
+  wid = prop.data.readUInt32LE 0
+  err, prop <- X.GetProperty 0, wid, X.atoms.WM_NAME, X.atoms.STRING, 0, 10000000
+  return log "X.GetProperty WM_NAME failed: wid=#wid", err if err
+  me.title = prop.data.toString!
+  cb! if cb
