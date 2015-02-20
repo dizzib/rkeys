@@ -1,5 +1,5 @@
 name       : \rkeys
-version    : \0.3.0
+version    : \0.4.0
 description: "A platform for creating tablet/HTML5 apps to send keystrokes to remote Linux"
 keywords   : <[ chord control html5 key keyboard keypad keystrokes linux macro mobile platform remote tablet touch virtual ]>
 homepage   : \https://github.com/dizzib/rkeys
