@@ -19,7 +19,7 @@ read-active-window-title!
 function read-active-window-title cb
   err, p <- X.GetProperty 0, Root, X.atoms._NET_ACTIVE_WINDOW, 0, 0, 10000000
   return log "X.GetProperty _NET_ACTIVE_WINDOW failed", err if err
-  wid = p.data.readUInt32LE 0
+  return unless wid = p.data.readUInt32LE 0 # switching desktop returns 0
   err, p <- X.GetProperty 0, wid, X.atoms.WM_NAME, X.atoms.STRING, 0, 10000000
   return log "X.GetProperty WM_NAME failed: wid=#wid", err if err
   me.title = p.data.toString!
