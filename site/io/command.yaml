@@ -2,6 +2,7 @@
 "'": XK_apostrophe
 '[': XK_bracketleft
 ']': XK_bracketright
+':': XK_colon
 ',': XK_comma
 '=': XK_equal
 '-': XK_minus

@@ -22,14 +22,17 @@ function fake-input type, keycode
   xtest.FakeInput type, keycode, 0, H.root, 0, 0
 
 function release-keys
-  for kc in downkeys
-    log "release key code=#kc"
-    fake-input xtest.KeyRelease, kc
+  for c in downkeys
+    log "release key code=#c"
+    fake-input xtest.KeyRelease, c
 
 function simulate type, key
-  return unless kc = Kco.get-keycode key
-  track-downkeys type, kc
-  fake-input type, kc
+  return unless cs = Kco.get-keycodes key
+  for c in cs
+    track-downkeys type, c
+    fake-input type, c
 
 function track-downkeys type, keycode
-  if type is xtest.KeyPress then downkeys.push keycode else _.pull downkeys, keycode
+  switch type
+    case xtest.KeyPress then downkeys.push keycode
+    case xtest.KeyRelease then _.pull downkeys, keycode
