@@ -1,15 +1,17 @@
-mixin link(href)
+// link to css e.g.: +css('foo.css')
+mixin css(href)
   link(rel='stylesheet', href=href)
 
+// to prevent pinch zoom add this mixin to head block
 mixin prevent-zoom
-  // use in meta block
   meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
 
+// javascript file e.g. +script('foo.js')
 mixin script(src)
   script(type='text/javascript', src=src)
 
 // context sensitivity
 // usage: +show-if(activeWindowTitle='regular-expression-string')
 mixin show-if
-   div(data-active-window-title=attributes.activeWindowTitle)
+  div(data-active-window-title=attributes.activeWindowTitle)
     block
