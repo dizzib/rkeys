@@ -37,7 +37,7 @@ function get-keysym-to-keycode-mapping
     for j in [0, 1]
       continue unless 0 <= (ksym = sublist[j]) < 65536
       continue unless knames = ks2names[ksym]
-      for name in knames then ks2kc[name] =
-        keycode : i + min
-        is-shift: j is 1
+      for name in knames
+        continue if ks2kc[name] # prefer unshifted over shifted
+        ks2kc[name] = keycode:i + min, is-shift:j is 1
   ks2kc
