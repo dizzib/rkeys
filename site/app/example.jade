@@ -47,3 +47,10 @@ block layout
     h2: a(href='http://fortawesome.github.io/Font-Awesome/icons') Font Awesome icons
     // we pass fa-* into the label field
     +keys('edit-copy fa-copy', 'edit-cut fa-cut', 'edit-paste fa-paste')
+  .section
+    h2 Context sensitivity
+    +show-if(activeWindowTitle='xterm|@')
+      +key('a')
+    p.
+      The 'a' key will show only if the active window title
+      contains 'xterm' or '@'.
