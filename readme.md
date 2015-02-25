@@ -1,7 +1,7 @@
 ## rkeys
 
 A platform for creating tablet/HTML5 apps to send keystrokes
-to remote Linux:
+to remote [X11]:
 
 - [define keypads](./site/app) with a bit of [jade] and [stylus]
 - [define chords and sequences](./site/app/example.yaml) with delays and auto-repeat
@@ -11,7 +11,7 @@ to remote Linux:
 
 ## install
 
-On the target Linux:
+On the target [X11] box:
 
     $ npm install -g rkeys
 
@@ -55,4 +55,5 @@ MIT
 [LiveScript]: http://livescript.net
 [node.js]: http://nodejs.org
 [stylus]: https://learnboost.github.io/stylus
+[X11]: https://en.wikipedia.org/wiki/X_Window_System
 [YAML]: https://en.wikipedia.org/wiki/YAML

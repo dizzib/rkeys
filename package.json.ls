@@ -1,7 +1,7 @@
 name       : \rkeys
 version    : \0.4.0
-description: "A platform for creating tablet/HTML5 apps to send keystrokes to remote Linux"
-keywords   : <[ chord control html5 key keyboard keypad keystrokes linux macro mobile platform remote tablet touch virtual ]>
+description: "A platform for creating tablet/HTML5 apps to send keystrokes to remote X11"
+keywords   : <[ chord control html5 key keyboard keypad keystrokes linux macro mobile platform remote tablet touch virtual X11 ]>
 homepage   : \https://github.com/dizzib/rkeys
 bugs       : \https://github.com/dizzib/rkeys/issues
 license:   : \MIT
