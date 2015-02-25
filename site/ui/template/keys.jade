@@ -1,8 +1,11 @@
 // keys template
-extend /template/base
-include /mixin/keys
+extend ./base
+
+include ../mixin/keys
+
 append head
   +css('/lib-3p/Font-Awesome-4.3.0/css/font-awesome.min.css')
   +css('/template/keys.css')
+
 append script
   +script('/template/keys.js')
