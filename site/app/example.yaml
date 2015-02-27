@@ -27,7 +27,7 @@ shift+8   : S+8
 # explicit keyup denoted by prefix -
 #
 # emit 'Hello' on touchdown and 'World' on touchup
-HelloWorld: [ +Shift_L h -Shift_L e l l o, +Shift_L w -Shift_L o r l d ]
+HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]
 
 # exec shell command
 exec-echo : exec echo hello world!
