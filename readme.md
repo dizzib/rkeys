@@ -20,7 +20,9 @@ On the target [X11] box:
     $ rkeys
 
 then navigate your tablet to `http://your-rkeys-server-name-or-ip:7000/example`
-(see [example code](./site/app)).
+(see [example code](./site/app)):
+
+![screenshot](http://dizzib.github.io/rkeys/example.png)
 
 Also see [rkeys-apps](https://github.com/dizzib/rkeys-apps) for more.
 
