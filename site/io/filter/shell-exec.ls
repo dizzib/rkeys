@@ -10,10 +10,10 @@ module.exports = (direction, id, command) ->
   return true if direction is UP
 
   cmd = (arr.slice 1) * ' '
-  log "exec #cmd"
+  #log "exec #cmd"
 
   Cp.exec cmd, (err, stdout, stderr) ->
-    log \err, err if err
+    log err if err
     log stdout if stdout
     log stderr if stderr
 

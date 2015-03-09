@@ -5,6 +5,7 @@ Actw = require \./x11/active-window
 Fbu  = require \./filter/button
 Fkc  = require \./filter/key-chord
 Fkm  = require \./filter/key-macro
+Fnop = require \./filter/nop
 Fkr  = require \./filter/key-raw
 Fsh  = require \./filter/shell-exec
 Kseq = require \./keyseq
@@ -24,7 +25,7 @@ module.exports.init = (http) ->
 
   function apply-filters direction, id
     command = Cmd.get id
-    for f in [ Fbu, Fkr, Fsh, Fkc, Fkm ] # filter order matters
+    for f in [ Fnop, Fbu, Fkr, Fsh, Fkc, Fkm ] # filter order matters
       return if f direction, id, command
 
   function emit-active-window-changed
