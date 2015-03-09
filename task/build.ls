@@ -1,19 +1,19 @@
-Assert   = require \assert
-Cron     = require \cron
-Emitter  = require \events .EventEmitter
-Fs       = require \fs
-Gaze     = require \gaze
-Globule  = require \globule
-_        = require \lodash
-Md       = require \marked
-Path     = require \path
-Shell    = require \shelljs/global
-WFib     = require \wait.for .launchFiber
-W4       = require \wait.for .for
-W4m      = require \wait.for .forMethod
-Dir      = require \./constants .dir
-Dirname  = require \./constants .dirname
-G        = require \./growl
+Assert  = require \assert
+Cron    = require \cron
+Emitter = require \events .EventEmitter
+Fs      = require \fs
+Gaze    = require \gaze
+Globule = require \globule
+_       = require \lodash
+Md      = require \marked
+Path    = require \path
+Shell   = require \shelljs/global
+WFib    = require \wait.for .launchFiber
+W4      = require \wait.for .for
+W4m     = require \wait.for .forMethod
+Dir     = require \./constants .dir
+Dirname = require \./constants .dirname
+G       = require \./growl
 
 const NMODULES = './node_modules'
 
