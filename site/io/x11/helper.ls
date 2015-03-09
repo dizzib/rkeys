@@ -11,3 +11,5 @@ module.exports =
   root   : root
   x      : x
   xtest  : xtest
+
+for sig in <[ SIGINT SIGHUP SIGTERM ]> then process.on sig, process.exit

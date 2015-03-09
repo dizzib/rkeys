@@ -1,19 +1,14 @@
 _   = require \lodash
-W4m = require \wait.for .forMethod
 X11 = require \x11
 H   = require \./helper
 Kco = require \./keycode
-
-downkeys = []
 
 module.exports =
   down: -> simulate H.xtest.KeyPress, it
   up  : -> simulate H.xtest.KeyRelease, it
 
+downkeys = []
 process.on \exit, release-keys
-for sig in <[ SIGINT SIGHUP SIGTERM ]> then process.on sig, process.exit
-
-## helpers
 
 function fake-input type, keycode
   H.xtest.FakeInput type, keycode, 0, H.root, 0, 0
