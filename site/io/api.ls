@@ -2,6 +2,7 @@ _    = require \lodash
 Io   = require \socket.io
 Cmd  = require \./command
 Actw = require \./x11/active-window
+Fbu  = require \./filter/button
 Fkc  = require \./filter/key-chord
 Fkm  = require \./filter/key-macro
 Fkr  = require \./filter/key-raw
@@ -23,7 +24,7 @@ module.exports.init = (http) ->
 
   function apply-filters direction, id
     command = Cmd.get id
-    for f in [ Fkr, Fsh, Fkc, Fkm ] # filter order matters
+    for f in [ Fbu, Fkr, Fsh, Fkc, Fkm ] # filter order matters
       return if f direction, id, command
 
   function emit-active-window-changed

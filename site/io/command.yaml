@@ -16,3 +16,13 @@
 A+: alias Alt_L+
 C+: alias Control_L+
 S+: alias Shift_L+
+
+# buttons
+B1: button 1
+B2: button 2
+B3: button 3
+B4: button 4
+B5: button 5
+B6: button 6
+B7: button 7
+B8: button 8
