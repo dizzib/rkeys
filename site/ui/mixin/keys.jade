@@ -1,11 +1,21 @@
 // mixin to generate a single key
 //
-// args: id or space-delimited args 'id label'
+// args: (mandatory) one of the following:
+//    - id
+//    - 'id label' (space-delimited string)
 //
-// id: a full keysym-id like 'XK_a' or just a suffix like 'a'
-// label: text or a font-awesome identifier like 'fa-coffee' (optional)
+// id: (mandatory) one of the following:
+//    - a full keysym-id eg 'XK_a'
+//    - a keysym suffi eg 'a'
+//    - a command id eg 'B1' for mouse button 1
 //
-// Full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
+//    full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
+//    id is treated as the label if label isn't supplied
+//
+// label: (optional) one of the following:
+//    - text string e.g. 'my label'
+//    - a font-awesome identifier 'fa-coffee'
+//
 mixin key(args, label)
   - var arr = args.toString().split(' ')
   - var id = arr[0]
