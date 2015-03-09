@@ -1,13 +1,13 @@
 ## rkeys
 
-A platform for creating tablet/HTML5 apps to send keystrokes
-to remote [X11]:
+A platform for creating tablet/HTML5 apps to send keystrokes to remote [X11]:
 
 - [define keypads](./site/app) with a bit of [jade] and [stylus]
 - [define chords and sequences](./site/app/example.yaml) with delays and auto-repeat
 - use the built-in [mixins](./site/ui/mixin) and [templates](./site/ui/template) to minimise your code
 - enhance with [LiveScript] and [Font Awesome][fa] icons
 - context sensitivity - show/hide elements matching the active window title
+- mouse buttons and shell exec
 
 ## install
 
