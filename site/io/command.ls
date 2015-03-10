@@ -5,24 +5,23 @@ Yaml = require \js-yaml
 Sh   = require \shelljs/global
 Args = require \../args
 
-var cmds
-fpaths = get-yaml-paths!
+cmds   = {}
+fpaths = []
 load-all!
-for p in fpaths then Fs.watchFile p, load-all
 
 module.exports.get = (id) -> cmds[id]
 
-## helpers
-
-function get-yaml-paths
+function load-all
+  for p in fpaths then Fs.unwatchFile p
   # order matters: later yaml overrides earlier, so load the
   # rkeys yaml first so it can be overridden by apps.
   dirs  = [ __dirname ] ++ Args.app-dirs
-  _.flatten [ls "#d/*.yaml" for d in dirs]
+  fpaths := _.flatten [ls "#d/*.yaml" for d in dirs]
 
-function load-all
   cfg = {}
-  for p in fpaths then cfg = _.extend cfg, load-file p
+  for p in fpaths
+    cfg = _.extend cfg, load-file p
+    Fs.watchFile p, load-all
   cmds := process-aliases cfg
 
 function load-file path
