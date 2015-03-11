@@ -20,22 +20,22 @@ Api     = require \./io/api
 
 const DIR-UI = "#__dirname/ui"
 
-log "app-dirs: #{Args.app-dirs * ' '}"
+log "dirs: #{Args.dirs * ' '}"
 
 express = Express!
   ..set \port, Args.port
   ..use Morgan \dev
   # jade
   ..set 'view engine', \jade
-  ..set \views, Args.app-dirs ++ DIR-UI # order matters
+  ..set \views, Args.dirs ++ DIR-UI # order matters
   ..get /^\/([_A-Za-z\-\/]+)$/, (req, res) -> res.render req.params.0
 
 # 3rd-party library js, css, etc are served by these static handlers
-for d in Args.app-dirs then express.use Express.static d
+for d in Args.dirs then express.use Express.static d
 # apps statics take precedence over rkeys statics
 express.use Express.static DIR-UI
 
-for d in Args.app-dirs
+for d in Args.dirs
   use-livescript d
   use-stylus d
 use-stylus DIR-UI
@@ -57,8 +57,8 @@ function start-http
   log "Express http server listening on port #{Args.port}"
 
 function start-https
-  keys  = ls [ "#dir/*key.pem" for dir in Args.app-dirs ]
-  certs = ls [ "#dir/*cert.pem" for dir in Args.app-dirs ]
+  keys  = ls [ "#dir/*key.pem" for dir in Args.dirs ]
+  certs = ls [ "#dir/*cert.pem" for dir in Args.dirs ]
   return unless keys.length and certs.length
   log "found ssl key #{key-path = keys.0}"
   log "found ssl cert #{cert-path = certs.0}"
