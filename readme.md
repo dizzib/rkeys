@@ -7,7 +7,7 @@ A platform for creating tablet/HTML5 apps to send keystrokes to remote [X11]:
 - use the built-in [mixins](./site/ui/mixin) and [templates](./site/ui/template) to minimise your code
 - enhance with [LiveScript] and [Font Awesome][fa] icons
 - context sensitivity - show/hide elements matching the active window title
-- mouse buttons and shell exec
+- simulate mouse buttons and run shell commands
 
 ## install
 
