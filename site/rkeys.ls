@@ -11,6 +11,7 @@ Https   = require \https
 Lsify   = require \lsify
 Morgan  = require \morgan
 Nib     = require \nib
+Path    = require \path
 Shell   = require \shelljs/global
 Stylus  = require \stylus
 W4m     = require \wait.for .forMethod
@@ -69,7 +70,7 @@ function start-https
 
 function use-livescript dir
   express.use "*.js", (req, res, next) ->
-    return next! unless test \-e, lspath = "#dir#{req.params.0}.ls"
+    return next! unless test \-e, lspath = Path.join dir, "#{req.params.0}.ls"
     b = Bify lspath, basedir:dir
     log "compile #lspath"
     (err, buf) <- b.transform Lsify .bundle
