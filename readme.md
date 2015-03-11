@@ -11,7 +11,7 @@ A platform for creating tablet/HTML5 apps to send keystrokes to remote [X11]:
 
 ## install
 
-On the target [X11] box:
+With [node.js] installed on the target [X11] box:
 
     $ npm install -g rkeys
 
