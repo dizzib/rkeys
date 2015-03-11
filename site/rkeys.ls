@@ -57,8 +57,8 @@ function start-http
   log "Express http server listening on port #{Args.port}"
 
 function start-https
-  keys  = ls [ "#dir/*key.pem" for dir in Args.dirs ]
-  certs = ls [ "#dir/*cert.pem" for dir in Args.dirs ]
+  keys  = ls [ Path.join d, '/*key.pem' for d in Args.dirs ]
+  certs = ls [ Path.join d, '/*cert.pem' for d in Args.dirs ]
   return unless keys.length and certs.length
   log "found ssl key #{key-path = keys.0}"
   log "found ssl cert #{cert-path = certs.0}"
