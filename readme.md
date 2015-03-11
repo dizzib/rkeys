@@ -19,17 +19,38 @@ On the target [X11] box:
 
     $ rkeys
 
-then navigate your tablet to `http://your-rkeys-server-name-or-ip:7000/example`
+then navigate your tablet to `http://your-rkeys-server:7000/example`
 (see [example code](./site/app)):
 
-![screenshot](http://dizzib.github.io/rkeys/example.png)
+![example screenshot](http://dizzib.github.io/rkeys/example.png)
 
 Also see [rkeys-apps](https://github.com/dizzib/rkeys-apps) for more.
+
+## tutorial
+
+An rkeys app is a directory containing at least one jade file.
+
+    $ mkdir foo
+
+Create file `./foo/bar.jade` with the following content:
+
+    extend /template/keys
+
+    block layout
+      +key('a')
+
+Host the app by passing the app's directory on the command line:
+
+    $ rkeys foo
+
+then navigate your tablet to `http://your-rkeys-server:7000/bar`:
+
+![tutorial screenshot](http://dizzib.github.io/rkeys/tutorial.png)
 
 ## options
 
     $ rkeys --help
-    Usage: rkeys [options] <app-directory ...>
+    Usage: rkeys [options] <directory ...>
 
     Options:
 
