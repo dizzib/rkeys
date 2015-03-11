@@ -58,6 +58,10 @@ then navigate your tablet to `http://your-rkeys-server:7000/bar`:
       -V, --version          output the version number
       -p, --port [port]      listening port (default:7000)
 
+Host multiple apps simutaneously by specifying their directories:
+
+    $ rkeys ./app1 ./app2 /tmp/foo
+
 ## developer build and run
 
     $ npm install -g livescript   # ensure livescript is installed globally
