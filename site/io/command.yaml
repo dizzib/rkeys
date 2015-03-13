@@ -7,6 +7,7 @@
 '=': XK_equal
 '-': XK_minus
 '.': XK_period
+'?': XK_question
 '`': XK_quoteleft
 '/': XK_slash
 ';': XK_semicolon
