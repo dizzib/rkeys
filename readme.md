@@ -13,7 +13,7 @@ A platform for creating tablet/HTML5 apps to send keystrokes to remote [X11]:
 
 With [node.js] installed on the target [X11] box:
 
-    $ npm install -g rkeys
+    $ npm install -g rkeys      # might need to prefix with sudo
 
 ## run examples
 
