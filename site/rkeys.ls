@@ -1,5 +1,10 @@
 global.log = console.log
 
+Args    = require \./args
+GenCert = require \./gen-ssl-cert
+
+return GenCert! if Args.gen-ssl-cert
+
 <- require \wait.for .launchFiber
 
 Bify    = require \browserify
@@ -15,7 +20,6 @@ Path    = require \path
 Shell   = require \shelljs/global
 Stylus  = require \stylus
 W4m     = require \wait.for .forMethod
-Args    = require \./args
 Api     = require \./io/api
 
 const DIR-UI = "#__dirname/ui"

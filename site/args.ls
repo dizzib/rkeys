@@ -5,7 +5,8 @@ const DEFAULT-PORT = 7000
 const DEFAULT-APP  = "#__dirname/app"
 
 C.version P.version
-C.usage '[Options] <app-directory ...>'
+C.usage '[Options] <directory ...>'
+C.option '-g, --gen-ssl-cert', 'generate ssl certificate'
 C.option '-p, --port [port]', "listening port (default:#DEFAULT-PORT)", DEFAULT-PORT
 C.parse process.argv
 C.dirs = if C.args.length then C.args else [ DEFAULT-APP ]

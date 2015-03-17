@@ -56,11 +56,12 @@ then navigate your tablet to `http://your-rkeys-server:7000/bar`:
 
       -h, --help             output usage information
       -V, --version          output the version number
+      -g, --gen-ssl-cert     generate ssl certificate
       -p, --port [port]      listening port (default:7000)
 
 Host multiple apps simutaneously by specifying their directories:
 
-    $ rkeys ./app1 ./app2 /tmp/foo
+    $ rkeys ./app1 ./app2 ~/app3
 
 ## developer build and run
 
