@@ -56,12 +56,24 @@ then navigate your tablet to `http://your-rkeys-server:7000/bar`:
 
       -h, --help             output usage information
       -V, --version          output the version number
-      -g, --gen-ssl-cert     generate ssl certificate
+      -g, --gen-ssl-cert     generate a self-signed ssl certificate
       -p, --port [port]      listening port (default:7000)
 
 Host multiple apps simutaneously by specifying their directories:
 
     $ rkeys ./app1 ./app2 ~/app3
+
+## hosting over https
+
+In a new empty directory either [create the key.pem and cert.pem manually](http://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl?rq=1)
+or do the following:
+
+    $ rkeys -g      # generate using openssl. Follow the prompts.
+
+Include this directory on the `rkeys` command line to host your apps over
+https on port + 1 (default 7001):
+
+    https://your-rkeys-server:7001/app
 
 ## developer build and run
 
