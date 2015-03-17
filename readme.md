@@ -70,10 +70,8 @@ or do the following:
 
     $ rkeys -g      # generate using openssl. Follow the prompts.
 
-Include this directory on the `rkeys` command line to host your apps over
-https on port + 1 (default 7001):
-
-    https://your-rkeys-server:7001/app
+Include this directory on the `rkeys` command line to host over
+https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 
 ## developer build and run
 
