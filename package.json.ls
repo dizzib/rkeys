@@ -21,7 +21,7 @@ dependencies:
   jade         : \1.9.1
   'js-yaml'    : \3.2.5
   LiveScript   : \1.3.0
-  lodash       : \2.4.1
+  lodash       : \3.5.0
   lsify        : \0.1.0
   morgan       : \1.5.1
   nib          : \1.1.0
