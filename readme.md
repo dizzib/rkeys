@@ -65,7 +65,7 @@ Host multiple apps simutaneously by specifying their directories:
 
 ## hosting over https
 
-In a new empty directory either [create the key.pem and cert.pem manually](http://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl?rq=1)
+In a new empty directory either [create a key.pem and cert.pem manually](http://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl?rq=1)
 or do the following:
 
     $ rkeys -g      # generate using openssl. Follow the prompts.
