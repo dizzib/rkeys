@@ -5,6 +5,7 @@
 ':': XK_colon
 ',': XK_comma
 '=': XK_equal
+'!': XK_exclam
 '-': XK_minus
 '.': XK_period
 '?': XK_question
