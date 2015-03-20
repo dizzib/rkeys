@@ -21,7 +21,7 @@ mixin key(args, label)
   - var id = arr[0]
   - label = label || arr[1]
   .key.up(id=id, class=attributes.class)
-    if (label && label.substring(0,3) == 'fa-')
+    if label && label.substring(0,3) == 'fa-'
       // label is a font-awesome identifier
       .label
         i.fa.fa-2x(class=label)
@@ -32,6 +32,17 @@ mixin key(args, label)
       .label(class=lblcls)= lbl
 
 // mixin to generate a sequence of keys
+//
+// accepts a list of args, where each arg is one of the following:
+//    - a single key id e.g. 'a'
+//    - an 'id label' string e.g. 'Shift_L Shift'
+//    - a space-delimited string of 3 or more key ids e.g. 'q w e r t y'
+//
 mixin keys(...args)
   each arg in args
-    +key(arg)
+    - ids = arg.toString().split(' ')
+    if ids.length <= 2
+      +key(arg)
+    else
+      each id in ids
+        +key(id)
