@@ -1,5 +1,6 @@
 # symbols
 "'": XK_apostrophe
+'\': XK_backslash
 '[': XK_bracketleft
 ']': XK_bracketright
 ':': XK_colon
