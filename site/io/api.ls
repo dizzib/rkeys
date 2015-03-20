@@ -11,6 +11,8 @@ Fsh  = require \./filter/shell-exec
 Kseq = require \./keyseq
 
 module.exports.init = (http) ->
+  Actw.on \changed, -> io.emit \active-window-changed, Actw.title
+
   (io = Io http).on \connection, (socket) ->
     log "connect #{ip = socket.conn.remoteAddress}"
     socket
@@ -18,15 +20,9 @@ module.exports.init = (http) ->
       ..on \keydown   , -> apply-filters 0, it
       ..on \keyup     , -> apply-filters 1, it
       ..on \keyseq    , Kseq
-    emit-active-window-changed!
-  Actw.on \changed, emit-active-window-changed
+    Actw.emit \changed
 
-  ## helpers
-
-  function apply-filters direction, id
-    command = Cmd.get id
-    for f in [ Fnop, Fbu, Fkr, Fsh, Fkc, Fkm ] # filter order matters
-      return if f direction, id, command
-
-  function emit-active-window-changed
-    io.emit \active-window-changed, Actw.title
+    function apply-filters direction, id
+      command = Cmd.get id
+      for f in [ Fnop, Fbu, Fkr, Fsh, Fkc, Fkm ] # filter order matters
+        return if f direction, id, command
