@@ -40,10 +40,21 @@ block layout
   +key('abc-repeat-slow', 'abc (repeat slow)')
 
   h2 Mouse buttons
+  // B* commands are defined in ../io/command.yaml
   +keys('B1 left', 'B2 middle', 'B3 right')
   +key('B4', 'wheel up')
   +key('B5', 'wheel down')
   +keys('B6 B7 B8')
+
+  h2 Layers
+  // L* commands are defined in ../io/command.yaml
+  +keys('L1 layer-1', 'L2 layer-2')
+  .layer-0
+    +keys('a b c')
+  .layer-1
+    +keys('1 2 3')
+  .layer-2
+    +keys('[ ] .')
 
   h2 Shell exec
   p Check rkeys node console for standard output messages

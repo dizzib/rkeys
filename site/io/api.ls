@@ -2,6 +2,7 @@ _    = require \lodash
 Io   = require \socket.io
 Cmd  = require \./command
 Actw = require \./x11/active-window
+Fbr  = require \./filter/broadcast
 Fbu  = require \./filter/button
 Fkc  = require \./filter/key-chord
 Fkm  = require \./filter/key-macro
@@ -24,5 +25,5 @@ module.exports.init = (http) ->
 
     function apply-filters direction, id
       command = Cmd.get id
-      for f in [ Fnop, Fbu, Fkr, Fsh, Fkc, Fkm ] # filter order matters
-        return if f direction, id, command
+      for f in [ Fnop, Fbu, Fkr, Fbr, Fsh, Fkc, Fkm ] # filter order matters
+        return if f direction, id, command, io
