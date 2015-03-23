@@ -31,6 +31,7 @@ B7: button 7
 B8: button 8
 
 # layouts
-L1: [ broadcast layout 1, broadcast layout 0 ]
-L2: [ broadcast layout 2, broadcast layout 0 ]
-L3: [ broadcast layout 3, broadcast layout 0 ]
+layout-default: broadcast layout default
+layout-1: [ broadcast layout 1, broadcast layout default ]
+layout-2: [ broadcast layout 2, broadcast layout default ]
+layout-3: [ broadcast layout 3, broadcast layout default ]

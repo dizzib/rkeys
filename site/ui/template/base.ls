@@ -12,8 +12,8 @@ socket.on \active-window-changed, (title) ->
     $el.toggle rx.test title
 
 # layouts
-function show-layout n
-  const MAX-LAYOUT = 3
-  for i from 0 to MAX-LAYOUT then $ ".layout-#i" .toggle i is parseInt n, 10
+function show-layout
+  $ \.layout .hide!
+  $ ".layout.#it" .show!
 socket.on \layout, show-layout
-show-layout 0
+show-layout \default
