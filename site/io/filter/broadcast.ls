@@ -1,5 +1,8 @@
 _   = require \lodash
 
+const DOWN = 0
+const UP   = 1
+
 module.exports = (direction, id, command, io) ->
   return false unless command?
 
