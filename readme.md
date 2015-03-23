@@ -6,6 +6,7 @@ A platform for creating tablet/HTML5 apps to send keystrokes to remote [X11]:
 - [define chords and sequences](./site/app/example.yaml) with delays and auto-repeat
 - use the built-in [mixins](./site/ui/mixin) and [templates](./site/ui/template) to minimise your code
 - enhance with [LiveScript] and [Font Awesome][fa] icons
+- assign keys to switch between layouts
 - context sensitivity - show/hide elements matching the active window title
 - simulate mouse buttons and run shell commands
 
@@ -26,7 +27,7 @@ then navigate your tablet to `http://your-rkeys-server:7000/example`
 
 Also see [rkeys-apps](https://github.com/dizzib/rkeys-apps) for more.
 
-## tutorial
+## get started
 
 An rkeys app is a directory containing at least one jade file.
 
@@ -63,7 +64,7 @@ Host multiple apps simutaneously by specifying their directories:
 
     $ rkeys ./app1 ./app2 ~/app3
 
-## hosting over https
+## host over https
 
 In a new empty directory either [create a key.pem and cert.pem manually](http://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl?rq=1)
 or do the following:
