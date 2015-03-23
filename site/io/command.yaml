@@ -30,7 +30,7 @@ B6: button 6
 B7: button 7
 B8: button 8
 
-# layers
-L1: [ broadcast layer 1, broadcast layer 0 ]
-L2: [ broadcast layer 2, broadcast layer 0 ]
-L3: [ broadcast layer 3, broadcast layer 0 ]
+# layouts
+L1: [ broadcast layout 1, broadcast layout 0 ]
+L2: [ broadcast layout 2, broadcast layout 0 ]
+L3: [ broadcast layout 3, broadcast layout 0 ]

@@ -11,9 +11,9 @@ socket.on \active-window-changed, (title) ->
     rx = new RegExp rxstr
     $el.toggle rx.test title
 
-# layers
-function show-layer n
-  const MAX-LAYER = 3
-  for i from 0 to MAX-LAYER then $ ".layer-#i" .toggle i is parseInt n, 10
-socket.on \layer, show-layer
-show-layer 0
+# layouts
+function show-layout n
+  const MAX-LAYOUT = 3
+  for i from 0 to MAX-LAYOUT then $ ".layout-#i" .toggle i is parseInt n, 10
+socket.on \layout, show-layout
+show-layout 0
