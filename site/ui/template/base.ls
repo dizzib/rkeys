@@ -12,8 +12,8 @@ socket.on \active-window-changed, (title) ->
     $el.toggle rx.test title
 
 # layouts
-function show-layout
-  $ \.layout .hide!
+function switch-layout
+  $ ".layout:not(.#it)" .hide!
   $ ".layout.#it" .show!
-socket.on \layout, show-layout
-show-layout \default
+socket.on \layout, switch-layout
+switch-layout \default
