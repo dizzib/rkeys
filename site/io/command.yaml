@@ -1,19 +1,35 @@
 # symbols
+'&': XK_ampersand
 "'": XK_apostrophe
+'^': XK_asciicircum
+'~': XK_asciitilde
+'@': XK_at
+'*': XK_asterisk
 '\': XK_backslash
+'|': XK_bar
+'{': XK_braceleft
+'}': XK_braceright
 '[': XK_bracketleft
 ']': XK_bracketright
 ':': XK_colon
 ',': XK_comma
+'$': XK_dollar
 '=': XK_equal
 '!': XK_exclam
 '-': XK_minus
+'#': XK_numbersign
+'(': XK_parenleft
+')': XK_parenright
+'%': XK_percent
 '.': XK_period
+'+': XK_plus
 '?': XK_question
+'"': XK_quotedbl
 '`': XK_quoteleft
 '/': XK_slash
 ';': XK_semicolon
 ' ': XK_space
+'_': XK_underscore
 
 # modifier prefix aliases, e.g. 'S+C+F4' expands to 'Shift_L+Control_L+F4'
 A+: alias Alt_L+
