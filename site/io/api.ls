@@ -25,5 +25,5 @@ module.exports.init = (http) ->
 
     function apply-filters direction, id
       command = Cmd.get id
-      for f in [ Fnop, Fbu, Fkr, Fbr, Fsh, Fkc, Fkm ] # filter order matters
+      for f in [ Fnop, Fbr, Fbu, Fkr, Fsh, Fkc, Fkm ] # filter order matters
         return if f direction, id, command, io
