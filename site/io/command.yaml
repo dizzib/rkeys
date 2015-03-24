@@ -16,6 +16,8 @@
 '$': XK_dollar
 '=': XK_equal
 '!': XK_exclam
+'>': XK_greater
+'<': XK_less
 '-': XK_minus
 '#': XK_numbersign
 '(': XK_parenleft
