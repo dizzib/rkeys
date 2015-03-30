@@ -5,13 +5,12 @@
 //    - 'specifier label' (space-delimited string)
 //
 // specifier: (mandatory) one of the following:
-//    - id
-//    - id:params
-//
-// id: (mandatory) one of the following:
-//    - a full keysym-id eg 'XK_a'
+//    - a keysym-id eg 'XK_a'
 //    - a keysym suffix eg 'a'
-//    - a command-id defined in command yaml
+//    - id
+//      a command-id as defined in command yaml
+//    - id:params
+//      command-id with a list of comma-delimited parameters
 //
 //    Full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
 //    If label isn't supplied then treat specifier as the label
