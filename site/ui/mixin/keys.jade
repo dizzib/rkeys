@@ -1,16 +1,20 @@
 // mixin to generate a single key
 //
 // args: (mandatory) one of the following:
+//    - specifier
+//    - 'specifier label' (space-delimited string)
+//
+// specifier: (mandatory) one of the following:
 //    - id
-//    - 'id label' (space-delimited string)
+//    - id:params
 //
 // id: (mandatory) one of the following:
 //    - a full keysym-id eg 'XK_a'
-//    - a keysym suffi eg 'a'
-//    - a command id eg 'B1' for mouse button 1
+//    - a keysym suffix eg 'a'
+//    - a command-id defined in command yaml
 //
-//    full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
-//    id is treated as the label if label isn't supplied
+//    Full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
+//    If label isn't supplied then treat specifier as the label
 //
 // label: (optional) one of the following:
 //    - text string e.g. 'my label'
@@ -18,31 +22,31 @@
 //
 mixin key(args, label)
   - var arr = args.toString().split(' ')
-  - var id = arr[0]
+  - var spec = arr[0]
   - label = label || arr[1]
-  .key.up(id=id, class=attributes.class)
+  .key.up(id=spec, class=attributes.class)
     if label && label.substring(0,3) == 'fa-'
       // label is a font-awesome identifier
       .label
         i.fa.fa-2x(class=label)
     else
-      // treat label as text
-      - var lbl = label || id
+      // label is text
+      - var lbl = label || spec
       - var lblcls = 'len-' + lbl.toString().length
       .label(class=lblcls)= lbl
 
 // mixin to generate a sequence of keys
 //
 // accepts a list of args, where each arg is one of the following:
-//    - a single key id e.g. 'a'
-//    - an 'id label' string e.g. 'Shift_L Shift'
-//    - a space-delimited string of 3 or more key ids e.g. 'q w e r t y'
+//    - a single specifier e.g. 'a'
+//    - 'specifier label' e.g. 'C+z undo'
+//    - a space-delimited string of 3 or more specifiers e.g. 'q w e r t y'
 //
 mixin keys(...args)
   each arg in args
-    - ids = arg.toString().split(' ')
-    if ids.length <= 2
+    - specs = arg.toString().split(' ')
+    if specs.length <= 2
       +key(arg)
     else
-      each id in ids
-        +key(id)
+      each spec in specs
+        +key(spec)

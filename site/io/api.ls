@@ -22,7 +22,8 @@ module.exports.init = (http) ->
       ..on \keyseq    , Kseq
     Actw.emit \changed
 
-    function apply-filters direction, id
+    function apply-filters direction, spec
+      [id, params] = spec / \:
       command = Cmd.get id
       for f in [ Fnop, Fbr, Fbu, Fkf, Fsh, Fkm ] # filter order matters
-        return if f direction, id, command, io
+        return if f direction, id, command, (params or '') / ',', io
