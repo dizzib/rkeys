@@ -4,10 +4,9 @@ Cmd  = require \./command
 Actw = require \./x11/active-window
 Fbr  = require \./filter/broadcast
 Fbu  = require \./filter/button
-Fkc  = require \./filter/key-chord
+Fkf  = require \./filter/key-follow
 Fkm  = require \./filter/key-macro
 Fnop = require \./filter/nop
-Fkr  = require \./filter/key-raw
 Fsh  = require \./filter/shell-exec
 Kseq = require \./keyseq
 
@@ -25,5 +24,5 @@ module.exports.init = (http) ->
 
     function apply-filters direction, id
       command = Cmd.get id
-      for f in [ Fnop, Fbr, Fbu, Fkr, Fsh, Fkc, Fkm ] # filter order matters
+      for f in [ Fnop, Fbr, Fbu, Fkf, Fsh, Fkm ] # filter order matters
         return if f direction, id, command, io

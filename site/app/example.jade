@@ -26,9 +26,11 @@ block layout
 
   h2 Key chords
   p Press and hold for native auto-repeat
-  // the key-id (e.g. 'shift+a') is a command-id in example.yaml
-  +key('shift+a', 'Shift + a')
-  +key('shift+8', 'Shift + 8')
+  // key chords are denoted by infix +
+  // modifier aliases are defined in ../io/command.yaml
+  +key('S+a', 'shift a')
+  // for extra clarity we can specify the chord in the command yaml...
+  +key('type-an-asterisk', 'shift 8')
 
   h2 Key sequences with delay and non-native auto-repeat
   p Press and hold for non-native auto-repeat
@@ -63,7 +65,7 @@ block layout
 
   h2: a(href='http://fortawesome.github.io/Font-Awesome/icons') Font Awesome icons
   // we pass fa-* into the label field
-  +keys('edit-copy fa-copy', 'edit-cut fa-cut', 'edit-paste fa-paste')
+  +keys('C+c fa-copy', 'C+x fa-cut', 'C+v fa-paste')
 
   h2 Context sensitivity
   +show-if(activeWindowTitle='xterm|@')

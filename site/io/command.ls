@@ -5,11 +5,17 @@ Yaml = require \js-yaml
 Sh   = require \shelljs/global
 Args = require \../args
 
-cmds   = {}
-fpaths = []
-load-all!
+aliases = {}
+cmds    = {}
+fpaths  = []
 
-module.exports.get = (id) -> cmds[id]
+module.exports = me =
+  apply-aliases: (s) ->
+    for k, v of aliases then s = s.replace k, v
+    s
+  get: (id) -> cmds[id]
+
+load-all!
 
 function load-all
   for p in fpaths then Fs.unwatchFile p
@@ -22,7 +28,7 @@ function load-all
   for p in fpaths
     cfg = _.extend cfg, load-file p
     Fs.watchFile p, load-all
-  cmds := process-aliases cfg
+  process-aliases cfg
 
 function load-file path
   log "load commands from #path"
@@ -41,18 +47,13 @@ function load-file path
     cfg
 
 function process-aliases cfg
-  as = {} # aliases
-  cs = {} # non-alias commands
+  aliases := {}
+  cmds    := {}
   for k, v of cfg
-    if /^alias /.test v then as[k] = v.slice 6 else cs[k] = v
-  for k, v of cs
+    if /^alias /.test v then aliases[k] = v.slice 6 else cmds[k] = v
+  for k, v of cmds
     if _.isArray v
-      cs[k] = []
-      for s in v then cs[k].push apply-aliases as, s
+      cmds[k] = []
+      for s in v then cmds[k].push me.apply-aliases s
     else if _.isString v
-      cs[k] = apply-aliases as, v
-  return cs
-
-  function apply-aliases aliases, s
-    for k, v of aliases then s = s.replace k, v
-    s
+      cmds[k] = me.apply-aliases v
