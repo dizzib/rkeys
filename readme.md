@@ -20,12 +20,13 @@ With [node.js] installed on the target [X11] box:
 
     $ rkeys
 
-then navigate your tablet to `http://your-rkeys-server:7000/example`
-(see [example code](./site/app)):
+then navigate your tablet to `http://your-rkeys-server:7000/example`:
 
 ![example screenshot](http://dizzib.github.io/rkeys/example.png)
 
-Also see [rkeys-apps](https://github.com/dizzib/rkeys-apps) for more.
+See this example [jade](./site/app/example.jade), [stylus](./site/app/example.styl)
+and [yaml](./site/app/example.yaml).
+Also see [some real-world examples](https://github.com/dizzib/rkeys-apps).
 
 ## get started
 

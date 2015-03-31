@@ -14,15 +14,19 @@ block layout
   // see ../ui/mixin/keys.jade for +key() and +keys() documentation
 
   h2 Single keys
-  p Press and hold for native auto-repeat
-  p Try pressing Shift with a key (requires a multi-touchpoint tablet)
+  :markdown
+    Press and hold for native auto-repeat.
+    Try pressing Shift with a key (requires a multi-touchpoint tablet).
+    Also try to 'latch' the Shift by releasing your finger away from the key
+    (this is similar to caps-lock on a traditional keyboard). To unlatch,
+    simply tap the key again.
   // See the full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
   // single keysym suffix i.e. XK_a minus the XK_
   +key('a')
   // sequence of keysym suffixes
   +keys('b c 1 2 3')
   // keysym suffixes with labels
-  +key('Shift_L', 'Shift').w-2
+  +key('Shift_L', 'Shift').latching.w-2
   +key('BackSpace', 'Back- space')
 
   h2 Key chords
@@ -50,8 +54,9 @@ block layout
 
   h2 Layout switching
   // layout command is defined in ../io/command.yaml
-  +key('layout:numbers').w-2
-  +key('layout:symbols').w-2
+  .latching
+    +key('layout:numbers').w-3
+    +key('layout:symbols').w-3
   .layout.default
     +keys('a b c')
   .layout.numbers
