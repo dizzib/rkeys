@@ -43,7 +43,7 @@ Create file `./foo/bar.jade` with the following content:
 Here we pull in the [keys template](./site/ui/template/keys.jade) which
 gives us access to the [+key and +keys mixins](./site/ui/mixin/keys.jade).
 
-Now host the app by passing its directory on the command line:
+Host the app by passing its directory on the command line:
 
     $ rkeys foo
 
