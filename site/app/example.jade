@@ -11,6 +11,7 @@ append head
 
 block layout
   h1 rkeys examples
+  // see ../ui/mixin/keys.jade for +key() and +keys() documentation
 
   h2 Single keys
   p Press and hold for native auto-repeat
@@ -34,7 +35,6 @@ block layout
 
   h2 Key sequences with delay and non-native auto-repeat
   p Press and hold for non-native auto-repeat
-  // the key-id is a command-id in example.yaml
   +key('HelloWorld', 'Hello World')
   +key('abc', 'abc')
   +key('abc-slow', 'abc (slow)')
@@ -61,11 +61,11 @@ block layout
 
   h2 Shell exec
   p Check rkeys node console for standard output messages
-  +key('exec-echo', 'exec echo')
-  +key('exec-xterm', 'exec xterm')
+  +key('echo:foo,bar,baz', 'exec echo')
+  +key('xterm', 'exec xterm')
 
   h2: a(href='http://fortawesome.github.io/Font-Awesome/icons') Font Awesome icons
-  // we pass fa-* into the label field
+  // pass fa-* into the label field
   +keys('C+c fa-copy', 'C+x fa-cut', 'C+v fa-paste')
 
   h2 Context sensitivity

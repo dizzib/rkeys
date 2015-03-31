@@ -48,6 +48,8 @@ then navigate your tablet to `http://your-rkeys-server:7000/bar`:
 
 ![tutorial screenshot](http://dizzib.github.io/rkeys/tutorial.png)
 
+[Click here](./site/ui/mixin/keys.jade) for +key() and +keys() documentation.
+
 ## options
 
     $ rkeys --help

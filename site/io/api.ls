@@ -23,7 +23,20 @@ module.exports.init = (http) ->
     Actw.emit \changed
 
     function apply-filters direction, spec
-      [id, params] = if spec is \: then [\:, ''] else spec / \:
-      command = Cmd.get id
+      [id, command] = parse-spec spec
       for f in [ Fnop, Fbr, Fbu, Fkf, Fsh, Fkm ] # filter order matters
-        return if f direction, id, command, (params or '') / ',', io
+        return if f direction, id, command, io
+
+    function parse-spec spec
+      [id, p-str] = if spec is \: then [\:, ''] else spec / \:
+      cmd = Cmd.get id
+      return [id, cmd] unless p-str?length
+      p-arr = p-str / \,
+      return [id, (replace-params cmd, p-arr)] unless _.isArray cmd
+      [id, [(replace-params cmd.0, p-arr), (replace-params cmd.1, p-arr)]]
+
+    function replace-params s, p-arr
+      return s unless _.isString s
+      for p, i in p-arr then s .= replace "$#{i}", p
+      s
+

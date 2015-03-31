@@ -1,7 +1,9 @@
 # example.yaml
 #
-# A set of commands in format id:directives, where id
-# corresponds to #id.key in the html
+# A set of commands in format id: directives
+#
+# Directives can take parameters substituted into $n placeholders,
+# where $0 is the first parameter, $1 the second, etc.
 
 # key sequences
 #
@@ -26,5 +28,5 @@ type-an-asterisk: S+8
 HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]
 
 # exec shell command
-exec-echo : exec echo hello world!
-exec-xterm: exec xterm -fg red
+echo : exec echo $0 and $1 with $2
+xterm: exec xterm -fg red
