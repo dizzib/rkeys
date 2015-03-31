@@ -40,15 +40,16 @@ Create file `./foo/bar.jade` with the following content:
     block layout
       +key('a')
 
-Host the app by passing the app's directory on the command line:
+Here we pull in the [keys template](./site/ui/template/keys.jade) which
+gives us access to the [+key and +keys mixins](./site/ui/mixin/keys.jade).
+
+Now host the app by passing its directory on the command line:
 
     $ rkeys foo
 
 then navigate your tablet to `http://your-rkeys-server:7000/bar`:
 
 ![tutorial screenshot](http://dizzib.github.io/rkeys/tutorial.png)
-
-[Click here](./site/ui/mixin/keys.jade) for +key() and +keys() documentation.
 
 ## options
 
