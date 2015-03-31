@@ -23,7 +23,7 @@ module.exports.init = (http) ->
     Actw.emit \changed
 
     function apply-filters direction, spec
-      [id, params] = spec / \:
+      [id, params] = if spec is \: then [\:, ''] else spec / \:
       command = Cmd.get id
       for f in [ Fnop, Fbr, Fbu, Fkf, Fsh, Fkm ] # filter order matters
         return if f direction, id, command, (params or '') / ',', io
