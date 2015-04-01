@@ -41,11 +41,17 @@ mixin key(args, label)
 //    - 'specifier label' e.g. 'C+z undo'
 //    - a space-delimited string of 3 or more specifiers e.g. 'q w e r t y'
 //
+//  Any attributes are applied to each key in turn. Examples:
+//
+//  +keys('x').foo      expands to  +key('x').foo
+//  +keys('x y').foo    expands to  +key('x y').foo
+//  +keys('x y z').foo  expands to  +key('x').foo  +key('y').foo  +key('z').foo
+//
 mixin keys(...args)
   each arg in args
     - specs = arg.toString().split(' ')
     if specs.length <= 2
-      +key(arg)
+      +key(arg)&attributes(attributes)
     else
       each spec in specs
-        +key(spec)
+        +key(spec)&attributes(attributes)
