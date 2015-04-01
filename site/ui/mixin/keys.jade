@@ -43,9 +43,10 @@ mixin key(args, label)
 //
 //  Any attributes are applied to each key in turn. Examples:
 //
-//  +keys('x').foo      expands to  +key('x').foo
-//  +keys('x y').foo    expands to  +key('x y').foo
-//  +keys('x y z').foo  expands to  +key('x').foo  +key('y').foo  +key('z').foo
+//  +keys('x').foo       expands to  +key('x').foo
+//  +keys('x y').foo     expands to  +key('x y').foo
+//  +keys('x', 'y').foo  expands to  +key('x').foo  +key('y').foo
+//  +keys('x y z').foo   expands to  +key('x').foo  +key('y').foo  +key('z').foo
 //
 mixin keys(...args)
   each arg in args
