@@ -56,9 +56,7 @@ block layout
 
   h2 Layout switching
   // layout command is defined in ../io/command.yaml
-  .latching
-    +key('layout:numbers').w-3
-    +key('layout:symbols').w-3
+  +keys('layout:numbers', 'layout:symbols').w-3.latching
   .layout.default
     +keys('a b c')
   .layout.numbers
