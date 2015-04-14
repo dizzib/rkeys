@@ -22,7 +22,7 @@ function create-beep {freq=1000hz, dur=0.025s, toFreq, type} = {}
     ..type = type if type?
     ..start!
     ..stop dur
-  render-cache oc, osc
+  render-cache-offline oc, osc
 
 function create-noise {dur=0.025s} = {}
   samples = []
@@ -32,6 +32,9 @@ function create-noise {dur=0.025s} = {}
   c.play
 
 function create-cache
+  # For some reason web-api audio has high latency
+  # even when buffered so output using html5 audio.
+  # May need to revisit at some point.
   audio = []
   p = 0
   init: (samples) ->
@@ -40,7 +43,7 @@ function create-cache
   play: ->
     audio[p++ % CACHE-SIZE]?play!
 
-function render-cache oc, generator
+function render-cache-offline oc, generator
   cache = create-cache!
   generator.connect oc.destination
   oc.oncomplete = -> cache.init it.renderedBuffer.getChannelData 0
