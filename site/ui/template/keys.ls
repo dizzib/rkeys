@@ -1,12 +1,15 @@
 socket = io!
 
-$ '.latching .key, .key.latching' .on \touchend ->
-  x = it.originalEvent.changedTouches.0.pageX - window.pageXOffset
-  y = it.originalEvent.changedTouches.0.pageY - window.pageYOffset
-  return unless target = document.elementFromPoint x, y
-  return if ($t = $ target).is ($key = $ this)
-  return if $t.parents!is $key
-  it.stopImmediatePropagation!
+$ '.latchable .key, .key.latchable'
+  ..on \touchstart ->
+    $key.trigger \latch if ($key = $ this).hasClass \up
+  ..on \touchend ->
+    x = it.originalEvent.changedTouches.0.pageX - window.pageXOffset
+    y = it.originalEvent.changedTouches.0.pageY - window.pageYOffset
+    return unless target = document.elementFromPoint x, y
+    $t = ($ target).add ($ target).parents!
+    return $key.trigger \unlatch if $t.is ($key = $ this)
+    it.stopImmediatePropagation!
 
 set-event-handler \touchstart, \down
 set-event-handler \touchend  , \up

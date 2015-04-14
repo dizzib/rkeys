@@ -1,5 +1,5 @@
 # assign some basic sounds
-$ '.key:not(.latching)' .on \touchstart Sound.hiss
-$ \.key.latching
-  ..on \touchstart Sound.jump
-  ..on \touchend   Sound.land
+$ '.key:not(.latchable)' .on \touchstart Sound.blop
+$ \.key.latchable
+  ..on \latch   Sound.rise
+  ..on \unlatch Sound.fall

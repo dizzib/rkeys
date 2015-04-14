@@ -26,7 +26,7 @@ block layout
   // sequence of keysym suffixes
   +keys('b c 1 2 3')
   // keysym suffixes with labels
-  +key('Shift_L', 'Shift').latching.w-2
+  +key('Shift_L', 'Shift').latchable.w-2
   +key('BackSpace', 'Back- space')
 
   h2 Key chords
@@ -56,7 +56,7 @@ block layout
 
   h2 Layout switching
   // layout command is defined in ../io/command.yaml
-  +keys('layout:numbers', 'layout:symbols').w-3.latching
+  +keys('layout:numbers', 'layout:symbols').w-3.latchable
   .layout.default
     +keys('a b c')
   .layout.numbers
