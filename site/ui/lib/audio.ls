@@ -10,7 +10,7 @@ window.Sound =
   beep        : create-beep!
   blip        : create-beep type:\square freq:9000hz
   blop        : create-beep type:\square freq:100hz
-  fall        : create-beep toFreq:0hz
+  drop        : create-beep toFreq:0hz
   rise        : create-beep toFreq:2000hz
   noise       : create-noise!
 
