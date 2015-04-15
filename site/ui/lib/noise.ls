@@ -1,4 +1,5 @@
 # noise.ls
+# http://noisehack.com/generate-noise-web-audio-api/
 
 window.Noise =
   create-brown-noise: (buffer-size) ->

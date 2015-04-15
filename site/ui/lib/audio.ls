@@ -18,31 +18,24 @@ window.Sound =
     white: create-noise type:\white
 
 function create-beep {freq=1000hz, dur=0.025s, toFreq, type} = {}
-  oc = new OfflineAudioContext MONO, SAMPLERATE * dur, SAMPLERATE
-  osc = oc.createOscillator!
+  ctx <- render-cache-offline dur
+  ctx.createOscillator!
     ..frequency.value = freq
     ..frequency.setTargetAtTime toFreq, 0, dur if toFreq?
     ..type = type if type?
-    ..start!
-    ..stop dur
-  render-cache-offline oc, osc
 
 function create-noise {dur=0.025s, type=\white} = {}
   const GENS =
     brown: Noise.create-brown-noise
     pink : Noise.create-pink-noise
     white: Noise.create-white-noise
-  size = SAMPLERATE * dur
-  oc = new OfflineAudioContext MONO, size, SAMPLERATE
-  b = oc.createBuffer MONO, size, SAMPLERATE
+  ctx, size <- render-cache-offline dur
+  b = ctx.createBuffer MONO, size, SAMPLERATE
   samples = GENS[type] size
-  arr = b.getChannelData 0
-  for i to size - 1 then arr[i] = samples[i]
-  noise = oc.createBufferSource!
+  data = b.getChannelData 0 # copyToChannel() not supported yet
+  for i to size - 1 then data[i] = samples[i]
+  ctx.createBufferSource!
     ..buffer = b
-    ..start!
-    ..stop dur
-  render-cache-offline oc, noise
 
 function create-cache
   # For some reason web-api audio has unacceptable latency
@@ -51,14 +44,18 @@ function create-cache
   audio = []
   p = 0
   init: (samples) ->
-    for i from 0 to CACHE-SIZE - 1
-      audio[i] = new Audio WavEncoder.encode samples
-  play: ->
-    audio[p++ % CACHE-SIZE]?play!
+    data = WavEncoder.encode samples
+    for i to CACHE-SIZE - 1 then audio[i] = new Audio data
+  play: -> audio[p++ % CACHE-SIZE]?play!
 
-function render-cache-offline oc, generator
+function render-cache-offline dur, create-generator
+  size = SAMPLERATE * dur
+  c = new OfflineAudioContext MONO, size, SAMPLERATE
+  generator = create-generator c, size
+    ..connect c.destination
+    ..start!
+    ..stop dur
   cache = create-cache!
-  generator.connect oc.destination
-  oc.oncomplete = -> cache.init it.renderedBuffer.getChannelData 0
-  oc.startRendering!
+  c.oncomplete = -> cache.init it.renderedBuffer.getChannelData 0
+  c.startRendering!
   cache.play
