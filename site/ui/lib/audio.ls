@@ -12,7 +12,10 @@ window.Sound =
   blop        : create-beep type:\square freq:100hz
   drop        : create-beep toFreq:0hz
   rise        : create-beep toFreq:2000hz
-  noise       : create-noise!
+  noise:
+    brown: create-noise type:\brown
+    pink : create-noise type:\pink
+    white: create-noise type:\white
 
 function create-beep {freq=1000hz, dur=0.025s, toFreq, type} = {}
   oc = new OfflineAudioContext MONO, SAMPLERATE * dur, SAMPLERATE
@@ -24,15 +27,25 @@ function create-beep {freq=1000hz, dur=0.025s, toFreq, type} = {}
     ..stop dur
   render-cache-offline oc, osc
 
-function create-noise {dur=0.025s} = {}
-  samples = []
-  for i from 0 to SAMPLERATE * dur then samples[i] = 2 * Math.random! - 1
-  c = create-cache!
-  c.init samples
-  c.play
+function create-noise {dur=0.025s, type=\white} = {}
+  const GENS =
+    brown: Noise.create-brown-noise
+    pink : Noise.create-pink-noise
+    white: Noise.create-white-noise
+  size = SAMPLERATE * dur
+  oc = new OfflineAudioContext MONO, size, SAMPLERATE
+  b = oc.createBuffer MONO, size, SAMPLERATE
+  samples = GENS[type] size
+  arr = b.getChannelData 0
+  for i to size - 1 then arr[i] = samples[i]
+  noise = oc.createBufferSource!
+    ..buffer = b
+    ..start!
+    ..stop dur
+  render-cache-offline oc, noise
 
 function create-cache
-  # For some reason web-api audio has high latency
+  # For some reason web-api audio has unacceptable latency
   # even when buffered so output using html5 audio.
   # May need to revisit at some point.
   audio = []
