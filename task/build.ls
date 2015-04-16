@@ -1,9 +1,8 @@
 Assert  = require \assert
+Choki   = require \chokidar
 Cron    = require \cron
 Emitter = require \events .EventEmitter
 Fs      = require \fs
-Gaze    = require \gaze
-Globule = require \globule
 _       = require \lodash
 Md      = require \marked
 Path    = require \path
@@ -66,23 +65,25 @@ module.exports = me = (new Emitter!) with
 
   stop: ->
     pruner.stop!
-    for , t of tasks then t.gaze?close!
+    for , t of tasks then t.watcher?close!
     G.say 'build stopped'
 
 ## helpers
 
 function compile t, ipath, cb
+  full-ipath = "#{Dir.ROOT}/#ipath"
   odir = Path.dirname opath = get-opath t, ipath
   mkdir \-p, odir # stylus fails if outdir doesn't exist
   switch typeof t.cmd
   | \string =>
-    cmd = t.cmd.replace(\$IN, "'#ipath'").replace \$OUT, "'#opath'"
+    cmd = t.cmd.replace \$IN, "'#full-ipath'"
+    cmd .= replace \$OUT, "'#opath'"
     cmd .= replace \$ODIR, "'#odir'"
     code, res <- exec cmd
     log code, res if code
     cb (if code then res else void), opath
   | \function =>
-    e <- t.cmd ipath, opath
+    e <- t.cmd full-ipath, opath
     cb e, opath
 
 function compile-batch tid
@@ -97,9 +98,8 @@ function compile-batch tid
   G.ok "...done #info!"
 
 function get-opath t, ipath
-  p = ipath.replace("#{Dir.ROOT}/", '')
-  p = p.replace t.ixt, t.oxt if t.ixt?
-  return p unless (xsub = t.xsub?split '->')?
+  p = ipath.replace t.ixt, t.oxt if t.ixt?
+  return p or ipath unless (xsub = t.xsub?split '->')?
   p.replace xsub.0, xsub.1
 
 function markdown ipath, opath, cb
@@ -118,22 +118,25 @@ function start-watching tid
   ixt = (t = tasks[tid]).ixt
   pat = t.pat or "*.#ixt"
   dirs = "#{Dirname.SITE},#{Dirname.TASK}"
-  # TODO: remove t.isMatch when gaze fixes https://github.com/shama/gaze/issues/104
-  t.isMatch = (ipath) -> Globule.isMatch t.patterns, (ipath.replace "#{Dir.ROOT}/", '')
-  t.gaze = Gaze t.patterns = [ "#pat" "{#dirs}/**/#pat" ], ->
-    act, ipath <- t.gaze.on \all
-    return if '/' is ipath.slice -1 # BUG: Gaze might fire when dir added
-    return unless t.isMatch ipath # TODO: remove when gaze fixes issue 104
-    log act, ipath
-    WFib ->
-      switch act
-        | \added, \changed, \renamed
-          try opath = W4 compile, t, ipath
-          catch e then return G.err e
-          G.ok opath
-          me.emit \built
-        | \deleted
-          try W4m Fs, \unlink, opath = get-opath t, ipath
-          catch e then throw e unless e.code is \ENOENT # not found i.e. already deleted
-          G.ok "Delete #opath"
-          me.emit \built
+  paths = [ "#pat" "{#dirs}/**/#pat" ]
+  opts = cwd:Dir.ROOT, ignored:"#{Dirname.SITE}/app/*.*"
+  w = t.watcher = Choki.watch paths, opts
+  <- w.on \ready
+  w.on \all (act, ipath) -> log act, ipath
+  w.on \add try-compile
+  w.on \change try-compile
+  w.on \unlink try-unlink
+
+  function try-compile ipath
+    <- WFib
+    try opath = W4 compile, t, ipath
+    catch e then return G.err e
+    G.ok opath
+    me.emit \built
+
+  function try-unlink ipath
+    <- WFib
+    try W4m Fs, \unlink, opath = get-opath t, ipath
+    catch e then throw e unless e.code is \ENOENT # not found i.e. already deleted
+    G.ok "Delete #opath"
+    me.emit \built

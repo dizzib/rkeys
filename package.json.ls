@@ -32,6 +32,7 @@ dependencies:
   x11          : \1.0.3
 devDependencies:
   chalk        : \~0.4.0
+  chokidar     : \~1.0.1
   cron         : \~1.0.3
   gaze         : \~0.6.4
   globule      : \~0.2.0 # TODO: remove when gaze fixes issue 104
