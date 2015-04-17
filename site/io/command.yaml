@@ -43,3 +43,6 @@ button: button $0
 
 # layout switcher
 layout: [ broadcast layout $0, broadcast layout default ]
+
+# sound effect aliases
+SFX-BLIP: alias ../sfx/blip.wav

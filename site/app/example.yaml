@@ -30,3 +30,9 @@ HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]
 # exec shell command
 echo : exec echo $0 and $1 with $2
 xterm: exec xterm -fg red
+
+# sidechain
+/^abc/: PLAY-SOUND /mnt/global/menu.wav
+/.*/: PLAY-SOUND /mnt/global/submenu.wav
+
+PLAY-SOUND: alias exec aplay
