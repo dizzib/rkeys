@@ -45,4 +45,8 @@ button: button $0
 layout: [ broadcast layout $0, broadcast layout default ]
 
 # sound effect aliases
-SFX-BLIP: alias ../sfx/blip.wav
+SFX-BLIP : alias ./sfx/blip.wav
+SFX-CHIRP: alias ./sfx/chirp.wav
+SFX-DROID: alias ./sfx/droid.wav
+SFX-NOISE: alias ./sfx/noise.wav
+SFX-TOCK : alias ./sfx/tock.wav

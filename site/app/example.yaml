@@ -32,7 +32,7 @@ echo : exec echo $0 and $1 with $2
 xterm: exec xterm -fg red
 
 # sidechain
-/^abc/: PLAY-SOUND /mnt/global/menu.wav
-/.*/: PLAY-SOUND /mnt/global/submenu.wav
+/^abc/: PLAY-SOUND SFX-DROID
+/.*/: PLAY-SOUND SFX-BLIP
 
 PLAY-SOUND: alias exec aplay
