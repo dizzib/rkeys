@@ -2,13 +2,9 @@ _    = require \lodash
 Io   = require \socket.io
 Cmd  = require \./command
 Actw = require \./x11/active-window
-Fbr  = require \./filter/broadcast
-Fbu  = require \./filter/button
-Fkf  = require \./filter/key-follow
-Fkm  = require \./filter/key-macro
-Fnop = require \./filter/nop
-Fsh  = require \./filter/shell-exec
+Fc   = require \./filter-chain
 Kseq = require \./keyseq
+Sc   = require \./side-chain
 
 module.exports.init = (http) ->
   Actw.on \changed, -> io.emit \active-window-changed, Actw.title
@@ -24,12 +20,12 @@ module.exports.init = (http) ->
 
     function apply-filters direction, spec
       [id, command] = parse-spec spec
-      for f in [ Fnop, Fbr, Fbu, Fkf, Fsh, Fkm ] # filter order matters
-        return if f direction, id, command, io
+      Sc direction, id, command, io, spec
+      Fc direction, id, command, io
 
     function parse-spec spec
       [id, p-str] = if spec is \: then [\:, ''] else spec / \:
-      cmd = Cmd.get id
+      cmd = Cmd.get-command id
       return [id, cmd] unless p-str?length
       p-arr = p-str / \,
       return [id, (replace-params cmd, p-arr)] unless _.isArray cmd

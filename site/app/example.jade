@@ -76,9 +76,13 @@ block layout
   h2 Context sensitivity
   +show-if(activeWindowTitle='xterm|@')
     +key('a')
-  p.
+  :markdown
     The 'a' key will show only if the active window title
     contains 'xterm' or '@'.
+
+  h2 Sound (server side)
+  p Sounds are assigned in the yaml
+  +keys('d e f g h')
 
 prepend script
   +script('example.js')

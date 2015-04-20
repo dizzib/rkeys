@@ -9,6 +9,7 @@ A platform for creating tablet/HTML5 apps to send keystrokes to remote [X11]:
 - assign keys to switch between layouts
 - context sensitivity - show/hide regions matching the active window title
 - simulate mouse buttons and run shell commands
+- low latency server-side sound effects
 
 ## install
 
@@ -51,6 +52,24 @@ Host the app by passing its directory on the command line:
 then navigate your tablet to `http://your-rkeys-server:7000/bar`:
 
 ![tutorial screenshot](http://dizzib.github.io/rkeys/tutorial.png)
+
+## sidechain and sound effects
+
+The sidechain allows secondary commands to run alongside the primary
+and is very handy for adding sound effects.
+Whenever a keydown or keyup occurs the command-id is checked against
+a sequence of `/regular-expression/: command` rules and only
+the first matching rule will run. Here's an example:
+
+    # sidechain
+    /^kde/: nop                 # kde commands are silent
+    /^(button|ffx)/: PLAY-SOUND SFX-BLIP
+    /^layout/: [ PLAY-SOUND SFX-TICK, PLAY-SOUND SFX-TOCK ]
+    /.*/: PLAY-SOUND SFX-NOISE  # everything else
+
+The built-in `SFX-` aliases are defined [here](./site/io/command.yaml)
+but you can always define your own. Note that relative paths are relative
+to the source file.
 
 ## options
 
