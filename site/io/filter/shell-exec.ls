@@ -5,9 +5,12 @@ const DOWN = 0
 const UP   = 1
 
 module.exports = (direction, id, command) ->
-  return false unless _.isString command
+  return false unless command?
+  if _.isArray command
+    command = command[direction] # explicit down/up
+  else
+    return unless direction is DOWN # single command on down only
   return false unless (arr = command.split ' ').0 is \exec
-  return true if direction is UP
 
   cmd = (arr.slice 1) * ' '
   #log "exec #cmd"
