@@ -31,8 +31,14 @@ HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]
 echo : exec echo $0 and $1 with $2
 xterm: exec xterm -fg red
 
-# sidechain
-/^abc/: PLAY-SOUND SFX-DROID
-/.*/: PLAY-SOUND SFX-BLIP
+# sound sidechain
+/^d$/: PLAY-SOUND SFX-BLIP
+/^e$/: PLAY-SOUND SFX-CHIRP
+/^f$/: PLAY-SOUND SFX-DROID
+/^g$/: PLAY-SOUND SFX-NOISE
+/^h$/: [ PLAY-SOUND SFX-TICK, PLAY-SOUND SFX-TOCK ]
 
-PLAY-SOUND: alias exec aplay
+# set up the shell command to play a sound. This is heavily
+# dependent on the sytem so you may need to tweak it.
+# Here we use alsa's aplay command and suppress output.
+PLAY-SOUND: alias exec aplay --quiet

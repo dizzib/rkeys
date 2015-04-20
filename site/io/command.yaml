@@ -49,4 +49,5 @@ SFX-BLIP : alias ./sfx/blip.wav
 SFX-CHIRP: alias ./sfx/chirp.wav
 SFX-DROID: alias ./sfx/droid.wav
 SFX-NOISE: alias ./sfx/noise.wav
+SFX-TICK : alias ./sfx/tick.wav
 SFX-TOCK : alias ./sfx/tock.wav
