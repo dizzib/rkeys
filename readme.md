@@ -57,7 +57,6 @@ then navigate your tablet to `http://your-rkeys-server:7000/bar`:
 
 The sidechain allows secondary commands to run alongside the primary
 and is very handy for adding sound effects.
-
 Whenever a keydown or keyup occurs the command-id is checked against
 a sequence of `/regular-expression/: command` rules and only
 the first matching rule will run. Here's an example:
@@ -68,7 +67,9 @@ the first matching rule will run. Here's an example:
     /^layout/: [ PLAY-SOUND SFX-TICK, PLAY-SOUND SFX-TOCK ]
     /.*/: PLAY-SOUND SFX-NOISE  # everything else
 
-The 'SFX-' aliases are defined [here](./site/io/command.yaml).
+The built-in `SFX-` aliases are defined [here](./site/io/command.yaml)
+but you can always define your own. Note that relative paths are relative
+to the source file.
 
 ## options
 
@@ -85,7 +86,6 @@ The 'SFX-' aliases are defined [here](./site/io/command.yaml).
 Host multiple apps simutaneously by specifying their directories:
 
     $ rkeys ./app1 ./app2 ~/app3
-
 
 ## host over https
 
