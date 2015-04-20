@@ -88,13 +88,13 @@ function compile t, ipath, cb
 
 function compile-batch tid
   t = tasks[tid]
-  w = W4m t.gaze, \watched
-  files = [ f for dir, paths of w for f in paths
-    when '/' isnt f.slice -1 and (Path.basename f).0 isnt t.mixn ]
-  files = _.filter files, t.isMatch # TODO: remove when gaze fixes issue 104
+  w = t.watcher._watched
+  # https://github.com/paulmillr/chokidar/issues/281
+  files = [ full for p, v of w for f of v._items
+    when test \-f full = Path.join p, f ]
   info = "#{files.length} #tid files"
   G.say "compiling #info..."
-  for f in files then W4 compile, t, f
+  for f in files then W4 compile, t, Path.relative Dir.ROOT, f
   G.ok "...done #info!"
 
 function get-opath t, ipath
