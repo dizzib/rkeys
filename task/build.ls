@@ -19,7 +19,7 @@ const NMODULES = './node_modules'
 pruner = new Cron.CronJob cronTime:'*/10 * * * *', onTick:prune-empty-dirs
 tasks  =
   livescript:
-    cmd : "#NMODULES/LiveScript/bin/lsc --output $ODIR $IN"
+    cmd : "#NMODULES/LiveScript/bin/lsc --output $OUT $IN"
     ixt : \ls
     oxt : \js
     xsub: 'json.js->json'
@@ -28,7 +28,7 @@ tasks  =
     ixt : \md
     oxt : \html
   static:
-    cmd : 'cp $IN $OUT'
+    cmd : 'cp --target-directory $OUT $IN'
     pat : '+(rkeys|*.css|*.eot|*.jade|*.js|*.otf|*.styl|*.svg|*.ttf|*.wav|*.woff|*.woff2|*.yaml)'
 
 module.exports = me = (new Emitter!) with
@@ -71,27 +71,25 @@ module.exports = me = (new Emitter!) with
 ## helpers
 
 function compile t, ipath, cb
-  full-ipath = "#{Dir.ROOT}/#ipath"
+  ipath-abs = Path.resolve Dir.ROOT, ipath
   odir = Path.dirname opath = get-opath t, ipath
   mkdir \-p, odir # stylus fails if outdir doesn't exist
   switch typeof t.cmd
   | \string =>
-    cmd = t.cmd.replace \$IN, "'#full-ipath'"
-    cmd .= replace \$OUT, "'#opath'"
-    cmd .= replace \$ODIR, "'#odir'"
+    cmd = t.cmd.replace(\$IN, "'#ipath-abs'").replace \$OUT, "'#odir'"
     code, res <- exec cmd
     log code, res if code
     cb (if code then res else void), opath
   | \function =>
-    e <- t.cmd full-ipath, opath
+    e <- t.cmd ipath-abs, opath
     cb e, opath
 
 function compile-batch tid
   t = tasks[tid]
   w = t.watcher._watched
   # https://github.com/paulmillr/chokidar/issues/281
-  files = [ full for p, v of w for f of v._items
-    when test \-f full = Path.join p, f ]
+  files = [ p-abs for p, v of w for f of v._items
+    when test \-f p-abs = Path.join p, f ]
   info = "#{files.length} #tid files"
   G.say "compiling #info..."
   for f in files then W4 compile, t, Path.relative Dir.ROOT, f
