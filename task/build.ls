@@ -113,30 +113,23 @@ function prune-empty-dirs
 function start-watching tid
   log "start watching #tid"
   Assert.equal pwd!, Dir.ROOT
-  ixt = (t = tasks[tid]).ixt
-  pat = t.pat or "*.#ixt"
+  pat = (t = tasks[tid]).pat or "*.#{t.ixt}"
   dirs = "#{Dirname.SITE},#{Dirname.TASK}"
-  paths = [ "#pat" "{#dirs}/**/#pat" ]
-  opts =
+  w = t.watcher = Choki.watch [ "#pat" "{#dirs}/**/#pat" ],
     cwd:Dir.ROOT
     ignoreInitial:true
     ignored:"#{Dirname.SITE}/app/*.*"
-  w = t.watcher = Choki.watch paths, opts
-  w.on \all (act, ipath) -> log act, ipath
-  w.on \add try-compile
-  w.on \change try-compile
-  w.on \unlink try-unlink
-
-  function try-compile ipath
+  w.on \all (act, ipath) ->
+    log act, ipath
     <- WFib
-    try opath = W4 compile, t, ipath
-    catch e then return G.err e
-    G.ok opath
-    me.emit \built
-
-  function try-unlink ipath
-    <- WFib
-    try W4m Fs, \unlink, opath = get-opath t, ipath
-    catch e then throw e unless e.code is \ENOENT # not found i.e. already deleted
-    G.ok "Delete #opath"
-    me.emit \built
+    switch act
+      | \add, \change
+        try opath = W4 compile, t, ipath
+        catch e then return G.err e
+        G.ok opath
+        me.emit \built
+      | \unlink
+        try W4m Fs, \unlink, opath = get-opath t, ipath
+        catch e then throw e unless e.code is \ENOENT # not found i.e. already deleted
+        G.ok "Delete #opath"
+        me.emit \built
