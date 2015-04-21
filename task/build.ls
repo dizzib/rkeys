@@ -117,9 +117,11 @@ function start-watching tid
   pat = t.pat or "*.#ixt"
   dirs = "#{Dirname.SITE},#{Dirname.TASK}"
   paths = [ "#pat" "{#dirs}/**/#pat" ]
-  opts = cwd:Dir.ROOT, ignored:"#{Dirname.SITE}/app/*.*"
+  opts =
+    cwd:Dir.ROOT
+    ignoreInitial:true
+    ignored:"#{Dirname.SITE}/app/*.*"
   w = t.watcher = Choki.watch paths, opts
-  <- w.on \ready
   w.on \all (act, ipath) -> log act, ipath
   w.on \add try-compile
   w.on \change try-compile
