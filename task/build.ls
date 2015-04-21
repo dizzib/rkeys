@@ -29,7 +29,7 @@ tasks  =
     oxt : \html
   static:
     cmd : 'cp --target-directory $OUT $IN'
-    pat : '+(rkeys|*.css|*.eot|*.jade|*.js|*.otf|*.styl|*.svg|*.ttf|*.wav|*.woff|*.woff2|*.yaml)'
+    pat : '{rkeys,*.{css,eot,jade,js,otf,styl,svg,ttf,wav,woff,woff2,yaml}}'
 
 module.exports = me = (new Emitter!) with
   all: ->
