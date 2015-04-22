@@ -53,6 +53,7 @@ function load-all
 
 function load-file path
   log "load commands from #path"
+  return log "MISSING #path" unless test \-e path
   cfg = Yaml.safeLoad Fs.readFileSync path
   dir = Path.dirname path
 
@@ -60,9 +61,10 @@ function load-file path
   for k, v of cfg when k is \include
     log "include #v"
     delete cfg.include
-    for p-rel in paths = (v - \,) / ' '
-      p = Path.resolve dir, p-rel
-      cfg = _.extend cfg, load-file p
+    for p-inc in paths = (v - \,) / ' '
+      p = Path.resolve dir, p-inc
+      ps = if test \-d p then ls "#p/*.yaml" else [ p ]
+      for p in ps then cfg = _.extend cfg, load-file p
 
   # resolve relative paths
   _.mapValues cfg, transform-command ->
