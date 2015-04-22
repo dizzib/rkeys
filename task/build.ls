@@ -71,12 +71,14 @@ module.exports = me = (new Emitter!) with
 ## helpers
 
 function compile t, ipath, cb
+  Assert.equal pwd!, Dir.BUILD
   ipath-abs = Path.resolve Dir.ROOT, ipath
   odir = Path.dirname opath = get-opath t, ipath
   mkdir \-p, odir # stylus fails if outdir doesn't exist
   switch typeof t.cmd
   | \string =>
     cmd = t.cmd.replace(\$IN, "'#ipath-abs'").replace \$OUT, "'#odir'"
+    log cmd
     code, res <- exec cmd
     log code, res if code
     cb (if code then res else void), opath
@@ -115,12 +117,14 @@ function start-watching tid
   Assert.equal pwd!, Dir.ROOT
   pat = (t = tasks[tid]).pat or "*.#{t.ixt}"
   dirs = "#{Dirname.SITE},#{Dirname.TASK}"
-  w = t.watcher = Choki.watch [ "#pat" "{#dirs}/**/#pat" ],
+  w = t.watcher = Choki.watch [ "{#dirs}/**/#pat" pat ],
     cwd:Dir.ROOT
     ignoreInitial:true
     ignored:"#{Dirname.SITE}/app/*.*"
-  w.on \all (act, ipath) ->
-    log act, ipath
+  w.on \all _.debounce process, 500ms, leading:true trailing:false
+
+  function process act, ipath
+    log act, tid, ipath
     <- WFib
     switch act
       | \add, \change
@@ -129,6 +133,7 @@ function start-watching tid
         G.ok opath
         me.emit \built
       | \unlink
+        Assert.equal pwd!, Dir.BUILD
         try W4m Fs, \unlink, opath = get-opath t, ipath
         catch e then throw e unless e.code is \ENOENT # not found i.e. already deleted
         G.ok "Delete #opath"
