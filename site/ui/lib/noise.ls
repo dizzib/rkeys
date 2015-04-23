@@ -1,7 +1,7 @@
 # noise.ls
 # http://noisehack.com/generate-noise-web-audio-api/
 
-window.Noise =
+module.exports =
   create-brown-noise: (buffer-size) ->
     last = 0
     _.map (white-noise buffer-size), (white) ->

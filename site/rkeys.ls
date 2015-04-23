@@ -74,8 +74,9 @@ function start-https
 
 function use-livescript dir
   express.use "*.js", (req, res, next) ->
-    return next! unless test \-e, lspath = Path.join dir, "#{req.params.0}.ls"
-    b = Bify lspath, basedir:dir
+    lspath = Path.resolve Path.join dir, "#{req.params.0}.ls"
+    return next! unless test \-e, lspath
+    b = Bify lspath, { basedir:dir, paths:[ DIR-UI ]}
     log "compile #lspath"
     (err, buf) <- b.transform Lsify .bundle
     return next err if err

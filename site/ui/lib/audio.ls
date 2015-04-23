@@ -1,10 +1,11 @@
 # audio.ls
+Noise = require \./noise
 
 const CACHE-SIZE = 3buffers
 const MONO       = 1channel
 const SAMPLERATE = 44100hz
 
-window.Sound =
+module.exports =
   create-beep : create-beep
   create-noise: create-noise
   beep        : create-beep!

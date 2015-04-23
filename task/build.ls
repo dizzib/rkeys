@@ -19,17 +19,18 @@ const NMODULES = './node_modules'
 pruner = new Cron.CronJob cronTime:'*/10 * * * *', onTick:prune-empty-dirs
 tasks  =
   livescript:
-    cmd : "#NMODULES/LiveScript/bin/lsc --output $OUT $IN"
-    ixt : \ls
-    oxt : \js
-    xsub: 'json.js->json'
+    cmd   : "#NMODULES/LiveScript/bin/lsc --output $OUT $IN"
+    ignore: /app\/.+\.ls/
+    ixt   : \ls
+    oxt   : \js
+    xsub  : 'json.js->json'
   markdown:
     cmd : markdown
     ixt : \md
     oxt : \html
   static:
     cmd : 'cp --target-directory $OUT $IN'
-    pat : '{rkeys,*.{css,eot,jade,js,otf,styl,svg,ttf,wav,woff,woff2,yaml}}'
+    pat : '{rkeys,app/*.ls,*.{css,eot,jade,js,otf,styl,svg,ttf,wav,woff,woff2,yaml}}'
 
 module.exports = me = (new Emitter!) with
   all: ->
@@ -120,7 +121,7 @@ function start-watching tid
   w = t.watcher = Choki.watch [ "{#dirs}/**/#pat" pat ],
     cwd:Dir.ROOT
     ignoreInitial:true
-    ignored:"#{Dirname.SITE}/app/*.*"
+    ignored:t.ignore
   w.on \all _.debounce process, 500ms, leading:true trailing:false
 
   function process act, ipath
