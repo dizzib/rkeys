@@ -1,4 +1,10 @@
-# audio.ls
+# browser (client-side) audio library
+#
+# Unfortunately the latency is too high, even when the audio is
+# pre-buffered and cached.
+#
+# Therefore I recommend you use server-side audio, but YMMV.
+
 Noise = require \./noise
 
 const CACHE-SIZE = 3buffers
@@ -41,7 +47,7 @@ function create-noise {dur=0.025s, type=\white} = {}
 function create-cache
   # For some reason web-api audio has unacceptable latency
   # even when buffered so output using html5 audio.
-  # May need to revisit at some point.
+  # Unfortunately even this has a noticable latency :(
   audio = []
   p = 0
   init: (samples) ->
