@@ -81,7 +81,10 @@ block layout
     contains 'xterm' or '@'.
 
   h2 Server-side sound
-  p Sounds are assigned in the yaml
+  :markdown
+    Sounds are played via shell-exec on the target Linux box and are assigned in command.yaml.
+    This example uses ALSA's aplay command but you can easily reconfigure
+    for different sound architectures. The latency seems very low.
   +keys('d e f g h')
 
   h2 Client-side sound (experimental)

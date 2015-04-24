@@ -3,13 +3,13 @@
 A platform for creating tablet/HTML5 apps to send keystrokes to remote [X11]:
 
 - [define keypads][teslapad] with a bit of [jade] and [stylus]
-- [define chords and sequences](./site/example-app/example.yaml) with delays and auto-repeat
+- [define chords and sequences](./site/example-app/command.yaml) with delays and auto-repeat
 - use the built-in [mixins](./site/ui/mixin) and [templates](./site/ui/template) to minimise your code
 - enhance with [LiveScript] and [Font Awesome][fa] icons
 - assign keys to switch between layouts
 - context sensitivity - show/hide regions matching the active window title
 - simulate mouse buttons and run shell commands
-- low latency server-side sound effects
+- server-side or client-side (experimental) sound effects
 
 ## install
 
@@ -26,7 +26,7 @@ then navigate your tablet to `http://your-rkeys-server:7000/example`:
 ![example screenshot](http://dizzib.github.io/rkeys/example.png)
 
 See this example [jade](./site/example-app/example.jade), [stylus](./site/example-app/example.styl)
-and [yaml](./site/example-app/example.yaml).
+and [yaml](./site/example-app/command.yaml).
 Also see [some real-world examples](https://github.com/dizzib/rkeys-apps).
 
 ## get started
