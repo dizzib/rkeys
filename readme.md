@@ -32,19 +32,15 @@ Also see [some real-world examples](https://github.com/dizzib/rkeys-apps).
 ## get started
 
 An rkeys app is a directory containing at least one jade file.
-
-    $ mkdir foo
-
-Create file `./foo/bar.jade` with the following content:
+Create file `bar.jade` in directory `foo` with the following content:
 
     extend /template/keys
 
     block layout
       +key('a')
 
-Here we pull in the [keys template](./site/ui/template/keys.jade) which
-gives us access to the [+key and +keys mixins](./site/ui/mixin/keys.jade).
-
+Extending the [keys template](./site/ui/template/keys.jade)
+gives us access to the handy [+key and +keys mixins](./site/ui/mixin/keys.jade).
 Host the app by passing its directory on the command line:
 
     $ rkeys foo
@@ -53,10 +49,10 @@ then navigate your tablet to `http://your-rkeys-server:7000/bar`:
 
 ![tutorial screenshot](http://dizzib.github.io/rkeys/tutorial.png)
 
-## sidechain and sound effects
+## sidechain and server-side sound effects
 
 The sidechain allows secondary commands to run alongside the primary
-and is very handy for adding sound effects.
+and is the best way to add low-latency sound effects.
 Whenever a keydown or keyup occurs the command-id is checked against
 a sequence of `/regular-expression/: command` rules and only
 the first matching rule will run. Here's an example:
