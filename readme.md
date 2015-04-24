@@ -25,7 +25,7 @@ then navigate your tablet to `http://your-rkeys-server:7000/example`:
 
 ![example screenshot](http://dizzib.github.io/rkeys/example.png)
 
-See this example [jade](./site/example-app/example.jade), [stylus](./site/example-app/example.styl)
+See this example's [jade](./site/example-app/example.jade), [stylus](./site/example-app/example.styl)
 and [yaml](./site/example-app/command.yaml).
 Also see [some real-world examples](https://github.com/dizzib/rkeys-apps).
 
