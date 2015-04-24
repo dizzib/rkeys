@@ -80,9 +80,15 @@ block layout
     The 'a' key will show only if the active window title
     contains 'xterm' or '@'.
 
-  h2 Sound (server side)
+  h2 Server-side sound
   p Sounds are assigned in the yaml
   +keys('d e f g h')
 
+  h2 Client-side sound (experimental)
+  :markdown
+    Sounds are played in the browser.
+    Unfortunately the latency seems significantly higher than server-side.
+  +keys('i j k l m n o')
+
 prepend script
-  +script('example.js')
+  +script('sound.js')
