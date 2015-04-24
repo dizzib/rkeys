@@ -20,7 +20,7 @@ pruner = new Cron.CronJob cronTime:'*/10 * * * *', onTick:prune-empty-dirs
 tasks  =
   livescript:
     cmd   : "#NMODULES/LiveScript/bin/lsc --output $OUT $IN"
-    ignore: /app\/.+\.ls/
+    ignore: /example-app\/.+\.ls/
     ixt   : \ls
     oxt   : \js
     xsub  : 'json.js->json'
@@ -30,7 +30,7 @@ tasks  =
     oxt : \html
   static:
     cmd : 'cp --target-directory $OUT $IN'
-    pat : '{rkeys,app/*.ls,*.{css,eot,jade,js,otf,styl,svg,ttf,wav,woff,woff2,yaml}}'
+    pat : '{rkeys,example-app/*.ls,*.{css,eot,jade,js,otf,styl,svg,ttf,wav,woff,woff2,yaml}}'
 
 module.exports = me = (new Emitter!) with
   all: ->

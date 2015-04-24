@@ -3,7 +3,7 @@ _ = require \lodash
 P = require \./package.json
 
 const DEFAULT-PORT = 7000
-const DEFAULT-APP  = "#__dirname/app"
+const DEFAULT-APP  = "#__dirname/example-app"
 
 C.version P.version
 C.usage '[Options] <directory ...>'
