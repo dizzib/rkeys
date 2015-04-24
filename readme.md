@@ -83,9 +83,12 @@ to the source file.
       -g, --gen-ssl-cert     generate a self-signed ssl certificate
       -p, --port [port]      listening port (default:7000)
 
-Host multiple apps simutaneously by specifying their directories:
+Host multiple apps by specifying their directories:
 
-    $ rkeys ./app1 ./app2 ~/app3
+    $ rkeys ./app1 ./app2 ~/user-commands
+
+Command YAMLs are loaded in order so the `~/user-commands` directory can
+hold a YAML file containing overriding commands.
 
 ## host over https
 
