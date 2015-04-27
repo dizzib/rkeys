@@ -54,7 +54,7 @@ This allows you to press and hold the key to get native auto-repeat
 and even applies to key chords such as `+key('C+S+A+z')`.
 
 The `+key` mixin can also accept a custom command-id where the
-command itself is defined in a YAML file (typically named `command.yaml`)
+command itself is defined in a YAML file (typically `command.yaml`)
 in the app's directory.
 For example, `+key('foo')` will run the following command which is
 a macro to emit keystrokes `b`, `a` and `r`:
@@ -70,8 +70,8 @@ The first word of a command determines its function:
 
 id: command | function
 ----------- | -------------
-ID: **alias** *replacement* | replace all occurrences of `ID` with *replacement* in the YAML. The standard naming convention is all capitals.
-id: **broadcast** *message* | broadcast *message* to all connected clients. Useful for multi-tablet setups.
+ID: **alias** *str* | replace all occurrences of `ID` with *str* in the YAML. The standard naming convention is all capitals.
+id: **broadcast** *msg* | broadcast *msg* to all connected clients. Useful for multi-tablet setups.
 id: **button** *n* | simulate mouse button *n*
 id: **exec** *cmd* | execute shell command *cmd*
 id: **nop** | no-operation. Useful as a placeholder to be redefined at runtime.
