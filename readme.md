@@ -69,9 +69,9 @@ Commands can also take parameters, so the above can be rewritten as
 The first word of a command determines its function:
 
 id: command | function
-------------------- | -------------
+------------|---------
 ID: **alias** *str* | replace all occurrences of `ID` with *str* in the YAML. The standard naming convention is all capitals.
-id: **broadcast** *m* | broadcast message *m* to all connected clients. Useful for multi-tablet setups.
+id: **broadcast** *msg* | broadcast *msg* to all connected clients. Useful for multi-tablet setups.
 id: **button** *n* | simulate mouse button *n*
 id: **exec** *cmd* | execute shell command *cmd*
 id: **nop** | no-operation. Useful as a placeholder to be redefined at runtime.
