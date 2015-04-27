@@ -5,9 +5,7 @@
 #     id: keydown-command
 # or  id: [ keydown-command, keyup-command ]
 #
-# A command is comprised of one or more space-delimited directives
-#
-# Directives can take parameters substituted into $n placeholders,
+# Commands can take parameters substituted into $ placeholders,
 # where $0 is the first parameter, $1 the second, etc.
 #
 # Sidechain rules are defined as above but with the id

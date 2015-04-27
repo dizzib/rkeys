@@ -9,7 +9,7 @@ A platform for creating tablet/HTML5 apps to send keystrokes to remote [X11]:
 - assign keys to switch between layouts
 - context sensitivity - show/hide regions matching the active window title
 - simulate mouse buttons and run shell commands
-- server-side or client-side (experimental) sound effects
+- add sound effects: server-side or (experimental) client-side
 
 ## install
 
@@ -46,6 +46,43 @@ then navigate your tablet to `http://your-rkeys-server:7000/bar`:
 
 ![tutorial screenshot](http://dizzib.github.io/rkeys/tutorial.png)
 
+## command configuration YAML
+
+The default behaviour of `+key('a')` is to simulate a KeyPress 'a' event on
+touchstart and a KeyRelease 'a' event on touchend.
+This allows you to press and hold the key to get native auto-repeat
+and even applies to key chords such as `+key('C+S+A+z')`.
+
+The `+key` mixin can also accept a custom command-id where the
+command itself is defined in a YAML file (typically named `command.yaml`)
+in the app's directory.
+For example, `+key('foo')` will run the following command which is
+a macro to emit keystrokes `b`, `a` and `r`:
+
+    foo: b a r
+
+Commands can also take parameters, so the above can be rewritten as
+`foo: $0 $1 $2` and invoked by `+key('foo:b,a,r')`.
+
+### functions
+
+The first word of a command determines its function:
+
+id: command | function
+----------- | -------------
+ID: **alias** *replacement* | replace all occurrences of `ID` with *replacement* in the YAML. The standard naming convention is all capitals.
+id: **broadcast** *message* | broadcast *message* to all connected clients. Useful for multi-tablet setups.
+id: **button** *n* | simulate mouse button *n*
+id: **exec** *cmd* | execute shell command *cmd*
+id: **nop** | no-operation. Useful as a placeholder to be redefined at runtime.
+
+### example of redefining commands at runtime
+
+    $ rkeys ./app1 ./app2 ~/user-commands
+
+Command YAMLs are loaded in order, so YAML in `~/user-commands` can
+override that of app1 or app2.
+
 ## sidechain and server-side sound effects
 
 The sidechain allows secondary commands to run alongside the primary
@@ -54,14 +91,14 @@ Whenever a keydown or keyup occurs the command-id is checked against
 a sequence of `/regular-expression/: command` rules and only
 the first matching rule will run. Here's an example:
 
-    # sidechain
-    /^kde/: nop                 # kde commands are silent
+    # sidechain in command yaml
+    /^kde/: nop                 # make kde commands silent
     /^(button|ffx)/: PLAY-SOUND SFX-BLIP
     /^layout/: [ PLAY-SOUND SFX-TICK, PLAY-SOUND SFX-TOCK ]
     /.*/: PLAY-SOUND SFX-NOISE  # everything else
 
 The built-in `SFX-` aliases are defined [here](./site/io/command.yaml)
-but you can always define your own. Note that relative paths are relative
+but you can always supply your own soundfiles. Note that relative paths are relative
 to the source file.
 
 ## options
@@ -75,13 +112,6 @@ to the source file.
       -V, --version          output the version number
       -g, --gen-ssl-cert     generate a self-signed ssl certificate
       -p, --port [port]      listening port (default:7000)
-
-## host multiple apps
-
-    $ rkeys ./app1 ./app2 ~/user-commands
-
-Command YAMLs are loaded in order so the `~/user-commands` directory can
-hold a YAML file containing overriding commands.
 
 ## host over https
 
