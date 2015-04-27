@@ -64,12 +64,12 @@ a macro to emit keystrokes `b`, `a` and `r`:
 Commands can also take parameters, so the above can be rewritten as
 `foo: $0 $1 $2` and invoked by `+key('foo:b,a,r')`.
 
-### functions
+### filters
 
-The first word of a command can determine its function:
+The first word of a command can specify a filter to alter the functionality:
 
-id: command | function
-------------|---------
+id: command | what it does
+------------|-------------
 ID: **alias** *str* | replace all occurrences of `ID` with *str* in the YAML. The standard naming convention is all capitals.
 id: **broadcast** *msg* | broadcast *msg* to all connected clients. Useful for multi-tablet setups.
 id: **button** *n* | simulate mouse button *n*
