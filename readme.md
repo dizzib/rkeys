@@ -86,7 +86,7 @@ override that of app1 or app2.
 ## sidechain and server-side sound effects
 
 The sidechain allows secondary commands to run alongside the primary
-and is the best way to add low-latency sound effects.
+and is the best way to add low-latency server-side sound effects.
 Whenever a keydown or keyup occurs the command-id is checked against
 a sequence of `/regular-expression/: command` rules and only
 the first matching rule will run. Here's an example:
