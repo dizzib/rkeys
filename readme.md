@@ -66,7 +66,7 @@ Commands can also take parameters, so the above can be rewritten as
 
 ### functions
 
-The first word of a command determines its function:
+The first word of a command can determine its function:
 
 id: command | function
 ------------|---------
