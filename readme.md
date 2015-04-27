@@ -83,7 +83,7 @@ id: **nop** | no-operation. Useful as a placeholder to be redefined at runtime.
 Command YAMLs are loaded in order, so YAML in `~/user-commands` can
 override that of app1 or app2.
 
-## sidechain and server-side sound effects
+## sidechaining server-side sound effects
 
 The sidechain allows secondary commands to run alongside the primary
 and is the best way to add low-latency server-side sound effects.
