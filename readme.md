@@ -91,7 +91,7 @@ Whenever a keydown or keyup occurs the command-id is checked against
 a sequence of `/regular-expression/: command` rules and only
 the first matching rule will run. Here's an example:
 
-    # sidechain in command yaml
+    # sidechain in command.yaml
     /^kde/: nop                 # make kde commands silent
     /^(button|ffx)/: PLAY-SOUND SFX-BLIP
     /^layout/: [ PLAY-SOUND SFX-TICK, PLAY-SOUND SFX-TOCK ]
