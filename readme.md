@@ -57,7 +57,7 @@ The `+key` mixin can also accept a custom command-id where the
 command itself is defined in a YAML file (typically `command.yaml`)
 in the app's directory.
 For example, `+key('foo')` will run the following command which is
-a macro to emit keystrokes `b`, `a` and `r`:
+a macro emitting keystrokes `b`, `a` and `r`:
 
     foo: b a r
 
