@@ -7,7 +7,7 @@ lsc -o $BLD -c package.json.ls
 
 # npm dependencies
 cd $BLD
-npm install
 npm prune
+npm install
 
 echo "Done!"
