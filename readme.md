@@ -98,8 +98,12 @@ the first matching rule will run. Here's an example:
     /.*/: PLAY-SOUND SFX-NOISE  # everything else
 
 The built-in `SFX-` aliases are defined [here](./site/io/command.yaml)
-but you can always supply your own soundfiles. Note that relative paths are relative
-to the source file.
+but you can always supply your own soundfiles (note that relative paths are relative
+to the source file).
+You should redefine the `PLAY-SOUND` alias to match your own system. So with [SoX]
+installed you could include the following to play sounds at quarter volume:
+
+    PLAY-SOUND: alias exec play -V1 -q --volume 0.25
 
 ## options
 
@@ -142,6 +146,7 @@ MIT
 [jade]: http://jade-lang.com
 [LiveScript]: http://livescript.net
 [node.js]: http://nodejs.org
+[SoX]: http://sox.sourceforge.net/Main/HomePage
 [stylus]: https://learnboost.github.io/stylus
 [teslapad]: https://github.com/dizzib/rkeys-apps/tree/master/teslapad
 [X11]: https://en.wikipedia.org/wiki/X_Window_System
