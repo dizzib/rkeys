@@ -21,9 +21,21 @@ abc-slow       : a 500 b 1000 c
 abc-repeat     : a b c 500
 abc-repeat-slow: a 500 b 500 c 1000
 
+# compose key sequences for special characters
+#
+# compose key alias (system dependent so redefine as required)
+COMPOSE: alias Super_L
+#
+# example sequences for US keyboard layout
+# see https://help.ubuntu.com/community/ComposeKey#Compose%20key%20sequences
+#
+'£': COMPOSE l XK_minus
+'¶': COMPOSE p XK_exclam
+'½': COMPOSE 1 2
+
 # key chords denoted by infix +
 #
-# modifier aliases are defined in ../io/command.yaml
+# modifier aliases (like S+ for Shift_L+) are defined in ../io/command.yaml
 type-an-asterisk: S+8
 
 # separate up and down directives denoted by array [down, up]
@@ -39,6 +51,7 @@ echo : exec echo $0 and $1 with $2
 xterm: exec xterm -fg red
 
 # sound sidechain
+#
 /^d$/: PLAY-SOUND SFX-BLIP
 /^e$/: PLAY-SOUND SFX-CHIRP
 /^f$/: PLAY-SOUND SFX-DROID
@@ -48,7 +61,7 @@ xterm: exec xterm -fg red
 #/^abc/: PLAY-SOUND SFX-CHIRP
 # uncomment the following line to play a noise on any other key
 #/.*/: PLAY-SOUND SFX-NOISE
-
+#
 # set up the shell command to play a sound. This is heavily
 # dependent on the sytem so you may need to tweak it.
 # Here we use alsa's aplay command and suppress output.
