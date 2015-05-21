@@ -6,10 +6,11 @@ A platform for creating tablet/HTML5 apps to send keystrokes to remote [X11]:
 - [define chords and sequences](./site/example-app/command.yaml) with delays and auto-repeat
 - use the built-in [mixins](./site/ui/mixin) and [templates](./site/ui/template) to minimise your code
 - enhance with [LiveScript] and [Font Awesome][fa] icons
-- assign keys to switch between layouts
+- assign keys to dynamically switch layouts
 - context sensitivity - show/hide regions matching the active window title
 - simulate mouse buttons and run shell commands
 - add sound effects: server-side or (experimental) client-side
+- emit special characters using [compose-key sequences][ComposeKey]
 
 ## install
 
@@ -140,6 +141,7 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 
 MIT
 
+[ComposeKey]: https://help.ubuntu.com/community/ComposeKey#Compose%20key%20sequences
 [Express]: http://expressjs.com
 [chords]: https://en.wikipedia.org/wiki/Chorded_keyboard
 [fa]: http://fortawesome.github.io/Font-Awesome/
