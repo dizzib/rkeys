@@ -24,7 +24,7 @@ With [node.js] installed on the target [X11] box:
 
 then navigate your tablet to `http://your-rkeys-server:7000/example`:
 
-![example screenshot](http://dizzib.github.io/rkeys/example.png)
+![example screenshot](http://dizzib.github.io/rkeys/example-app.png)
 
 See this example's [jade](./site/example-app/example.jade), [stylus](./site/example-app/example.styl)
 and [yaml](./site/example-app/command.yaml).
