@@ -5,12 +5,15 @@
 
 // ...to set the default size and color of each key
 key-size(22mm)
-key-color(up:blue, label-up:white)
+
+for colors, i in (blue white) (orange black) (green white) (yellow black) (purple white) (#c00 white) (cyan black)
+  section:nth-child(7n+{i+2})
+    key-color(up:colors[0], label-up:colors[1])
 
 body
   background-color  #ddd
   font-size         9pt
 
-h2
-  clear             both
-  padding-top       1em
+section
+  overflow          hidden  // wrap floated divs
+  margin-bottom     1em
