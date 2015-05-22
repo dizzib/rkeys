@@ -78,11 +78,9 @@ block layout
   +keys('C+c fa-copy', 'C+x fa-cut', 'C+v fa-paste')
 
   h2 Context sensitivity
+  p Moving the active window focus to/from a xterm will reveal/hide some text beneath.
   +show-if(activeWindowTitle='xterm|@')
-    +key('a')
-  :markdown
-    The 'a' key will show only if the active window title
-    contains 'xterm' or '@'.
+    p This text will show only if the active window title contains 'xterm' or '@'.
 
   h2 Server-side sound
   :markdown
