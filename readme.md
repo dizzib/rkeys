@@ -47,6 +47,20 @@ then navigate your tablet to `http://your-rkeys-server:7000/bar`:
 
 ![tutorial screenshot](http://dizzib.github.io/rkeys/tutorial.png)
 
+## base template
+
+The [base template] is the foundation of all rkeys apps and includes JavaScript libraries
+[socket.io] to communicate the user's keystrokes to the server,
+[jquery] to manipulate the user interface and [lodash] for general purpose functions.
+Some [basic mixins](./site/ui/mixin/base.jade) allow the zoom to be locked
+and content to be conditionally shown.
+Finally some [layout styles](./site/ui/template/base.styl) are available
+for arranging things vertically or horizontally.
+
+## keys template
+
+todo
+
 ## command configuration YAML
 
 The default behaviour of `+key('a')` is to simulate a KeyPress 'a' event on
@@ -141,13 +155,18 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 
 MIT
 
+[base template]: ./site/ui/template/base.jade
 [ComposeKey]: https://help.ubuntu.com/community/ComposeKey#Compose%20key%20sequences
 [Express]: http://expressjs.com
 [chords]: https://en.wikipedia.org/wiki/Chorded_keyboard
 [fa]: http://fortawesome.github.io/Font-Awesome/
 [jade]: http://jade-lang.com
+[jquery]: http://jquery.com
+[keys template]: ./site/ui/template/keys.jade
 [LiveScript]: http://livescript.net
+[lodash]: https://lodash.com
 [node.js]: http://nodejs.org
+[socket.io]: http://socket.io
 [SoX]: http://sox.sourceforge.net/Main/HomePage
 [stylus]: https://learnboost.github.io/stylus
 [teslapad]: https://github.com/dizzib/rkeys-apps/tree/master/teslapad
