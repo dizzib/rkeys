@@ -108,7 +108,7 @@ When rkeys starts, the [core command.yaml] is loaded first followed by any yaml
 files discovered in directories supplied on the command line in the given order.
 If a command-id appears multiple times then the last one takes precedence
 thus allowing default configuration to be overridden at runtime.
-For example if we launch rkeys via '$ rkeys ./app-1 ./app-2 ~/.config`
+For example if we launch rkeys via `$ rkeys ./app-1 ./app-2 ~/.config`
 then if ./app-1/cmd.yaml contains `foo: bar` and ~/.config/rkeys.yaml
 contains `foo: my-custom-command` then the latter definition 'wins'.
 
