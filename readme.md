@@ -73,7 +73,7 @@ usage | purpose
 
 todo
 
-## command configuration YAML
+## command.yaml configuration
 
 The default behaviour of `+key('a')` is to simulate a KeyPress 'a' event on
 touchstart and a KeyRelease 'a' event on touchend.
@@ -81,7 +81,7 @@ This allows you to press and hold the key to get native auto-repeat
 and even applies to key chords such as `+key('C+S+A+z')`.
 
 The `+key` mixin can also accept a custom command-id where the
-command itself is defined in a YAML file (typically `command.yaml`)
+command itself is defined in a yaml file (typically `command.yaml`)
 in the app's directory.
 For example, `+key('foo')` will run the following command which is
 a macro emitting keystrokes `b`, `a` and `r`:
@@ -97,18 +97,23 @@ The first word of a command can specify a filter to alter the functionality:
 
 id: command | what it does
 ------------|-------------
-ID: **alias** *str* | replace all occurrences of `ID` with *str* in the YAML. The standard naming convention is all capitals.
+ID: **alias** *str* | replace all occurrences of `ID` with *str* in the yaml. The standard naming convention is all capitals.
 id: **broadcast** *msg* | broadcast *msg* to all connected clients. Useful for multi-tablet setups.
 id: **button** *n* | simulate mouse button *n*
 id: **exec** *cmd* | execute shell command *cmd*
 id: **nop** | no-operation. Useful as a placeholder to be redefined at runtime.
 
-### example of redefining commands at runtime
+### override default configuration at runtime
 
-    $ rkeys ./app1 ./app2 ~/user-commands
+When rkeys starts, the [core command.yaml] is loaded first followed by any yaml
+files discovered in directories supplied on the command line in the given order.
+If a command-id appears multiple times then the last one takes precedence
+thus allowing default configuration to be overridden at runtime. For example:
 
-Command YAMLs are loaded in order, so YAML in `~/user-commands` can
-override that of app1 or app2.
+    $ rkeys ./app-1 ./app-2 ~/.config
+
+If ./app-1/cmd.yaml contains `foo: bar` and ~/.config/rkeys.yaml
+contains `foo: my-custom-command` then the latter definition 'wins'.
 
 ## sidechaining server-side sound effects
 
@@ -124,9 +129,8 @@ the first matching rule will run. Here's an example:
     /^layout/: [ PLAY-SOUND SFX-TICK, PLAY-SOUND SFX-TOCK ]
     /.*/: PLAY-SOUND SFX-NOISE  # everything else
 
-The built-in `SFX-` aliases are defined [here](./site/io/command.yaml)
-but you can always supply your own soundfiles (note that relative paths are relative
-to the source file).
+The built-in `SFX-` aliases are defined in the [core command.yaml] but you can always
+supply your own soundfiles (note that relative paths are relative to the source file).
 You should redefine the `PLAY-SOUND` alias to match your own system. So with [SoX]
 installed you could include the following to play sounds at quarter volume:
 
@@ -169,6 +173,7 @@ MIT
 
 [base template]: ./site/ui/template/base.jade
 [ComposeKey]: https://help.ubuntu.com/community/ComposeKey#Compose%20key%20sequences
+[core command.yaml]: ./site/io/command.yaml
 [Express]: http://expressjs.com
 [chords]: https://en.wikipedia.org/wiki/Chorded_keyboard
 [fa]: http://fortawesome.github.io/Font-Awesome/
