@@ -55,19 +55,16 @@ libraries [socket.io] to communicate the user's keystrokes to the server,
 [lodash] for general purpose functions.
 It includes the following [jade mixins](./site/ui/mixin/base.jade):
 
-usage | purpose
-------|--------
-+prevent-zoom | lock the zoom-level to prevent accidental pinch-zoom. Should be placed in the head section.
-+show-if(activeWindowTitle='**regexp**') | only show content if the active window title matches the [regular expression] **regexp**.
+- `+prevent-zoom`: lock the zoom-level to prevent accidental pinch-zoom. Should be placed in the head section.
+- `+show-if(activeWindowTitle='regexp')`: only show content if the active window title matches the [regular expression] **regexp**.
 
 In addition the following [stylesheet classes](./site/ui/template/base.styl)
 are available for manipulating layouts:
 
-usage | purpose
-------|--------
-.layout.**id** | only show content when layout is switched by command `layout:id`. The default id is **default**.
-.horizontal | arrange immediate children horizontally
-.vertical | arrange immediate children vertically
+- `.layout.id`: only show content when layout is switched by command `layout:id`.
+  `id` can be anything. The default id is **default**.
+- `.horizontal`: arrange immediate children horizontally
+- `.vertical`: arrange immediate children vertically
 
 ## keys template
 
