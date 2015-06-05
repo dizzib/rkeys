@@ -163,7 +163,7 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 
 ## license
 
-MIT
+[MIT](./LICENSE)
 
 [base template]: ./site/ui/template/base.jade
 [ComposeKey]: https://help.ubuntu.com/community/ComposeKey#Compose%20key%20sequences
