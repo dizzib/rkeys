@@ -141,7 +141,7 @@ installed you could include the following to play sounds at quarter volume:
       -V, --version            output the version number
       -g, --gen-ssl-cert       generate a self-signed ssl certificate
       -p, --port <port>        listening port (default:7000)
-      -v, --verbosity <level>  verbosity (default:1)
+      -v, --verbosity <level>  verbosity 0=min 2=max (default:1)
 
 ## host over https
 

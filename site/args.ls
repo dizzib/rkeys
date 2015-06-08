@@ -10,10 +10,10 @@ C.version P.version
 C.usage '[Options] [directory ...]'
 C.option '-g, --gen-ssl-cert', 'generate a self-signed ssl certificate'
 C.option '-p, --port <port>', "listening port (default:#DEFAULT-PORT)", DEFAULT-PORT
-C.option '-v, --verbosity <level>', "verbosity (default:#DEFAULT-VERBOSITY)", DEFAULT-VERBOSITY
+C.option '-v, --verbosity <level>', "verbosity 0=min 2=max (default:#DEFAULT-VERBOSITY)", DEFAULT-VERBOSITY
 C.parse process.argv
 C.dirs = if C.args.length then C.args else [ DEFAULT-APP ]
 C.port-ssl = 1 + _.parseInt C.port
-C.verbosity = Math.abs _.parseInt C.verbosity or 1
+C.verbosity = if (v = C.verbosity) in <[0 1 2]> then Math.abs _.parseInt v else 1
 
 module.exports = C
