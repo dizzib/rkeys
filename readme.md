@@ -5,7 +5,7 @@ A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to
 - [define virtual keyboards or keypads][teslapad] with a bit of [jade] and [stylus]
 - [define chords and sequences](./site/example-app/command.yaml) with delays and auto-repeat
 - use the built-in [mixins](./site/ui/mixin) and [templates](./site/ui/template) to minimise your code
-- enhance with [LiveScript] and [Font Awesome][fa] icons
+- enhance with [LiveScript] and [Font Awesome] icons
 - assign keys to dynamically switch layouts
 - context sensitivity - show/hide regions matching the active window title
 - simulate mouse buttons and run shell commands
@@ -68,14 +68,43 @@ are available for manipulating layouts:
 
 ## keys template
 
+Most of the time you'll be laying out sets of keys and this is where the
+[keys template] comes in handy. It extends the [base template] with the
+[Font Awesome] icons and the following:
+
+### +key(args, label) mixin
+
+Generate a single key. Usage examples:
+
+- `+key('a')`:
+  simulate the KeyPress `a` on touchstart and KeyRelease `a` on touchend.
+  This lets you press and hold the key for native auto-repeat.
+- `+key('C+S+A+F12')`:
+  simulate the KeyPress sequence `Ctrl`, `Shift`, `Alt` and `F12` on touchstart,
+  followed by KeyRelease sequence in the same order on touchend.
+  This is known as a [chord]. As before, press and hold for native auto-repeat.
+- `+key('C+Page_Down','Next tab')`:
+  another [chord] but with a more user-friendly label.
+- `+key('C+Page_Down Next tab')`:
+  as above but with a more compact calling convention.
+- `+key('C+Page_Down fa-caret-square-o-right')`:
+  as above but with a nice [font awesome icon](http://fortawesome.github.io/Font-Awesome/icon/caret-square-o-right).
+- `+key('C+Page_Down fa-caret-square-o-right fa-2x')`:
+  as above but with a [double size icon](http://fortawesome.github.io/Font-Awesome/examples).
+- `+key('foo')`:
+- `+key('foo:b,a,r')`:
+
+See the [source code comments](./site/ui/mixin/keys.jade) for more details.
+
+### +keys(...args) mixin
+
+todo
+
+### stylesheet classes
+
 todo
 
 ## command configuration yaml
-
-The default behaviour of `+key('a')` is to simulate a KeyPress 'a' event on
-touchstart and a KeyRelease 'a' event on touchend.
-This allows you to press and hold the key to get native auto-repeat
-and even applies to key chords such as `+key('C+S+A+z')`.
 
 The `+key` mixin can also accept a custom command-id where the command itself
 is defined in a yaml file (typically `command.yaml`) in the app's directory.
@@ -170,8 +199,8 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 [ComposeKey]: https://help.ubuntu.com/community/ComposeKey#Compose%20key%20sequences
 [core command.yaml]: ./site/io/command.yaml
 [Express]: http://expressjs.com
-[chords]: https://en.wikipedia.org/wiki/Chorded_keyboard
-[fa]: http://fortawesome.github.io/Font-Awesome/
+[chord]: https://en.wikipedia.org/wiki/Chorded_keyboard
+[Font Awesome]: http://fortawesome.github.io/Font-Awesome/
 [jade]: http://jade-lang.com
 [jquery]: http://jquery.com
 [keys template]: ./site/ui/template/keys.jade
