@@ -10,9 +10,9 @@ module.exports.init = (http) ->
   Actw.on \changed, -> io.emit \active-window-changed, Actw.title
 
   (io = Io http).on \connection, (socket) ->
-    log "connect #{ip = socket.conn.remoteAddress}"
+    log 0, "connect #{ip = socket.conn.remoteAddress}"
     socket
-      ..on \disconnect, -> log "disconnect #ip"
+      ..on \disconnect, -> log 0, "disconnect #ip"
       ..on \keydown   , -> apply-filters 0, it
       ..on \keyup     , -> apply-filters 1, it
       ..on \keyseq    , Kseq

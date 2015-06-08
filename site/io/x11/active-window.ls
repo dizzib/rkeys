@@ -23,4 +23,5 @@ function read-active-window-title cb
   err, p <- X.GetProperty 0, wid, X.atoms.WM_NAME, 0, 0, 10000000
   return log "X.GetProperty WM_NAME failed: wid=#wid", err if err
   me.title = p.data.toString!
+  log 2, "read-active-window-title=#{me.title}"
   cb! if cb

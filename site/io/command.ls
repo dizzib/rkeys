@@ -37,7 +37,7 @@ function build-cache cfgs
         sc.push id:id, cmd:cmd, rx:create-sidechain-rx id
       else cs[id] = cmd
   for o in sc then log "sidechain #{o.rx}: #{o.cmd}"
-  #log cache
+  log 2, cache
 
   function create-sidechain-rx id
     new RegExp id[1 to -2] * '' # strip surrounding /s

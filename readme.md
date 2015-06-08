@@ -133,14 +133,15 @@ installed you could include the following to play sounds at quarter volume:
 ## options
 
     $ rkeys --help
-    Usage: rkeys [options] <directory ...>
+    Usage: rkeys [Options] [directory ...]
 
     Options:
 
-      -h, --help             output usage information
-      -V, --version          output the version number
-      -g, --gen-ssl-cert     generate a self-signed ssl certificate
-      -p, --port [port]      listening port (default:7000)
+      -h, --help               output usage information
+      -V, --version            output the version number
+      -g, --gen-ssl-cert       generate a self-signed ssl certificate
+      -p, --port <port>        listening port (default:7000)
+      -v, --verbosity <level>  verbosity (default:1)
 
 ## host over https
 

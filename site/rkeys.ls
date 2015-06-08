@@ -1,10 +1,13 @@
-global.log = console.log
+_    = require \lodash
+Args = require \./args
 
-Args    = require \./args
-GenCert = require \./gen-ssl-cert
+global.log = (level, ...args) ->
+  unless _.isNumber level and args?
+    args ++= level
+    level = 1
+  console.log ...args if level <= Args.verbosity
 
-return GenCert! if Args.gen-ssl-cert
-
+return (require \./gen-ssl-cert)! if Args.gen-ssl-cert
 <- require \wait.for .launchFiber
 
 Bify    = require \browserify
@@ -58,7 +61,7 @@ start-https!
 function start-http
   Api.init http = Http.createServer express
   W4m http, \listen, Args.port
-  log "Express http server listening on port #{Args.port}"
+  log 0, "Express http server listening on port #{Args.port}"
 
 function start-https
   keys  = ls [ Path.join d, '/*key.pem' for d in Args.dirs ]
@@ -70,7 +73,7 @@ function start-https
   cert = Fs.readFileSync cert-path
   Api.init https = Https.createServer (key:key, cert:cert), express
   W4m https, \listen, Args.port-ssl
-  log "Express https server listening on port #{Args.port-ssl}"
+  log 0, "Express https server listening on port #{Args.port-ssl}"
 
 function use-livescript dir
   express.use "*.js", (req, res, next) ->
