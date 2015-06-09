@@ -14,7 +14,7 @@ module.exports = (direction, id, command) ->
       unless tid is \cancelled
         clearTimeout tid
         delete aurep-tids[id]
-    else # signal long running macro to not auto-repeat
+    else if delay-tids[id] # signal long running macro to not auto-repeat
       aurep-tids[id] = \cancelled
 
   # touch down cancels an already running macro
