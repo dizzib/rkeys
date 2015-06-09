@@ -72,42 +72,44 @@ Most of the time you'll be laying out sets of keys and this is where the
 [keys template] comes in handy. It extends the [base template] with the
 [Font Awesome] icons and the following:
 
-### +key(args, label) mixin
+### +key mixin
 
 Generate a single key. Usage examples:
 
 - `+key('a')`:
   emit a KeyPress `a` on touchstart and KeyRelease `a` on touchend.
-  This lets you press and hold the key for native auto-repeat.
+  Press and hold the key for native auto-repeat.
 - `+key('XK_Shift_L')`:
   simulate the left shift key by specifying an explicit [keysym].
 - `+key('Shift_L')`:
   as above but with the optional `XK_` prefix dropped.
 - `+key('Shift_L', 'shift')`:
-  a more user-friendly label.
+  show a user-friendly label.
 - `+key('Shift_L shift')`:
-  a more compact calling convention.
+  as above using a more compact syntax.
 - `+key('Shift_L fa-chevron-up')`:
-  a nice [font awesome icon](http://fortawesome.github.io/Font-Awesome/icon/chevron-up).
+  replace label with a nice [font awesome icon](http://fortawesome.github.io/Font-Awesome/icon/chevron-up).
   A label starting with `fa-` is treated as a font awesome class.
 - `+key('Shift_L fa-chevron-up fa-2x')`:
   a [double size icon](http://fortawesome.github.io/Font-Awesome/examples).
   Multiple font awesome classes can be specified.
 - `+key('C+S+A+F12')`:
-  simulate the KeyPress sequence `Ctrl`, `Shift`, `Alt` and `F12` on touchstart,
+  emit the KeyPress sequence `Ctrl` `Shift` `Alt` and `F12` on touchstart,
   followed by KeyRelease sequence in the same order on touchend.
   This is known as a [chord] and is denoted by infix `+` symbols.
   Press and hold for native auto-repeat.
 - `+key('C+S+A+F12 fold all')`:
   as above but with a nice label.
-- `+key('foo')`:
-  run custom command `foo` on touchstart.
+- `+key('edit-copy')`:
+  invoke the `edit-copy` command defined in command yaml.
+- `+key('edit-copy fa-copy')`:
+  as above but with a [font awesome icon](http://fortawesome.github.io/Font-Awesome/icon/files-o).
 - `+key('foo:b,a,r')`:
-  as above with parameters.
+  with parameters.
 
 See the [source code comments](./site/ui/mixin/keys.jade) for more details.
 
-### +keys(...args) mixin
+### +keys mixin
 
 todo
 
@@ -117,27 +119,78 @@ todo
 
 ## command configuration yaml
 
-The `+key` mixin can also accept a custom command-id where the command itself
-is defined in a yaml file (typically `command.yaml`) in the app's directory.
-For example, `+key('foo')` will run the following command which is
-a macro emitting keystrokes `b`, `a` and `r`:
+Getting more fancy than single keys and chords involves defining commands
+in a [yaml] file (typically `command.yaml`) placed in the app's directory.
 
-    foo: b a r
+Each definition has format
 
-Commands can also take parameters, so the above can be rewritten as
-`foo: $0 $1 $2` and invoked by `+key('foo:b,a,r')`.
+- `id: command`:
+  
+
+### single-keys, chords and sequences
+
+Examples:
+
+- `firefox-fullscreen: F11`
+  emit KeyPress `F11` on rkeydown followed by KeyRelease `F11` on rkeyup.
+- `edit-copy: C+c`:
+  emit KeyPress events `Ctrl` `c` on rkeydown,
+  followed by KeyRelease events `Ctrl` `c` on rkeyup.
+- `abc: a b c`:
+  emit the keystroke sequence `a` `b` `c` on rkeydown with no auto-repeat.
+- `abc-slow: a 500 b 500 c`:
+  as above but with interim pauses of 0.5 seconds.
+- `abc-repeat: a b c 1000`:
+  emit the keystroke sequence `a` `b` `c` on rkeydown, repeating
+  every second until rkeyup.
+- `abc-repeat-slow: a 500 b 500 c 1000`:
+  as above but with interim pauses of 0.5 seconds.
+- `HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]`:
+  emit the keystroke sequence `H` `e` `l` `l` `o` on touchdown and
+  `W` `o` `r` `l` `d` on touchup.
+  Explicit Keypress/KeyRelease events are denoted by prefixes `+` and `-` respectively.
 
 ### filters
 
 The first word of a command can specify a filter to alter the functionality:
 
-id: command | what it does
-------------|-------------
-ID: **alias** *str* | replace all occurrences of `ID` with *str* in the yaml. The standard naming convention is all capitals.
-id: **broadcast** *msg* | broadcast *msg* to all connected clients. Useful for multi-tablet setups.
-id: **button** *n* | simulate mouse button *n*
-id: **exec** *cmd* | execute shell command *cmd*
-id: **nop** | no-operation. Useful as a placeholder to be redefined at runtime.
+- *id*: alias *str* :
+  replace all occurrences of *id* with *str* in the yaml.
+  The standard naming convention for an alias *id* is all capitals.
+- *id*: broadcast *msg* :
+  broadcast *msg* to all connected clients on rkeydown.
+  Useful for keeping things synchronised in multi-tablet setups.
+- *id*: [broadcast *msg1*, broadcast *msg2*] :
+  broadcast *msg1* on rkeydown and *msg2* on rkeyup.
+- *id*: button *n* :
+  simulate mouse button *n* by emitting a ButtonPress on rkeydown
+  and ButtonRelease on rkeyup.
+- *id*: exec *cmd* :
+  execute shell command *cmd* on rkeydown.
+- *id*: nop :
+  no-operation. Useful as a placeholder to be redefined at runtime.
+
+Examples:
+
+* `VBOX-HOST: alias Super_R`:
+  define an alias for the virtualbox host key,
+  for use in other definitions like `vbox-fullscreen: VBOX-HOST+f`.
+* `btn-r: button 3`:
+  simulate right mouse button.
+* `xterm: exec xterm`:
+  launch a xterm.
+
+### core command.yaml
+
+The [core command.yaml] contains the following commands:
+
+* `button`:
+  simulate mouse button $0.
+* `layout`:
+  broadcast message `layout $0` on rkeydown and `layout default` on rkeyup.
+
+### includes
+
 
 ### overriding default configuration at runtime
 
@@ -225,4 +278,4 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 [stylus]: https://learnboost.github.io/stylus
 [teslapad]: https://github.com/dizzib/rkeys-apps/tree/master/teslapad
 [X11]: https://en.wikipedia.org/wiki/X_Window_System
-[YAML]: https://en.wikipedia.org/wiki/YAML
+[yaml]: https://en.wikipedia.org/wiki/YAML

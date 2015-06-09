@@ -2,7 +2,7 @@
 #
 # Commands are defined like so:
 #
-#     id: keydown-command
+#     id: command
 # or  id: [ keydown-command, keyup-command ]
 #
 # Commands can take parameters substituted into $ placeholders,
@@ -17,8 +17,8 @@
 # integers >= 10 denote time delay in milliseconds
 # a trailing integer denotes auto repeat
 abc            : a b c
-abc-slow       : a 500 b 1000 c
-abc-repeat     : a b c 500
+abc-slow       : a 500 b 500 c
+abc-repeat     : a b c 1000
 abc-repeat-slow: a 500 b 500 c 1000
 
 # compose key sequences for special characters
