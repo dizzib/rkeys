@@ -77,22 +77,33 @@ Most of the time you'll be laying out sets of keys and this is where the
 Generate a single key. Usage examples:
 
 - `+key('a')`:
-  simulate the KeyPress `a` on touchstart and KeyRelease `a` on touchend.
+  emit a KeyPress `a` on touchstart and KeyRelease `a` on touchend.
   This lets you press and hold the key for native auto-repeat.
+- `+key('XK_Shift_L')`:
+  simulate the left shift key by specifying an explicit [keysym].
+- `+key('Shift_L')`:
+  as above but with the optional `XK_` prefix dropped.
+- `+key('Shift_L', 'shift')`:
+  a more user-friendly label.
+- `+key('Shift_L shift')`:
+  a more compact calling convention.
+- `+key('Shift_L fa-chevron-up')`:
+  a nice [font awesome icon](http://fortawesome.github.io/Font-Awesome/icon/chevron-up).
+  A label starting with `fa-` is treated as a font awesome class.
+- `+key('Shift_L fa-chevron-up fa-2x')`:
+  a [double size icon](http://fortawesome.github.io/Font-Awesome/examples).
+  Multiple font awesome classes can be specified.
 - `+key('C+S+A+F12')`:
   simulate the KeyPress sequence `Ctrl`, `Shift`, `Alt` and `F12` on touchstart,
   followed by KeyRelease sequence in the same order on touchend.
-  This is known as a [chord]. As before, press and hold for native auto-repeat.
-- `+key('C+Page_Down','Next tab')`:
-  another [chord] but with a more user-friendly label.
-- `+key('C+Page_Down Next tab')`:
-  as above but with a more compact calling convention.
-- `+key('C+Page_Down fa-caret-square-o-right')`:
-  as above but with a nice [font awesome icon](http://fortawesome.github.io/Font-Awesome/icon/caret-square-o-right).
-- `+key('C+Page_Down fa-caret-square-o-right fa-2x')`:
-  as above but with a [double size icon](http://fortawesome.github.io/Font-Awesome/examples).
+  This is known as a [chord] and is denoted by infix `+` symbols.
+  Press and hold for native auto-repeat.
+- `+key('C+S+A+F12 fold all')`:
+  as above but with a nice label.
 - `+key('foo')`:
+  run custom command `foo` on touchstart.
 - `+key('foo:b,a,r')`:
+  as above with parameters.
 
 See the [source code comments](./site/ui/mixin/keys.jade) for more details.
 
@@ -203,6 +214,7 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 [Font Awesome]: http://fortawesome.github.io/Font-Awesome/
 [jade]: http://jade-lang.com
 [jquery]: http://jquery.com
+[keysym]: https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
 [keys template]: ./site/ui/template/keys.jade
 [LiveScript]: http://livescript.net
 [lodash]: https://lodash.com
