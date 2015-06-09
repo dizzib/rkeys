@@ -3,7 +3,7 @@ Args = require \./args
 
 global.log = (level, ...args) ->
   unless _.isNumber level and args?
-    args ++= level
+    args = [level] ++ args
     level = 1
   console.log ...args if level <= Args.verbosity
 
