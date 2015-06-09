@@ -119,15 +119,14 @@ todo
 
 ## command configuration yaml
 
-Getting more fancy than single keys and chords involves defining commands
+You can get more fancy than single-keys and chords by defining commands
 in a [yaml] file (typically `command.yaml`) placed in the app's directory.
-
-Each definition has format
-
-- `id: command`:
-  
+Each definition has format `id: command` where `id` is a unique identifier
+and `command` is a string specifying what to do.
 
 ### single-keys, chords and sequences
+
+To define a sequence of keystrokes, simply list them in order separated by spaces.
 
 Examples:
 
@@ -146,8 +145,8 @@ Examples:
 - `abc-repeat-slow: a 500 b 500 c 1000`:
   as above but with interim pauses of 0.5 seconds.
 - `HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]`:
-  emit the keystroke sequence `H` `e` `l` `l` `o` on touchdown and
-  `W` `o` `r` `l` `d` on touchup.
+  emit the keystroke sequence `H` `e` `l` `l` `o` on rkeydown and
+  `W` `o` `r` `l` `d` on rkeyup.
   Explicit Keypress/KeyRelease events are denoted by prefixes `+` and `-` respectively.
 
 ### filters
@@ -175,22 +174,15 @@ Examples:
 * `VBOX-HOST: alias Super_R`:
   define an alias for the virtualbox host key,
   for use in other definitions like `vbox-fullscreen: VBOX-HOST+f`.
-* `btn-r: button 3`:
-  simulate right mouse button.
+* `button: button $0`:
+  simulate mouse button $0, where 1=left, 2=middle, 3=right.
+  This command is in the [core command.yaml].
+* `layout: [broadcast layout $0, broadcast layout default]`:
+  instruct connected clients to switch to layout $0 on rkeydown,
+  switching back to the default on rkeyup.
+  This command is in the [core command.yaml].
 * `xterm: exec xterm`:
   launch a xterm.
-
-### core command.yaml
-
-The [core command.yaml] contains the following commands:
-
-* `button`:
-  simulate mouse button $0.
-* `layout`:
-  broadcast message `layout $0` on rkeydown and `layout default` on rkeyup.
-
-### includes
-
 
 ### overriding default configuration at runtime
 
