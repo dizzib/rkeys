@@ -1,19 +1,18 @@
 // mixin to generate a single key
 //
 // args: (mandatory) one of the following:
-//    - specifier
-//    - 'specifier label' (space-delimited string)
+//    - action
+//    - action label
 //
-// specifier: (mandatory) one of the following:
-//    - a keysym-id eg 'XK_a'
-//    - a keysym suffix eg 'a'
+// action: (mandatory) one of the following:
+//    - a keysym with or without the XK_ prefix eg 'XK_a' or 'a'
 //    - id
 //      a command-id as defined in command yaml
 //    - id:params
 //      command-id with a list of comma-delimited parameters
 //
 //    Full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
-//    If label isn't supplied then treat specifier as the label
+//    If label isn't supplied then treat action as the label
 //
 // label: (optional) one of the following:
 //    - text string e.g. 'my label'
@@ -21,25 +20,25 @@
 //
 mixin key(args, label)
   - var arr = args.toString().split(' ')
-  - var spec = arr[0]
+  - var act = arr[0]
   - label = label || arr[1]
-  .key.up(id=spec, class=attributes.class)
+  .key.up(id=act, class=attributes.class)
     if label && label.substring(0,3) == 'fa-'
       // label is a font-awesome identifier
       .label
         i.fa.fa-2x(class=label)
     else
       // label is text
-      - var lbl = label || spec
+      - var lbl = label || act
       - var lblcls = 'len-' + lbl.toString().length
       .label(class=lblcls)= lbl
 
-// mixin to generate a sequence of keys
+// mixin to generate multiple keys
 //
-// accepts a list of args, where each arg is one of the following:
-//    - a single specifier e.g. 'a'
-//    - 'specifier label' e.g. 'C+z undo'
-//    - a space-delimited string of 3 or more specifiers e.g. 'q w e r t y'
+// accepts either
+//    - a space-delimited string of actions e.g. 'q w e r t y'
+// or
+//    - a list of args expanding to +key(arg)
 //
 //  Any attributes are applied to each key in turn. Examples:
 //
@@ -51,9 +50,9 @@ mixin key(args, label)
 //
 mixin keys(...args)
   each arg in args
-    - specs = arg.toString().split(' ')
-    if specs.length <= 2 && args.length > 1
+    - acts = arg.toString().split(' ')
+    if acts.length <= 2 && args.length > 1
       +key(arg)&attributes(attributes)
     else
-      each spec in specs
-        +key(spec)&attributes(attributes)
+      each act in acts
+        +key(act)&attributes(attributes)

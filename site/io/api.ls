@@ -18,13 +18,13 @@ module.exports.init = (http) ->
       ..on \rkeyseq   , Kseq
     Actw.emit \changed
 
-    function apply-filters direction, spec
-      [id, command] = parse-spec spec
-      Sc direction, id, command, io, spec
+    function apply-filters direction, act
+      [id, command] = parse-act act
+      Sc direction, id, command, io, act
       Fc direction, id, command, io
 
-    function parse-spec spec
-      [id, p-str] = if spec is \: then [\:, ''] else spec / \:
+    function parse-act act
+      [id, p-str] = if act is \: then [\:, ''] else act / \:
       cmd = Cmd.get-command id
       return [id, cmd] unless p-str?length
       p-arr = p-str / \,
