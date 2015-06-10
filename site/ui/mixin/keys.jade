@@ -38,11 +38,10 @@ mixin key(args, label)
 // accepts either
 //    - a space-delimited string of actions e.g. 'q w e r t y'
 // or
-//    - a list of args expanding to +key(arg)
+//    - a list of args for +key
 //
-//  Any attributes are applied to each key in turn. Examples:
+//  Any classes or attributes are applied to each key in turn. Examples:
 //
-//  +keys('a').z          expands to +key('a').z
 //  +keys('a b').z        expands to +key('a').z +key('b').z
 //  +keys('a b c').z      expands to +key('a').z +key('b').z +key('c').z
 //  +keys('a', 'b').z     expands to +key('a').z +key('b').z
