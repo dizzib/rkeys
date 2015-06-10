@@ -13,9 +13,9 @@ module.exports.init = (http) ->
     log 0, "connect #{ip = socket.conn.remoteAddress}"
     socket
       ..on \disconnect, -> log 0, "disconnect #ip"
-      ..on \keydown   , -> apply-filters 0, it
-      ..on \keyup     , -> apply-filters 1, it
-      ..on \keyseq    , Kseq
+      ..on \rkeydown  , -> apply-filters 0, it
+      ..on \rkeyup    , -> apply-filters 1, it
+      ..on \rkeyseq   , Kseq
     Actw.emit \changed
 
     function apply-filters direction, spec
@@ -35,4 +35,3 @@ module.exports.init = (http) ->
       return s unless _.isString s
       for p, i in p-arr then s .= replace "$#{i}", p
       s
-
