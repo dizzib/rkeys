@@ -36,7 +36,6 @@ function build-cache cfgs
         _.remove sc, -> it.id is id
         sc.push id:id, cmd:cmd, rx:create-sidechain-rx id
       else cs[id] = cmd
-  for o in sc then log "sidechain #{o.rx}: #{o.cmd}"
   log 2, cache
 
   function create-sidechain-rx id
