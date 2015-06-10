@@ -3,7 +3,7 @@ Io   = require \socket.io
 Cmd  = require \./command
 Actw = require \./x11/active-window
 Fc   = require \./filter-chain
-Kseq = require \./keyseq
+Rks  = require \./rkeystrokes
 Sc   = require \./side-chain
 
 module.exports.init = (http) ->
@@ -12,10 +12,10 @@ module.exports.init = (http) ->
   (io = Io http).on \connection, (socket) ->
     log 0, "connect #{ip = socket.conn.remoteAddress}"
     socket
-      ..on \disconnect, -> log 0, "disconnect #ip"
-      ..on \rkeydown  , -> apply-filters 0, it
-      ..on \rkeyup    , -> apply-filters 1, it
-      ..on \rkeyseq   , Kseq
+      ..on \disconnect , -> log 0, "disconnect #ip"
+      ..on \rkeydown   , -> apply-filters 0, it
+      ..on \rkeyup     , -> apply-filters 1, it
+      ..on \rkeystrokes, Rks
     Actw.emit \changed
 
     function apply-filters direction, act
