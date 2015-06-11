@@ -64,6 +64,8 @@ Some examples:
 - `+key('a')`:
   emit a KeyPress `a` on touchstart (**down**) and KeyRelease `a` on touchend
   (**up**). Press and hold the key for native auto-repeat.
+- `+key('%')`:
+  emit a percent symbol. Symbols are mapped to [keysyms] in the [core command.yaml].
 - `+key('XK_Shift_L')`:
   simulate the left shift key by specifying an explicit [keysym].
 - `+key('Shift_L')`:
@@ -77,8 +79,6 @@ Some examples:
   [font awesome icon](http://fortawesome.github.io/Font-Awesome/icon/chevron-up).
   A word starting with `fa-` is treated as a font awesome class.
   Multiple font awesome classes can be specified.
-- `+key('%')`:
-  emit a percent symbol. Symbols are mapped to keysyms in the [core command.yaml].
 - <a name="chords"></a>`+key('C+S+A+F12')`:
   a [chord] emitting the KeyPress sequence `Ctrl` `Shift` `Alt` and `F12`
   on touchstart, followed by KeyRelease sequence in the same order on touchend.
@@ -212,7 +212,7 @@ Examples:
 The first word of a command can specify a filter to alter the functionality:
 
 - *id*: alias *str* :
-  replace all occurrences of *id* with *str* in the yaml.
+  replace occurrences of *id* with *str* in all actions and commands.
   The standard naming convention for an alias *id* is all capitals.
 - *id*: broadcast *msg* :
   broadcast *msg* to all connected clients on rkeydown.
@@ -230,7 +230,7 @@ The first word of a command can specify a filter to alter the functionality:
 Examples:
 
 * <a name="VBOX-HOST"></a>`VBOX-HOST: alias Super_R`:
-  define an alias for the virtualbox host key,
+  define an alias for the [VirtualBox] host key.
 * <a name="button"></a>`button: button $0`:
   simulate mouse button $0, where 1=left, 2=middle, 3=right, etc.
   This is defined in the [core command.yaml].
@@ -238,8 +238,9 @@ Examples:
   instruct connected clients to switch to layout $0 on rkeydown,
   switching back to the default on rkeyup.
   This is defined in the [core command.yaml].
-* `xterm: exec xterm`:
-  launch a xterm.
+* `speakeys-onstart: exec qdbus-qt4 org.kde.simon /ActionManager
+  triggerCommand 'Filter' 'pause' > /dev/null`:
+  pause the [Simon] speech recognition engine.
 
 ### overriding default configuration at runtime
 
@@ -318,16 +319,19 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 [jade]: http://jade-lang.com
 [jquery]: http://jquery.com
 [keysym]: https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
+[keysyms]: https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
 [keys template]: ./site/ui/template
 [LiveScript]: http://livescript.net
 [lodash]: https://lodash.com
 [mixins]: ./site/ui/mixin
 [node.js]: http://nodejs.org
 [regular expression]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+[Simon]: https://userbase.kde.org/Simon
 [socket.io]: http://socket.io
 [SoX]: http://sox.sourceforge.net/Main/HomePage
 [stylus]: https://learnboost.github.io/stylus
 [templates]: ./site/ui/template
 [teslapad]: https://github.com/dizzib/rkeys-apps/tree/master/teslapad
+[VirtualBox]: https://www.virtualbox.org
 [X11]: https://en.wikipedia.org/wiki/X_Window_System
 [yaml]: https://en.wikipedia.org/wiki/YAML
