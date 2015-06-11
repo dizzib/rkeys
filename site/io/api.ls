@@ -33,5 +33,5 @@ module.exports.init = (http) ->
 
     function replace-params s, p-arr
       return s unless _.isString s
-      for p, i in p-arr then s .= replace "$#{i}", p
+      for p, i in p-arr then s .= replace "$#i", p
       s
