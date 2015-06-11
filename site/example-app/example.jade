@@ -27,26 +27,26 @@ block layout
     // sequence of keysym suffixes
     +keys('b c 1 2 3')
     // keysym suffixes with labels
-    +key('Shift_L', 'Shift').latchable.w-2
-    +key('BackSpace', 'Back- space')
+    +key('Shift_L Shift').latchable.w-2
+    +key('BackSpace Back- space')
 
   section
     h2 Key chords
     p Press and hold for native auto-repeat
     // key chords are denoted by infix +
     // modifier aliases are defined in ../io/command.yaml
-    +key('S+a', 'shift a')
+    +key('S+a shift a')
     // for extra clarity we can specify the chord in the command yaml...
-    +key('type-an-asterisk', 'shift 8')
+    +key('type-an-asterisk shift 8')
 
   section
     h2 Key sequences with delay and non-native auto-repeat
     p Press and hold for non-native auto-repeat
-    +key('HelloWorld', 'Hello World')
-    +key('abc', 'abc')
-    +key('abc-slow', 'abc (slow)')
-    +key('abc-repeat', 'abc (repeat)')
-    +key('abc-repeat-slow', 'abc (repeat slow)')
+    +key('HelloWorld Hello World')
+    +key('abc')
+    +key('abc-slow abc (slow)')
+    +key('abc-repeat abc (repeat)')
+    +key('abc-repeat-slow abc (repeat slow)')
 
   section
     h2 Compose key sequences for special characters
@@ -57,11 +57,10 @@ block layout
     h2 Mouse buttons
     // button command is defined in ../io/command.yaml
     +keys('button:1 left', 'button:2 middle', 'button:3 right')
-    +key('button:4', 'wheel up')
-    +key('button:5', 'wheel down')
-    +key('button:6', 'button 6')
-    +key('button:7', 'button 7')
-    +key('button:8', 'button 8')
+    +keys('button:4 wheel up', 'button:5 wheel down')
+    +key('button:6 button 6')
+    +key('button:7 button 7')
+    +key('button:8 button 8')
 
   section
     h2 Layout switching
@@ -77,13 +76,13 @@ block layout
   section
     h2 Shell exec
     p Check rkeys node console for standard output messages
-    +key('echo:foo,bar,baz', 'exec echo')
-    +key('xterm', 'exec xterm')
+    +key('echo:foo,bar,baz exec echo')
+    +key('xterm exec xterm')
 
   section
     h2: a(href='http://fortawesome.github.io/Font-Awesome/icons') Font Awesome icons
-    // pass fa-* into the label field
-    +keys('C+c fa-copy', 'C+x fa-cut', 'C+v fa-paste')
+    // pass fa-* into the label
+    +keys('C+c fa-copy edit copy', 'C+x fa-cut edit cut', 'C+v fa-paste edit paste')
 
   section
     h2 Context sensitivity

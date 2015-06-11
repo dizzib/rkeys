@@ -53,12 +53,12 @@ Most of the time you'll be laying out sets of keys and this is where the
 
 ### +key mixin
 
-Generate a single key comprised of an action and some label-text.
+Generate a single key comprised of an action and some label text.
 The action is a [keysym] with or without the `XK_` prefix,
 a [chord] denoted by infix `+` symbols,
 or a [command id](#command.yaml) with optional parameters.
 The label text is displayed inside the key unless it contains [font awesome]
-class names in which case the icon is displayed.
+class names in which case an icon is displayed.
 Some examples:
 
 - `+key('a')`:

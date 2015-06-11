@@ -12,26 +12,34 @@
 //      command-id with a list of comma-delimited parameters
 //
 //    Full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
-//    If label isn't supplied then treat action as the label
 //
-// label: (optional) one of the following:
-//    - text string e.g. 'my label'
-//    - font-awesome classes 'fa-coffee' or 'fa-bed fa-flip-horizontal'
+// label: (optional) text string e.g. 'my amazing label'
+//    May include font-awesome classes prefixed with 'fa-' in which case an
+//    icon is displayed. If label isn't supplied then treat action as the label.
 //
 mixin key(args, label)
   - var arr = args.toString().split(' ')
   - var act = arr[0]
-  - label = label || arr[1]
-  .key.up(id=act, class=attributes.class)
-    if label && label.substring(0,3) == 'fa-'
-      // label is a font-awesome identifier
-      .label
-        i.fa.fa-2x(class=label)
+  - var faw = []
+  - var txt = []
+  - words = (label && label.split(' ')) || (arr.length > 1 && arr.slice(1)) || [act]
+  //- console.log(words)
+  each w in words
+    if w && w.substring(0,3) == 'fa-'
+      - faw.push(w)
     else
-      // label is text
-      - var lbl = label || act
-      - var lblcls = 'len-' + lbl.toString().length
-      .label(class=lblcls)= lbl
+      - txt.push(w)
+  - txt = txt.join(' ')
+  .key.up(id=act, class=attributes.class, title=txt)
+    if faw.length
+      - faw = faw.join(' ')
+      // icon
+      .label
+        i.fa.fa-2x(class=faw)
+    else
+      // text
+      - var cla = 'len-' + txt.toString().length
+      .label(class=cla)= txt
 
 // mixin to generate multiple keys
 //
@@ -48,10 +56,7 @@ mixin key(args, label)
 //  +keys('a b', 'c d').z expands to +key('a b').z +key('c d').z
 //
 mixin keys(...args)
+  if (args.length == 1)
+    - args = args[0].split(' ')
   each arg in args
-    - acts = arg.toString().split(' ')
-    if acts.length <= 2 && args.length > 1
-      +key(arg)&attributes(attributes)
-    else
-      each act in acts
-        +key(act)&attributes(attributes)
+    +key(arg)&attributes(attributes)
