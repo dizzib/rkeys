@@ -2,7 +2,7 @@ _      = require \lodash
 Cmd    = require \../command
 Keysim = require \../x11/keysim
 
-# emitted key or key-chord follows touch down/up just like a real keyboard
+# emitted key or key-chord follows rkeydown/up just like a real keyboard
 
 module.exports = (direction, id, command) ->
   if command?

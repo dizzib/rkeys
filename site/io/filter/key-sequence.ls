@@ -8,7 +8,7 @@ delay-tids = {} # for cancelling a running macro, keyed by command id
 aurep-tids = {} # for cancelling auto-repeat, keyed by command id
 
 module.exports = (direction, id, command) ->
-  # touch up cancels auto-repeat
+  # rkeyup cancels auto-repeat
   if direction is UP
     if tid = aurep-tids[id]
       unless tid is \cancelled
@@ -17,7 +17,7 @@ module.exports = (direction, id, command) ->
     else if delay-tids[id] # signal long running macro to not auto-repeat
       aurep-tids[id] = \cancelled
 
-  # touch down cancels an already running macro
+  # rkeydown cancels an already running macro
   if direction is DOWN and tid = delay-tids[id]
     clearTimeout tid
     delete delay-tids[id]
