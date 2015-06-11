@@ -75,16 +75,19 @@ Some examples:
 - `+key('Shift_L fa-chevron-up')`:
   replace label with a nice
   [font awesome icon](http://fortawesome.github.io/Font-Awesome/icon/chevron-up).
-  A label starting with `fa-` is treated as a font awesome class.
-- `+key('Shift_L fa-chevron-up fa-2x')`:
-  a [double size icon](http://fortawesome.github.io/Font-Awesome/examples).
+  A word starting with `fa-` is treated as a font awesome class.
   Multiple font awesome classes can be specified.
+- `+key('%')`:
+  emit a percent symbol. Symbols are mapped to keysyms in the [core command.yaml].
 - <a name="chords"></a>`+key('C+S+A+F12')`:
   a [chord] emitting the KeyPress sequence `Ctrl` `Shift` `Alt` and `F12`
   on touchstart, followed by KeyRelease sequence in the same order on touchend.
   Press and hold for native auto-repeat.
 - `+key('C+S+A+F12 fold all')`:
   as above but with a nice label.
+- `+key('VBOX-HOST+m show virtualbox menu fa-navicon')`:
+  a chord using a [custom alias](#VBOX-HOST), some descriptive text (not displayed)
+  and an icon.
 - `+key('button:3')`:
   invoke the [button](#button) command with parameter `3`
   to simulate the right mouse button.
@@ -226,9 +229,8 @@ The first word of a command can specify a filter to alter the functionality:
 
 Examples:
 
-* `VBOX-HOST: alias Super_R`:
+* <a name="VBOX-HOST"></a>`VBOX-HOST: alias Super_R`:
   define an alias for the virtualbox host key,
-  for use in other definitions like `vbox-fullscreen: VBOX-HOST+f`.
 * <a name="button"></a>`button: button $0`:
   simulate mouse button $0, where 1=left, 2=middle, 3=right, etc.
   This is defined in the [core command.yaml].
