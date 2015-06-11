@@ -4,7 +4,7 @@ Keysim = require \../x11/keysim
 const DOWN = 0
 const UP   = 1
 
-delay-tids = {} # for cancelling a running macro, keyed by command id
+delay-tids = {} # for cancelling a running sequence, keyed by command id
 aurep-tids = {} # for cancelling auto-repeat, keyed by command id
 
 module.exports = (direction, id, command) ->
@@ -14,10 +14,10 @@ module.exports = (direction, id, command) ->
       unless tid is \cancelled
         clearTimeout tid
         delete aurep-tids[id]
-    else if delay-tids[id] # signal long running macro to not auto-repeat
+    else if delay-tids[id] # signal long running sequence to not auto-repeat
       aurep-tids[id] = \cancelled
 
-  # rkeydown cancels an already running macro
+  # rkeydown cancels an already running sequence
   if direction is DOWN and tid = delay-tids[id]
     clearTimeout tid
     delete delay-tids[id]
@@ -25,25 +25,25 @@ module.exports = (direction, id, command) ->
   if _.isArray command then command = command[direction] # explicit down/up
   else return unless direction is DOWN # single command on down only
 
-  apply-next-directive directives = command.split ' '
+  apply-next-instruction instructions = command.split ' '
 
-  function apply-next-directive ds
+  function apply-next-instruction ds
     return unless ds.length
     # int >= 10 denotes time delay in milliseconds
     if (d = ds.0).length > 1 and ms = parseInt d, 10
-      if ds.length > 1 # more directives to come
-        tid = setTimeout apply-next-directive, ms, ds.slice 1
+      if ds.length > 1 # more instructions to come
+        tid = setTimeout apply-next-instruction, ms, ds.slice 1
         return delay-tids[id] = tid
       return delete aurep-tids[id] if aurep-tids[id] is \cancelled
       return aurep-tids[id] = setTimeout begin-auto-repeat, ms
-    apply-directive d
-    apply-next-directive ds.slice 1
+    apply-instruction d
+    apply-next-instruction ds.slice 1
 
   function begin-auto-repeat
     delete aurep-tids[id]
-    apply-next-directive directives
+    apply-next-instruction instructions
 
-function apply-directive d
+function apply-instruction d
   # prefix + or - denotes explicit press or release
   return (Keysim.down d.slice 1) if d.0 is \+
   return (Keysim.up d.slice 1) if d.0 is \-

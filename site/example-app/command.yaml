@@ -57,7 +57,7 @@ xterm: exec xterm -fg red
 /^f$/: PLAY-SOUND SFX-DROID
 /^g$/: PLAY-SOUND SFX-NOISE
 /^h$/: [ PLAY-SOUND SFX-TICK, PLAY-SOUND SFX-TOCK ]
-# uncomment the following line to make any abc macro chirp
+# uncomment the following line to make any abc sequence chirp
 #/^abc/: PLAY-SOUND SFX-CHIRP
 # uncomment the following line to play a noise on any other key
 #/.*/: PLAY-SOUND SFX-NOISE
