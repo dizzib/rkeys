@@ -38,12 +38,12 @@ COMPOSE: alias Super_L
 # modifier aliases (like S+ for Shift_L+) are defined in ../io/command.yaml
 type-an-asterisk: S+8
 
-# separate up and down directives denoted by array [down, up]
+# separate up and down sequences denoted by array [down, up]
 #
 # explicit keydown denoted by prefix +
 # explicit keyup denoted by prefix -
 #
-# emit 'Hello' on touchdown and 'World' on touchup
+# emit 'Hello' on rkeydown and 'World' on rkeyup
 HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]
 
 # exec shell command

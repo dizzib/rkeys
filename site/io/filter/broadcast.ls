@@ -9,7 +9,7 @@ module.exports = (direction, id, command, io) ->
   if _.isArray command then command = command[direction] # explicit down/up
   else return unless direction is DOWN # single command on down only
 
-  return false unless (directives = command / ' ').0 is \broadcast
-  io.emit directives.1, directives.slice(2) * ' '
+  return false unless (cmdarr = command / ' ').0 is \broadcast
+  io.emit cmdarr.1, cmdarr.slice(2) * ' '
 
   true # handled
