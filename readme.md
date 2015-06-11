@@ -62,8 +62,8 @@ class names in which case an icon is displayed.
 Some examples:
 
 - `+key('a')`:
-  emit a KeyPress `a` on touchstart and KeyRelease `a` on touchend.
-  Press and hold the key for native auto-repeat.
+  emit a KeyPress `a` on touchstart (**down**) and KeyRelease `a` on touchend
+  (**up**). Press and hold the key for native auto-repeat.
 - `+key('XK_Shift_L')`:
   simulate the left shift key by specifying an explicit [keysym].
 - `+key('Shift_L')`:
@@ -91,10 +91,10 @@ Some examples:
 - `+key('button:3 fa-hand-o-down fa-flip-horizontal')`:
   as above but with a flipped
   [font awesome icon](http://fortawesome.github.io/Font-Awesome/icon/hand-o-down).
+- `+key('button:3 right mouse button fa-hand-o-down fa-flip-horizontal')`:
+  as above but with some descriptive text (not displayed).
 - `+key('layout:fn-keys')`:
   switch the [layout](#layout) to `fn-keys` across all connected clients.
-
-See the [source code](./site/ui/mixin/keys.jade) for more details.
 
 ### +keys mixin
 
@@ -117,10 +117,10 @@ Some examples:
   expands to `+key('layout:fn fn').w-3.latchable`
   `+key('Shift_R shift').w-3.latchable`
 
-### styling
+### stylus mixins and stylesheet classes
 
 The [default minimal styling](./site/ui/template/keys.styl) is easily overridden
-with the following mixins and stylesheet classes:
+with the following mixins and classes:
 
 * key-color(*up*, *label-up*, *down*, *label-down*) :
   set the label-foreground and/or key-background colours when in the
@@ -141,6 +141,12 @@ with the following mixins and stylesheet classes:
 * .w-*n* :
   apply this class to a key to multiply its width by *n* where n is from 2 to 9.
   For example `+key('a').w-3` will triple the key's width.
+* .latchable :
+  normally a key is **down** only when you're touching it, reverting back to **up**
+  otherwise. Applying this class to a key allows it to remain **down**
+  even when you're not touching it, by dragging your finger off the key
+  before you release it. Then simply tap the key to unlatch it.
+  A latchable `shift` key behaves rather like CapsLock on a traditional keyboard.
 
 ## base template
 
@@ -168,12 +174,6 @@ are available for manipulating layouts:
 - .vertical :
   arrange immediate children vertically
 
-## server API
-
-* rkeydown :
-* rkeyup :
-* rkeyseq :
-
 ## <a name="command.yaml"></a>command configuration yaml
 
 You can get more fancy than single-keys and chords by defining commands
@@ -181,7 +181,7 @@ in a [yaml] file (typically `command.yaml`) placed in the app's directory.
 Each definition has format `id: command` where `id` is a unique identifier
 and `command` is a string specifying what to do.
 
-### single-keys, chords and sequences
+### keystroke sequences
 
 To define a sequence of keystrokes simply list them in order separated by spaces.
 Sometimes a sequence might fire too quickly for all keystrokes to take effect,
@@ -190,11 +190,6 @@ The solution is to introduce a short pause between keystrokes, specified in mill
 
 Examples:
 
-- `firefox-fullscreen: F11`
-  emit KeyPress `F11` on rkeydown followed by KeyRelease `F11` on rkeyup.
-- `edit-copy: C+c`:
-  emit KeyPress events `Ctrl` `c` on rkeydown,
-  followed by KeyRelease events `Ctrl` `c` on rkeyup.
 - `abc: a b c`:
   emit the keystroke sequence `a` `b` `c` on rkeydown with no auto-repeat.
 - `abc-slow: a 500 b 500 c`:
@@ -321,7 +316,7 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 [jade]: http://jade-lang.com
 [jquery]: http://jquery.com
 [keysym]: https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
-[keys template]: ./site/ui/template/keys.jade
+[keys template]: ./site/ui/template
 [LiveScript]: http://livescript.net
 [lodash]: https://lodash.com
 [node.js]: http://nodejs.org

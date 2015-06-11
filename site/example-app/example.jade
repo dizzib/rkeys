@@ -22,11 +22,11 @@ block layout
       (this is similar to caps-lock on a traditional keyboard). To unlatch,
       simply tap the key again.
     // See the full list of keysyms at https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
-    // single keysym suffix i.e. XK_a minus the XK_
+    // single keysym without the XK_
     +key('a')
-    // sequence of keysym suffixes
+    // set of keys with implied labels
     +keys('b c 1 2 3')
-    // keysym suffixes with labels
+    // keys with explicit labels
     +key('Shift_L Shift').latchable.w-2
     +key('BackSpace Back- space')
 
@@ -34,10 +34,8 @@ block layout
     h2 Key chords
     p Press and hold for native auto-repeat
     // key chords are denoted by infix +
-    // modifier aliases are defined in ../io/command.yaml
-    +key('S+a shift a')
-    // for extra clarity we can specify the chord in the command yaml...
-    +key('type-an-asterisk shift 8')
+    // modifier aliases (like S+ for Shift_L+) are defined in ../io/command.yaml
+    +keys('S+a shift a', 'C+Page_Down next tab', 'type-an-asterisk *')
 
   section
     h2 Key sequences with delay and non-native auto-repeat
@@ -58,9 +56,7 @@ block layout
     // button command is defined in ../io/command.yaml
     +keys('button:1 left', 'button:2 middle', 'button:3 right')
     +keys('button:4 wheel up', 'button:5 wheel down')
-    +key('button:6 button 6')
-    +key('button:7 button 7')
-    +key('button:8 button 8')
+    +keys('button:6 button 6', 'button:7 button 7', 'button:8 button 8')
 
   section
     h2 Layout switching
@@ -81,8 +77,8 @@ block layout
 
   section
     h2: a(href='http://fortawesome.github.io/Font-Awesome/icons') Font Awesome icons
-    // pass fa-* into the label
-    +keys('C+c fa-copy edit copy', 'C+x fa-cut edit cut', 'C+v fa-paste edit paste')
+    // include fa-* in the label
+    +keys('C+c edit copy fa-copy', 'C+x edit cut fa-cut', 'C+v edit paste fa-paste')
 
   section
     h2 Context sensitivity
