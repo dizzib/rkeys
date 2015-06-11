@@ -25,29 +25,29 @@ module.exports = (direction, id, command) ->
   if _.isArray command then command = command[direction] # explicit down/up
   else return unless direction is DOWN # single command on down only
 
-  apply-next-instruction instructions = command.split ' '
+  apply-next sequence = command / ' '
 
-  function apply-next-instruction ds
-    return unless ds.length
+  function apply-next seq
+    return unless seq.length
     # int >= 10 denotes time delay in milliseconds
-    if (d = ds.0).length > 1 and ms = parseInt d, 10
-      if ds.length > 1 # more instructions to come
-        tid = setTimeout apply-next-instruction, ms, ds.slice 1
+    if (ins = seq.0).length > 1 and ms = parseInt ins, 10
+      if seq.length > 1 # more instructions to come
+        tid = setTimeout apply-next, ms, seq.slice 1
         return delay-tids[id] = tid
       return delete aurep-tids[id] if aurep-tids[id] is \cancelled
       return aurep-tids[id] = setTimeout begin-auto-repeat, ms
-    apply-instruction d
-    apply-next-instruction ds.slice 1
+    apply-instruction ins
+    apply-next seq.slice 1
 
   function begin-auto-repeat
     delete aurep-tids[id]
-    apply-next-instruction instructions
+    apply-next sequence
 
-function apply-instruction d
+function apply-instruction
   # prefix + or - denotes explicit press or release
-  return (Keysim.down d.slice 1) if d.0 is \+
-  return (Keysim.up d.slice 1) if d.0 is \-
+  return (Keysim.down it.slice 1) if it.0 is \+
+  return (Keysim.up it.slice 1) if it.0 is \-
 
-  chord-keys = d.split \+ # infix + denotes a chord e.g. 'Shift+Alt+X'
+  chord-keys = it.split \+ # infix + denotes a chord e.g. 'Shift+Alt+X'
   for k in chord-keys then Keysim.down k
   for k in chord-keys then Keysim.up k    # implicit release
