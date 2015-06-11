@@ -3,13 +3,13 @@
 A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to remote [X11]:
 
 - [define virtual keyboards or keypads][teslapad] with a bit of [jade] and [stylus]
-- [define chords and sequences](./site/example-app/command.yaml) with delays and auto-repeat
-- use the built-in [mixins](./site/ui/mixin) and [templates](./site/ui/template) to minimise your code
+- define [chords](#chords) and [sequences](#sequences) with delays and auto-repeat
+- use the built-in [mixins] and [templates] to minimise your code
 - enhance with [LiveScript] and [Font Awesome] icons
 - assign keys to dynamically switch layouts
 - context sensitivity - show/hide regions matching the active window title
 - simulate mouse buttons and run shell commands
-- add sound effects: server-side or (experimental) client-side
+- add [sound effects](#sfx): server-side or (experimental) client-side
 - emit special characters using [compose-key sequences][ComposeKey]
 
 ## install
@@ -79,7 +79,7 @@ Some examples:
 - `+key('Shift_L fa-chevron-up fa-2x')`:
   a [double size icon](http://fortawesome.github.io/Font-Awesome/examples).
   Multiple font awesome classes can be specified.
-- `+key('C+S+A+F12')`:
+- <a name="chords"></a>`+key('C+S+A+F12')`:
   a [chord] emitting the KeyPress sequence `Ctrl` `Shift` `Alt` and `F12`
   on touchstart, followed by KeyRelease sequence in the same order on touchend.
   Press and hold for native auto-repeat.
@@ -159,7 +159,7 @@ It includes the following [jade mixins](./site/ui/mixin/base.jade):
 - +prevent-zoom :
   lock the zoom-level to prevent accidental pinch-zoom.
   Should be placed in the head section.
-- +show-if(activeWindowTitle='*regexp*') :
+- <a name="show-if"></a>+show-if(activeWindowTitle='*regexp*') :
   only show child content if the active window title matches the
   [regular expression] *regexp*.
 
@@ -181,7 +181,7 @@ in a [yaml] file (typically `command.yaml`) placed in the app's directory.
 Each definition has format `id: command` where `id` is a unique identifier
 and `command` is a string specifying what to do.
 
-### keystroke sequences
+### <a name="sequences"></a>keystroke sequences
 
 To define a sequence of keystrokes simply list them in order separated by spaces.
 Sometimes a sequence might fire too quickly for all keystrokes to take effect,
@@ -249,7 +249,7 @@ For example if we launch rkeys via `$ rkeys ./app-1 ./app-2 ~/.config`
 then if ./app-1/cmd.yaml contains `foo: bar` and ~/.config/rkeys.yaml
 contains `foo: my-custom-command` then the latter definition 'wins'.
 
-## sidechaining server-side sound effects
+## <a name="sfx"></a>sidechaining server-side sound effects
 
 The sidechain allows secondary commands to run alongside the primary
 and is the best way to add low-latency server-side sound effects.
@@ -319,11 +319,13 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 [keys template]: ./site/ui/template
 [LiveScript]: http://livescript.net
 [lodash]: https://lodash.com
+[mixins]: ./site/ui/mixin
 [node.js]: http://nodejs.org
 [regular expression]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 [socket.io]: http://socket.io
 [SoX]: http://sox.sourceforge.net/Main/HomePage
 [stylus]: https://learnboost.github.io/stylus
+[templates]: ./site/ui/template
 [teslapad]: https://github.com/dizzib/rkeys-apps/tree/master/teslapad
 [X11]: https://en.wikipedia.org/wiki/X_Window_System
 [yaml]: https://en.wikipedia.org/wiki/YAML
