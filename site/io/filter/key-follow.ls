@@ -7,9 +7,8 @@ Keysim = require \../x11/keysim
 module.exports = (direction, id, command) ->
   if command?
     return false if _.isArray command
-    return false unless (directives = command / ' ').length is 1
-    return false if (d = directives.0).0 in <[ + - ]> # explicit press
-    keys = d
+    return false unless (sequence = command / ' ').length is 1
+    return false if (keys = sequence.0).0 in <[ + - ]> # explicit press
   else
     keys = Cmd.apply-aliases id
 

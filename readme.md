@@ -2,15 +2,15 @@
 
 A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to remote [X11]:
 
-- [define virtual keyboards or keypads][teslapad] with a bit of [jade] and [stylus]
-- define [chords](#chords) and [sequences](#sequences) with delays and auto-repeat
-- use the built-in [mixins] and [templates] to minimise your code
-- enhance with [LiveScript] and [Font Awesome] icons
-- assign keys to dynamically switch layouts
-- context sensitivity - show/hide regions matching the active window title
-- simulate mouse buttons and run shell commands
-- add [sound effects](#sfx): server-side or (experimental) client-side
-- emit special characters using [compose-key sequences][ComposeKey]
+* [define virtual keyboards or keypads][teslapad] with a bit of [jade] and [stylus]
+* define [chords](#chords) and [sequences](#sequences) with delays and auto-repeat
+* use the built-in [mixins] and [templates] to minimise your code
+* enhance with [LiveScript] and [Font Awesome] icons
+* assign keys to dynamically switch layouts
+* context sensitivity - show/hide regions matching the active window title
+* simulate mouse buttons and run shell commands
+* add [sound effects](#sfx): server-side or (experimental) client-side
+* emit special characters using [compose-key sequences][ComposeKey]
 
 ## install
 
@@ -61,42 +61,42 @@ The label text is displayed inside the key unless it contains [font awesome]
 class names in which case an icon is displayed.
 Some examples:
 
-- `+key('a')`:
+* `+key('a')`:
   emit a KeyPress `a` on touchstart (**down**) and KeyRelease `a` on touchend
   (**up**). Press and hold the key for native auto-repeat.
-- `+key('%')`:
+* `+key('%')`:
   emit a percent symbol. Symbols are mapped to [keysyms] in the [core command.yaml].
-- `+key('XK_Shift_L')`:
+* `+key('XK_Shift_L')`:
   simulate the left shift key by specifying an explicit [keysym].
-- `+key('Shift_L')`:
+* `+key('Shift_L')`:
   as above but with the optional `XK_` prefix dropped.
-- `+key('Shift_L', 'shift')`:
+* `+key('Shift_L', 'shift')`:
   show a user-friendly label.
-- `+key('Shift_L shift')`:
+* `+key('Shift_L shift')`:
   as above using a shorter syntax.
-- `+key('Shift_L fa-chevron-up')`:
+* `+key('Shift_L fa-chevron-up')`:
   replace label with a nice
   [font awesome icon](http://fortawesome.github.io/Font-Awesome/icon/chevron-up).
   A word starting with `fa-` is treated as a font awesome class.
   Multiple font awesome classes can be specified.
-- <a name="chords"></a>`+key('C+S+A+F12')`:
+* <a name="chords"></a>`+key('C+S+A+F12')`:
   a [chord] emitting the KeyPress sequence `Ctrl` `Shift` `Alt` and `F12`
   on touchstart, followed by KeyRelease sequence in the same order on touchend.
   Press and hold for native auto-repeat.
-- `+key('C+S+A+F12 fold all')`:
+* `+key('C+S+A+F12 fold all')`:
   as above but with a nice label.
-- `+key('VBOX-HOST+m show virtualbox menu fa-navicon')`:
+* `+key('VBOX-HOST+m show virtualbox menu fa-navicon')`:
   a chord using a [custom alias](#VBOX-HOST), some descriptive text (not displayed)
   and an icon.
-- `+key('button:3')`:
+* `+key('button:3')`:
   invoke the [button](#button) command with parameter `3`
   to simulate the right mouse button.
-- `+key('button:3 fa-hand-o-down fa-flip-horizontal')`:
+* `+key('button:3 fa-hand-o-down fa-flip-horizontal')`:
   as above but with a flipped
   [font awesome icon](http://fortawesome.github.io/Font-Awesome/icon/hand-o-down).
-- `+key('button:3 right mouse button fa-hand-o-down fa-flip-horizontal')`:
+* `+key('button:3 right mouse button fa-hand-o-down fa-flip-horizontal')`:
   as above but with some descriptive text (not displayed).
-- `+key('layout:fn-keys')`:
+* `+key('layout:fn-keys')`:
   switch the [layout](#layout) to `fn-keys` across all connected clients.
 
 ### +keys mixin
@@ -159,22 +159,22 @@ libraries [socket.io] to communicate the user's keystrokes to the server,
 [lodash] for general purpose functions.
 It includes the following [jade mixins](./site/ui/mixin/base.jade):
 
-- +prevent-zoom :
+* +prevent-zoom :
   lock the zoom-level to prevent accidental pinch-zoom.
   Should be placed in the head section.
-- <a name="show-if"></a>+show-if(activeWindowTitle='*regexp*') :
+* <a name="show-if"></a>+show-if(activeWindowTitle='*regexp*') :
   only show child content if the active window title matches the
   [regular expression] *regexp*.
 
 In addition the following [stylesheet classes](./site/ui/template/base.styl)
 are available for manipulating layouts:
 
-- .layout.*id* :
+* .layout.*id* :
   only show child content when the current layout's id is *id*.
   The default layout's id is **default**.
-- .horizontal :
+* .horizontal :
   arrange immediate children horizontally
-- .vertical :
+* .vertical :
   arrange immediate children vertically
 
 ## <a name="command.yaml"></a>command configuration yaml
@@ -193,38 +193,38 @@ The solution is to introduce a short pause between keystrokes, specified in mill
 
 Examples:
 
-- `abc: a b c`:
+* `abc: a b c`:
   emit the keystroke sequence `a` `b` `c` on rkeydown with no auto-repeat.
-- `abc-slow: a 500 b 500 c`:
+* `abc-slow: a 500 b 500 c`:
   as above but with interim pauses of 0.5 seconds.
-- `abc-repeat: a b c 1000`:
+* `abc-repeat: a b c 1000`:
   emit the keystroke sequence `a` `b` `c` on rkeydown, repeating
   every second until rkeyup.
-- `abc-repeat-slow: a 500 b 500 c 1000`:
+* `abc-repeat-slow: a 500 b 500 c 1000`:
   as above but with interim pauses of 0.5 seconds.
-- `HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]`:
+* `HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]`:
   emit the keystroke sequence `H` `e` `l` `l` `o` on rkeydown and
   `W` `o` `r` `l` `d` on rkeyup.
   Explicit Keypress/KeyRelease events are denoted by prefixes `+` and `-` respectively.
 
-### filters
+### directives
 
-The first word of a command can specify a filter to alter the functionality:
+The first word of a command can specify a **directive** to alter the functionality:
 
-- *id*: alias *str* :
+* *id*: **alias** *str* :
   replace occurrences of *id* with *str* in all actions and commands.
   The standard naming convention for an alias *id* is all capitals.
-- *id*: broadcast *msg* :
-  broadcast *msg* to all connected clients on rkeydown.
+* *id*: **broadcast** *msg* :
+  send *msg* to all connected clients on rkeydown.
   Useful for keeping things synchronised in multi-tablet setups.
-- *id*: [broadcast *msg1*, broadcast *msg2*] :
+* *id*: [**broadcast** *msg1*, **broadcast** *msg2*] :
   broadcast *msg1* on rkeydown and *msg2* on rkeyup.
-- *id*: button *n* :
+* *id*: **button** *n* :
   simulate mouse button *n* by emitting a ButtonPress on rkeydown
   and ButtonRelease on rkeyup.
-- *id*: exec *cmd* :
+* *id*: **exec** *cmd* :
   execute shell command *cmd* on rkeydown.
-- *id*: nop :
+* *id*: **nop** :
   no-operation. Useful as a placeholder to be redefined at runtime.
 
 Examples:
