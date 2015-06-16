@@ -10,6 +10,7 @@ module.exports = (direction, id, command) ->
     return false unless (sequence = command / ' ').length is 1
     return false if (keys = sequence.0).0 in <[ + - ]> # explicit press
   else
+    return false if id.length > 1 and _.contains id, ',' # sequence action
     keys = Cmd.apply-aliases id
 
   ks = keys / \+ # infix + denotes a chord e.g. 'C+A+y'

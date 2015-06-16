@@ -1,4 +1,5 @@
 _      = require \lodash
+Cmd    = require \../command
 Keysim = require \../x11/keysim
 
 const DOWN = 0
@@ -25,7 +26,8 @@ module.exports = (direction, id, command) ->
   if _.isArray command then command = command[direction] # explicit down/up
   else return unless direction is DOWN # single command on down only
 
-  apply-next sequence = command / ' '
+  apply-next sequence =
+    if command? then command.split ' ' else (Cmd.apply-aliases id).split ','
 
   function apply-next seq
     return unless seq.length
