@@ -1,6 +1,6 @@
 require \../site/args
   ..dirs = [ __dirname ]
-  ..verbosity = 2
+  ..verbosity = 1
 
 test = it
 <- require \wait.for .launchFiber
