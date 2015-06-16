@@ -1,0 +1,4 @@
+bar: $0 $1
+foo: x y z
+hi : exec echo hi
+nop: nop

@@ -3,18 +3,17 @@ X11  = require \x11
 Root = require \./helper .root
 X    = require \./helper .x
 
-module.exports = me = (new Evem!) with title:''
-
-err, atom <- X.InternAtom false, \_NET_ACTIVE_WINDOW
-return log "X.InternAtom _NET_ACTIVE_WINDOW failed", err if err
-
-X.ChangeWindowAttributes Root, eventMask:X11.eventMask.PropertyChange
-X.on \event, ->
-  return unless it.atom is X.atoms._NET_ACTIVE_WINDOW
-  <- read-active-window-title
-  me.emit \changed
-
-read-active-window-title!
+module.exports = me = (new Evem!) with do
+  init: ->
+    err, atom <- X.InternAtom false, \_NET_ACTIVE_WINDOW
+    return log "X.InternAtom _NET_ACTIVE_WINDOW failed", err if err
+    X.ChangeWindowAttributes Root, eventMask:X11.eventMask.PropertyChange
+    X.on \event, ->
+      return unless it.atom is X.atoms._NET_ACTIVE_WINDOW
+      <- read-active-window-title
+      me.emit \changed
+    read-active-window-title!
+  title:''
 
 function read-active-window-title cb
   err, p <- X.GetProperty 0, Root, X.atoms._NET_ACTIVE_WINDOW, 0, 0, 10000000

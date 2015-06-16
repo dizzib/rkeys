@@ -12,6 +12,7 @@ C.usage '[Options] [directory ...]'
 C.option '-g, --gen-ssl-cert', 'generate a self-signed ssl certificate'
 C.option '-p, --port <port>', "listening port (default:#PORT)", PORT
 C.option '-v, --verbosity <level>', "verbosity 0=min 2=max (default:#VERBOSITY)", VERBOSITY
+C.allowUnknownOption! # ignore mocha args
 C.parse process.argv
 C.dirs = if C.args.length then C.args else APPS
 C.port-ssl = 1 + _.parseInt C.port

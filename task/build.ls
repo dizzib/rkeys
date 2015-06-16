@@ -117,7 +117,7 @@ function start-watching tid
   log "start watching #tid"
   Assert.equal pwd!, Dir.ROOT
   pat = (t = tasks[tid]).pat or "*.#{t.ixt}"
-  dirs = "#{Dirname.SITE},#{Dirname.TASK}"
+  dirs = "#{Dirname.SITE},#{Dirname.TASK},#{Dirname.TEST}"
   w = t.watcher = Choki.watch [ "{#dirs}/**/#pat" pat ],
     cwd:Dir.ROOT
     ignoreInitial:true

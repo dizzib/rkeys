@@ -32,7 +32,7 @@ function register
   client.sendMessage req.toRequest!
 
 function send note, text, opts = {}
-  if text instanceof Error then text .= message
+  text = Chalk.stripColor if text instanceof Error then text.message else text
   Util.log note.chalk text unless opts.nolog
   return unless enabled
   req = note.toRequest! <<< (applicationName:Const.APPNAME, text:text) <<< opts

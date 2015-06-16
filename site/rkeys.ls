@@ -1,11 +1,7 @@
 _    = require \lodash
 Args = require \./args
 
-global.log = (level, ...args) ->
-  unless _.isNumber level and args?
-    args = [level] ++ args
-    level = 1
-  console.log ...args if level <= Args.verbosity
+global.log = require \./log
 
 return (require \./gen-ssl-cert)! if Args.gen-ssl-cert
 <- require \wait.for .launchFiber
@@ -23,6 +19,7 @@ Path    = require \path
 Shell   = require \shelljs/global
 Stylus  = require \stylus
 W4m     = require \wait.for .forMethod
+X11boot = require \./io/x11/boot # note: X11 is not initialised for tests
 Api     = require \./io/api
 
 const DIR-UI = "#__dirname/ui"

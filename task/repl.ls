@@ -12,6 +12,7 @@ DirBld = require \./constants .dir.BUILD
 Dist   = require \./distribute
 Run    = require \./run
 G      = require \./growl
+Test   = require \./test
 
 const CHALKS = [Chalk.stripColor, Chalk.yellow, Chalk.red]
 const COMMANDS =
@@ -21,6 +22,7 @@ const COMMANDS =
   * cmd:'b.nd' lev:0 desc:'build - npm delete'            fn:Build.delete-modules
   * cmd:'b.nr' lev:0 desc:'build - npm refresh'           fn:Build.refresh-modules
   * cmd:'b.r ' lev:0 desc:'build - recycle'               fn:Run.recycle-site
+  * cmd:'t   ' lev:0 desc:'test  - run'                   fn:Test.run
   * cmd:'d.lo' lev:1 desc:'dist  - publish to local'      fn:Dist.publish-local
   * cmd:'d.PU' lev:2 desc:'dist  - publish to public npm' fn:Dist.publish-public
 
@@ -40,13 +42,15 @@ rl = Rl.createInterface input:process.stdin, output:process.stdout
     <- WFib
     rl.pause!
     for c in COMMANDS when cmd is c.cmd.trim!
-      try c.fn rl # readline is DI'd because multiple instances causes odd behaviour
+      try c.fn!
       catch e then log e
     rl.resume!
     rl.prompt!
 
 Build.on \built ->
   Dist.prepare!
+  err <- Test.run
+  return if err
   Run.recycle-site!
 Build.start!
 Run.recycle-site!

@@ -3,9 +3,11 @@ W4m = require \wait.for .forMethod
 X11 = require \x11
 H   = require \./helper
 
-ks2kc = get-keysym-to-keycode-mapping!
+var ks2kc
 
 module.exports =
+  init: ->
+    ks2kc := get-keysym-to-keycode-mapping!
   get-keycodes: (key) ->
     keysym = get-keysym key
     return log "Invalid keysym #keysym" unless kc = ks2kc[keysym]

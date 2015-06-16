@@ -32,7 +32,10 @@ dependencies:
   'wait.for'   : \0.6.3
   x11          : \1.0.3
 devDependencies:
+  chai         : \~3.0.0
   chalk        : \~0.4.0
   chokidar     : \~1.0.1
   cron         : \~1.0.3
   gntp         : \~0.1.1
+  mocha        : \~2.2.5
+  sinon        : \~1.15.3
