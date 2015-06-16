@@ -37,5 +37,5 @@ devDependencies:
   chokidar     : \~1.0.1
   cron         : \~1.0.3
   gntp         : \~0.1.1
+  lolex        : \~1.2.1
   mocha        : \~2.2.5
-  sinon        : \~1.15.3

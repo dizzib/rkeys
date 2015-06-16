@@ -1,4 +1,9 @@
+abc: [+a b, -a c]
+arq: q 100
 bar: $0 $1
+dly: 9 50 a 100
 foo: x y z
 hi : exec echo hi
 nop: nop
+num: 0 1 9
+seq: C+x S+A+y
