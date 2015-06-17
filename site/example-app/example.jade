@@ -32,23 +32,30 @@ block layout
 
   section
     h2 Key chords
-    p Press and hold for native auto-repeat
-    // key chords are denoted by infix +
+    :markdown
+      Key chords are denoted by infix `+`.
+      Standard modifiers are S+ for Shift, C+ for Control and A+ for Alt.
+      Press and hold for native auto-repeat.
     // modifier aliases (like S+ for Shift_L+) are defined in ../io/command.yaml
-    +keys('S+a shift a', 'C+Page_Down next tab', 'type-an-asterisk *')
+    +keys('S+a', 'C+F5', 'C+Page_Down next tab', 'type-an-asterisk *')
 
   section
     h2 Key sequences with delay and non-native auto-repeat
-    p Press and hold for non-native auto-repeat
+    p Press and hold for non-native auto-repeat.
+    // integers 0..9 are digits, otherwise time delay in milliseconds
+    // a trailing delay denotes auto repeat
+    +key('a,b,c a,b,c')
+    +key('a,500,b,500,c a,b,c (slow)')
+    +key('0,1,2,1000 0,1,2 (repeat)')
+    +key('A,500,S+b,500,c,1000 A,S+b,c (repeat slow)')
+    // defined in command.yaml
+    +key('345 3 4 5 (repeat slow)')
     +key('HelloWorld Hello World')
-    +key('abc')
-    +key('abc-slow abc (slow)')
-    +key('abc-repeat abc (repeat)')
-    +key('abc-repeat-slow abc (repeat slow)')
 
   section
     h2 Compose key sequences for special characters
     p Note: these examples will only work if your compose key is set up as Super_L.
+    // defined in command.yaml
     +keys('£ ¶ ½')
 
   section
@@ -71,7 +78,7 @@ block layout
 
   section
     h2 Shell exec
-    p Check rkeys node console for standard output messages
+    p Check rkeys node console for standard output messages.
     +key('echo:foo,bar,baz exec echo')
     +key('xterm exec xterm')
 

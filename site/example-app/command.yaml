@@ -12,14 +12,24 @@
 # replaced by a regular-expression /regexp/: command
 #
 
+# key chords denoted by infix +
+#
+# modifier aliases (like S+ for Shift_L+) are defined in ../io/command.yaml
+type-an-asterisk: S+8
+
 # key sequences
 #
-# integers >= 10 denote time delay in milliseconds
-# a trailing integer denotes auto repeat
-abc            : a b c
-abc-slow       : a 500 b 500 c
-abc-repeat     : a b c 1000
-abc-repeat-slow: a 500 b 500 c 1000
+# integers 0..9 are digits, otherwise time delay in milliseconds
+# a trailing delay denotes auto repeat
+345: 3 500 4 500 5 1000
+#
+# separate up and down sequences denoted by array [down, up]
+#
+# explicit keydown denoted by prefix +
+# explicit keyup denoted by prefix -
+#
+# emit 'Hello' on rkeydown and 'World' on rkeyup
+HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]
 
 # compose key sequences for special characters
 #
@@ -32,19 +42,6 @@ COMPOSE: alias Super_L
 '£': COMPOSE l XK_minus
 '¶': COMPOSE p XK_exclam
 '½': COMPOSE 1 2
-
-# key chords denoted by infix +
-#
-# modifier aliases (like S+ for Shift_L+) are defined in ../io/command.yaml
-type-an-asterisk: S+8
-
-# separate up and down sequences denoted by array [down, up]
-#
-# explicit keydown denoted by prefix +
-# explicit keyup denoted by prefix -
-#
-# emit 'Hello' on rkeydown and 'World' on rkeyup
-HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]
 
 # exec shell command
 echo : exec echo $0 and $1 with $2
