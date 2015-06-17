@@ -62,6 +62,8 @@ describe 'command' ->
   describe 'directive' ->
     test 'btn 1 dn' -> run-test 'D.button:1' 'bd:1'
     test 'btn 2 up' -> run-test 'U.button:2' 'bu:2'
+    test 'js'       -> run-test 'D.js1:J' 'd:J u:J d:s u:s'
+    test 'ls'       -> run-test 'D.ls1:L' 'd:L u:L d:s u:s'
     test 'layout:x' -> run-test 'D.layout:x U.layout:x' 'io:layout,x io:layout,default'
     test 'nop'      -> run-test 'D.nop U.nop' ''
     test 'shell'    -> run-test 'D.hi U.hi' 'ex:echo hi'
