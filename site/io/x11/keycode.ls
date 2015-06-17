@@ -3,11 +3,15 @@ W4m = require \wait.for .forMethod
 X11 = require \x11
 H   = require \./helper
 
+const PREFIX = \XK_
+
 var ks2kc
 
-module.exports =
+module.exports = me =
   init: ->
     ks2kc := get-keysym-to-keycode-mapping!
+  is-keysym: ->
+    _.isString it and it.substring(0, PREFIX.length) is PREFIX
   get-keycodes: (key) ->
     keysym = get-keysym key
     return log "Invalid keysym #keysym" unless kc = ks2kc[keysym]
@@ -18,9 +22,7 @@ module.exports =
 
 # key is either a full keysym-id like 'XK_a' or just a suffix like 'a'
 function get-keysym key
-  const PREFIX = \XK_
-  return key if key.substring(0, PREFIX.length) is PREFIX
-  "#PREFIX#key" # attach prefix e.g. 'a' maps to 'XK_a'
+  if me.is-keysym key then key else "#PREFIX#key" # attach prefix e.g. 'a' maps to 'XK_a'
 
 # https://github.com/sidorares/node-x11/blob/ae71050a5d61ee7aab65369fab1efa2fc2404a7d/examples/smoketest/keyboard/getkeyboardmapping.js
 function get-keysym-to-keycode-mapping

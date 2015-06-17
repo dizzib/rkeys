@@ -38,17 +38,24 @@ describe 'action' ->
     test 'a+b+CEE'  -> run-test 'D.a+b+CEE U.a+b+CEE' 'd:a d:b d:c u:a u:b u:c'
     test 'C+S+A+a'  -> run-test 'D.C+S+A+a' 'd:Control_L d:Shift_L d:Alt_L d:a'
   describe 'sequence' ->
+    test 'alias'    -> run-test 'D.DEE,f' 'd:d u:d d:e u:e d:f u:f'
+    test 'chords'   -> run-test 'D.C+x,S+A+y' 'd:Control_L d:x u:Control_L u:x d:Shift_L d:Alt_L d:y u:Shift_L u:Alt_L u:y'
+    test 'symbols'  -> run-test 'D.<,>' 'd:XK_less u:XK_less d:XK_greater u:XK_greater'
     test 'xyz down' -> run-test 'D.x,y,z' 'd:x u:x d:y u:y d:z u:z'
     test 'xyz up  ' -> run-test 'U.x,y,z' ''
-    test 'chords'   -> run-test 'D.C+x,S+A+y' 'd:Control_L d:x u:Control_L u:x d:Shift_L d:Alt_L d:y u:Shift_L u:Alt_L u:y'
     test-seq-delay '9,50,a,100'
 describe 'command' ->
+  describe 'symbols and letters' ->
+    test 'c down'   -> run-test 'D.cee' 'd:c u:d'
+    test 'c up'     -> run-test 'U.cee' ''
+    test '<'        -> run-test 'D.sym' 'd:XK_less'
   describe 'sequence' ->
     test 'abc down' -> run-test 'D.abc' 'd:a d:b u:b'
     test 'abc up'   -> run-test 'U.abc' 'u:a d:c u:c'
-    test 'bar:a,b'  -> run-test 'D.bar:a,b' 'd:a u:a d:b u:b'
     test 'chords'   -> run-test 'D.sqc' 'd:Control_L d:x u:Control_L u:x d:Shift_L d:Alt_L d:y u:Shift_L u:Alt_L u:y'
     test 'digits'   -> run-test 'D.dig' 'd:0 u:0 d:1 u:1 d:9 u:9'
+    test 'params'   -> run-test 'D.bar:a,b' 'd:a u:a d:b u:b'
+    test 'symbols'  -> run-test 'D.sqs' 'd:XK_less u:XK_less d:XK_greater u:XK_greater'
     test 'xyz down' -> run-test 'D.xyz' 'd:x u:x d:y u:y d:z u:z'
     test 'xyz up'   -> run-test 'U.xyz' ''
     test-seq-delay 'dly'

@@ -1,5 +1,6 @@
 _      = require \lodash
 Cmd    = require \../command
+Keyco  = require \../x11/keycode
 Keysim = require \../x11/keysim
 
 const DOWN = 0
@@ -26,12 +27,14 @@ module.exports = (direction, id, command) ->
   if _.isArray command then command = command[direction] # explicit down/up
   else return unless direction is DOWN # single command on down only
 
-  apply-next sequence =
-    if command? then command.split ' ' else (Cmd.apply-aliases id).split ','
+  command ||= Cmd.apply-aliases id
+  seq = command.replace /,/g ' ' .split ' '
+  seq = _.map seq, -> if Keyco.is-keysym (c = Cmd.get-command it) then c else it
+  apply-next sequence = seq
 
   function apply-next seq
     return unless seq.length
-    # int >= 10 denotes time delay in milliseconds
+    # int 0..9 denotes digit, otherwise delay in milliseconds
     if (ins = seq.0).length > 1 and ms = parseInt ins, 10
       if seq.length > 1 # more instructions to come
         tid = setTimeout apply-next, ms, seq.slice 1

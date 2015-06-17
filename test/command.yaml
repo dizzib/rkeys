@@ -1,10 +1,14 @@
 abc: [+a b, -a CEE]
 bar: $0 $1
-dig: 0 1 9
+cee: +CEE -d
+dig: 0,1,9
 dly: 9 50 a 100
 hi : exec echo hi
 nop: nop
+sym: <
+sqs: < >
 sqc: C+x S+A+y
 xyz: x y z
 
 CEE: alias c
+DEE: alias d e
