@@ -41,16 +41,16 @@ describe 'action' ->
     test 'alias'    -> run-test 'D.DEE,f' 'd:d u:d d:e u:e d:f u:f'
     test 'chords'   -> run-test 'D.C+x,S+A+y' 'd:Control_L d:x u:Control_L u:x d:Shift_L d:Alt_L d:y u:Shift_L u:Alt_L u:y'
     test 'symbols'  -> run-test 'D.<,>' 'd:XK_less u:XK_less d:XK_greater u:XK_greater'
-    test 'xyz down' -> run-test 'D.x,y,z' 'd:x u:x d:y u:y d:z u:z'
+    test 'xyz dn'   -> run-test 'D.x,y,z' 'd:x u:x d:y u:y d:z u:z'
     test 'xyz up  ' -> run-test 'U.x,y,z' ''
     test-seq-delay '9,50,a,100'
 describe 'command' ->
   describe 'symbols and letters' ->
-    test 'c down'   -> run-test 'D.cee' 'd:c u:d'
+    test 'c dn'     -> run-test 'D.cee' 'd:c u:d'
     test 'c up'     -> run-test 'U.cee' ''
     test '<'        -> run-test 'D.sym' 'd:XK_less'
   describe 'sequence' ->
-    test 'abc down' -> run-test 'D.abc' 'd:a d:b u:b'
+    test 'abc dn'   -> run-test 'D.abc' 'd:a d:b u:b'
     test 'abc up'   -> run-test 'U.abc' 'u:a d:c u:c'
     test 'chords'   -> run-test 'D.sqc' 'd:Control_L d:x u:Control_L u:x d:Shift_L d:Alt_L d:y u:Shift_L u:Alt_L u:y'
     test 'digits'   -> run-test 'D.dig' 'd:0 u:0 d:1 u:1 d:9 u:9'
@@ -65,6 +65,11 @@ describe 'command' ->
     test 'layout:x' -> run-test 'D.layout:x U.layout:x' 'io:layout,x io:layout,default'
     test 'nop'      -> run-test 'D.nop U.nop' ''
     test 'shell'    -> run-test 'D.hi U.hi' 'ex:echo hi'
+  describe 'sidechain' ->
+    test '1 dn'     -> run-test 'D.sc1' 'ex:sc1 d:1'
+    test '1 up'     -> run-test 'U.sc1' 'u:1'
+    test '2 dn'     -> run-test 'D.sc2' 'ex:sc2d d:2'
+    test '2 up'     -> run-test 'U.sc2' 'ex:sc2u u:2'
 
 function test-seq-delay act
   describe 'sequence delay with auto-repeat' ->
