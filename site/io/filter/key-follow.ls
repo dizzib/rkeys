@@ -5,7 +5,7 @@ Keysim = require \../x11/keysim
 
 # emitted key or key-chord follows rkeydown/up just like a real keyboard
 
-module.exports = (direction, id, command) ->
+module.exports = ({command, direction, id}) ->
   if command?
     return false if _.isArray command
     return false if _.contains command, ' '

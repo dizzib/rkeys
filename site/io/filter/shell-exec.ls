@@ -4,7 +4,7 @@ Cp = require \child_process
 const DOWN = 0
 const UP   = 1
 
-module.exports = (direction, id, command) ->
+module.exports = ({command, direction, id}) ->
   return false unless command?
   if _.isArray command
     command = command[direction] # explicit down/up

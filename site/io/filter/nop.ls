@@ -1,3 +1,3 @@
 # no-operation filter
-module.exports = (direction, id, command) ->
+module.exports = ({command}) ->
   command is \nop

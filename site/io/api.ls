@@ -17,17 +17,14 @@ module.exports = me =
         ..on \rkeyup     , -> me.rkeyup io, it
         ..on \rkeystrokes, Rks
       Actw.emit \changed
-  rkeydown: (io, act) ->
-    log 2, "rkeydown #act"
-    apply-filters io, 0, act
-  rkeyup: (io, act) ->
-    log 2, "rkeyup #act"
-    apply-filters io, 1, act
+  rkeydown: (io, act) -> apply-filters io, 0, act
+  rkeyup  : (io, act) -> apply-filters io, 1, act
 
 function apply-filters io, direction, act
   [id, command] = parse-act act
-  Sc direction, id, command, io, act
-  Fc direction, id, command, io
+  log 2, rkey-event = act:act, command:command, direction:direction, id:id, io:io
+  Sc rkey-event
+  Fc rkey-event
 
 function parse-act act
   [id, p-str] = if act is \: then [\:, ''] else act / \:

@@ -9,7 +9,7 @@ const UP   = 1
 delay-tids = {} # for cancelling a running sequence, keyed by command id
 aurep-tids = {} # for cancelling auto-repeat, keyed by command id
 
-module.exports = (direction, id, command) ->
+module.exports = ({command, direction, id}) ->
   # rkeyup cancels auto-repeat
   if direction is UP
     if tid = aurep-tids[id]

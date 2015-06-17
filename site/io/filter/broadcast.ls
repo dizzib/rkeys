@@ -3,7 +3,7 @@ _   = require \lodash
 const DOWN = 0
 const UP   = 1
 
-module.exports = (direction, id, command, io) ->
+module.exports = ({command, direction, id, io}) ->
   return false unless command?
 
   if _.isArray command then command = command[direction] # explicit down/up
