@@ -16,7 +16,8 @@ module.exports.run = (cb) ->
       return unless _.isFunction cb
       cb if it then new Error "Exited with code #it" else void
     ..stdout.on \data, ->
-      log s = it.toString!
+      process.stdout.write it
+      s = it.toString!
       # data may be fragmented so only growl relevant packet
       G.ok s, nolog:true if /(passing)/i .test s
       G.alert s, nolog:true if /(expected|error|exception)/i .test s
