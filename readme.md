@@ -56,9 +56,11 @@ Most of the time you'll be laying out sets of keys and this is where the
 Generate a single key comprised of an action and some label text.
 The action is a [keysym] with or without the `XK_` prefix,
 a [chord] denoted by infix `+` symbols,
+a comma-delimited sequence of keysyms and/or chords,
 or a [command id](#command.yaml) with optional parameters.
 The label text is displayed inside the key unless it contains [font awesome]
 class names in which case an icon is displayed.
+
 Some examples:
 
 * `+key('a')`:
@@ -82,12 +84,26 @@ Some examples:
 * <a name="chords"></a>`+key('C+S+A+F12')`:
   a [chord] emitting the KeyPress sequence `Ctrl` `Shift` `Alt` and `F12`
   on touchstart, followed by KeyRelease sequence in the same order on touchend.
+  Specify `S+` for **Shift_L**+, `C+` for **Control_L**+ and `A+` for **Alt_L**+.
   Press and hold for native auto-repeat.
 * `+key('C+S+A+F12 fold all')`:
   as above but with a nice label.
 * `+key('VBOX-HOST+m show virtualbox menu fa-navicon')`:
   a chord using a [custom alias](#VBOX-HOST), some descriptive text (not displayed)
   and an icon.
+* <a name="sequences"></a>`+key('a,b,c')`:
+  emit the keystroke sequence `a` `b` `c` on touchstart with no auto-repeat.
+  A keystroke is a KeyPress immediately followed by a KeyRelease.
+* `+key('a,b,c,1000')`:
+  as above but auto-repeating every second until touchend.
+  Integers `0` to `9` denote digits whereas longer integers denote time
+  delay in milliseconds. Here the trailing delay indicates time to auto-repeat.
+* `+key('a,500,b,500,c,1000')`:
+  as above but with interim pauses of 0.5 seconds.
+  This might be necessary if a sequence is firing too quickly for all keystrokes
+  to take effect, for example if a slow application needs more time to react.
+* `+key('C+A+F3,250,Super_L+a fa-gear')`:
+  emit two chords separated by a 250 millisecond delay.
 * `+key('button:3')`:
   invoke the [button](#button) command with parameter `3`
   to simulate the right mouse button.
@@ -97,7 +113,8 @@ Some examples:
 * `+key('button:3 right mouse button fa-hand-o-down fa-flip-horizontal')`:
   as above but with some descriptive text (not displayed).
 * `+key('layout:fn-keys')`:
-  switch the [layout](#layout) to `fn-keys` across all connected clients.
+  switch the [layout](#layout) to `fn-keys` across all connected clients on
+  touchstart, reverting back to the default layout on touchend.
 
 ### +keys mixin
 
@@ -179,36 +196,10 @@ are available for manipulating layouts:
 
 ## <a name="command.yaml"></a>command configuration yaml
 
-You can get more fancy than single-keys and chords by defining commands
+You can get more fancy by defining commands
 in a [yaml] file (typically `command.yaml`) placed in the app's directory.
 Each definition has format `id: command` where `id` is a unique identifier
 and `command` is a string specifying what to do.
-
-### <a name="sequences"></a>keystroke sequences
-
-To define a sequence of keystrokes simply list them in order separated by spaces.
-Sometimes a sequence might fire too quickly for all keystrokes to take effect,
-for example if a slow application needs time to react.
-The solution is to introduce a short pause between keystrokes, specified in milliseconds.
-
-Examples:
-
-* `abc: a b c`:
-  emit the keystroke sequence `a` `b` `c` on rkeydown with no auto-repeat.
-* `abc-slow: a 500 b 500 c`:
-  as above but with interim pauses of 0.5 seconds.
-* `abc-repeat: a b c 1000`:
-  emit the keystroke sequence `a` `b` `c` on rkeydown, repeating
-  every second until rkeyup.
-* `abc-repeat-slow: a 500 b 500 c 1000`:
-  as above but with interim pauses of 0.5 seconds.
-* `HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]`:
-  emit the keystroke sequence `H` `e` `l` `l` `o` on rkeydown and
-  `W` `o` `r` `l` `d` on rkeyup.
-  Explicit Keypress/KeyRelease events are denoted by prefixes `+` and `-` respectively.
-
-### directives
-
 The first word of a command can specify a **directive** to alter the functionality:
 
 * *id*: **alias** *str* :
@@ -229,6 +220,17 @@ The first word of a command can specify a **directive** to alter the functionali
 
 Examples:
 
+* `abc: a b c`:
+  A sequence can be delimited by spaces or commas.
+* `on: +c -d`:
+  emit KeyPress `c` and KeyRelease `d` on rkeydown.
+  Explicit KeyPress/KeyRelease events are denoted by prefixes `+` and `-` respectively.
+* `HelloWorld: [H e l l o, +Shift_L w -Shift_L o r l d]`:
+  emit the keystroke sequence `H` `e` `l` `l` `o` on rkeydown and
+  `W` `o` `r` `l` `d` on rkeyup.
+  The square-bracket array has format
+  **[** *rkeydown-sequence*, *rkeyup-sequence* **]**,
+  where each sequence is delimited by spaces.
 * <a name="VBOX-HOST"></a>`VBOX-HOST: alias Super_R`:
   define an alias for the [VirtualBox] host key.
 * <a name="button"></a>`button: button $0`:
