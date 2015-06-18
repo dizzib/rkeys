@@ -163,8 +163,8 @@ with the following mixins and classes:
 * .latchable :
   normally a key is **down** only when you're touching it, reverting back to **up**
   otherwise. Applying this class to a key allows it to remain **down**
-  even when you're not touching it, by dragging your finger off the key
-  before you release it. Then simply tap the key to unlatch it.
+  even when you're not touching it, by dragging your finger sideways away from
+  the key before releasing it. Then simply tap the key to unlatch it.
   A latchable `shift` key behaves rather like CapsLock on a traditional keyboard.
 
 ## base template
