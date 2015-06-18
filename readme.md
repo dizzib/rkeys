@@ -60,7 +60,6 @@ a comma-delimited sequence of keysyms and/or chords,
 or a [command id](#command.yaml) with optional parameters.
 The label text is displayed inside the key unless it contains [font awesome]
 class names in which case an icon is displayed.
-
 Some examples:
 
 * `+key('a')`:
