@@ -88,7 +88,8 @@ function test-seq-delay act
     test '4'      -> run-test "D.#act 100" 'd:9 u:9 d:a u:a d:9 u:9'
     test 'once'   -> run-test "D.#act U.#act 500" 'd:9 u:9 d:a u:a'
     test 'twice'  -> run-test "D.#act 150 U.#act 500" 'd:9 u:9 d:a u:a d:9 u:9 d:a u:a'
-    test 'cancel' -> run-test "D.#act U.#act 4 D.#act U.#act 500" 'd:9 u:9 d:9 u:9 d:a u:a'
+    test 'stop 1' -> run-test "D.#act U.#act 4 D.#act U.#act 500" 'd:9 u:9 d:9 u:9 d:a u:a'
+    test 'stop 2' -> run-test "D.#act U.#act 4 D.#act 150 U.#act 500" 'd:9 u:9 d:9 u:9 d:a u:a d:9 u:9 d:a u:a'
 
 function run-test instructions , expect
   const API-FNS = D:Api.rkeydown, U:Api.rkeyup

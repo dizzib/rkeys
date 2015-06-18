@@ -20,9 +20,13 @@ module.exports = ({command, direction, id}) ->
       aurep-tids[id] = \cancelled
 
   # rkeydown cancels an already running sequence
-  if direction is DOWN and tid = delay-tids[id]
-    clearTimeout tid
-    delete delay-tids[id]
+  if direction is DOWN
+    if tid = aurep-tids[id]
+      clearTimeout tid
+      delete aurep-tids[id]
+    if tid = delay-tids[id]
+      clearTimeout tid
+      delete delay-tids[id]
 
   if _.isArray command then command = command[direction] # explicit down/up
   else return unless direction is DOWN # single command on down only
@@ -33,7 +37,10 @@ module.exports = ({command, direction, id}) ->
   apply-next sequence = seq
 
   function apply-next seq
-    return unless seq.length
+    unless seq.length # all done?
+      delete aurep-tids[id]
+      delete delay-tids[id]
+      return
     # int 0..9 denotes digit, otherwise delay in milliseconds
     if (ins = seq.0).length > 1 and ms = _.parseInt ins
       if seq.length > 1 # more instructions to come
