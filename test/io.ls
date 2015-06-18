@@ -68,7 +68,8 @@ describe 'command' ->
     describe 'script' ->
       test 'js 1'     -> run-test 'D.js1:J' 'd:J u:J d:s u:s'
       test 'js 2'     -> run-test 'D.js2' 'd:J u:J d:2 u:2'
-      test 'js error' -> run-test 'D.jserr' ''
+      test 'js err1'  -> run-test 'D.jserr1' ''
+      test 'js err2'  -> run-test 'D.jserr2' ''
       test 'ls 1'     -> run-test 'D.ls1:L' 'd:L u:L d:s u:s'
       test 'ls 2'     -> run-test 'D.ls2' 'd:L u:L d:2 u:2'
       test 'ls error' -> run-test 'D.lserr' ''

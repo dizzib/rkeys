@@ -14,12 +14,13 @@ sqc: C+x S+A+y
 xyz: x y z
 
 # script
-js1: javascript var x='$0'; x+=' s'
+js1: javascript var x='$0'; x+= _.padLeft('s', 2)
 js2: |
   javascript
   var x='J';
   x+=' 2'
-jserr: javascript var x='
+jserr1: javascript var x='
+jserr2: javascript 2
 ls1: livescript x=\$0; x+=' s'
 ls2: |
   livescript

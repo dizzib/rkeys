@@ -2,6 +2,7 @@ _  = require \lodash
 Vm = require \vm
 
 const DIRECTIVE = \javascript
+const SANDBOX   = log:log, _:_
 
 module.exports = ->
   return false unless (cmd =  it.command)?
@@ -10,8 +11,10 @@ module.exports = ->
 
   code = _.trim cmd.substring DIRECTIVE.length
   try
-    log 2, cmd = Vm.runInThisContext code
-    return log "must evaluate to a string command, not #cmd\n#code" unless _.isString cmd
+    log 2, cmd = Vm.runInNewContext code, SANDBOX
+    unless _.isString cmd
+      log "must evaluate to a string command, not #cmd\n#code"
+      return true # bail
   catch e
     log "#e\n#code"
     return true # bail
