@@ -31,6 +31,13 @@ type-an-asterisk: S+8
 # emit 'Hello' on rkeydown and 'World' on rkeyup
 HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]
 
+# scripts
+#
+0to9: livescript [0 to 9].join ','
+jkl : javascript var s=_.repeat('j k l,', $0); _.trimRight(s, ',')
+type: javascript '$0'.split('').join(',')
+now:  livescript (require \moment)!format 'DD/MM/YYYY_HH:mm:ss' .split '' .join ','
+
 # compose key sequences for special characters
 #
 # compose key alias (system dependent so redefine as required)

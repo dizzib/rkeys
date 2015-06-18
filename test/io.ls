@@ -40,6 +40,7 @@ describe 'action' ->
   describe 'sequence' ->
     test 'alias'    -> run-test 'D.DEE,f' 'd:d u:d d:e u:e d:f u:f'
     test 'chords'   -> run-test 'D.C+x,S+A+y' 'd:Control_L d:x u:Control_L u:x d:Shift_L d:Alt_L d:y u:Shift_L u:Alt_L u:y'
+    test 'space'    -> run-test 'D.a,{SPACE},b' 'd:a u:a d:space u:space d:b u:b'
     test 'symbols'  -> run-test 'D.<,>' 'd:XK_less u:XK_less d:XK_greater u:XK_greater'
     test 'xyz dn'   -> run-test 'D.x,y,z' 'd:x u:x d:y u:y d:z u:z'
     test 'xyz up  ' -> run-test 'U.x,y,z' ''
@@ -96,5 +97,5 @@ function run-test instructions , expect
       clock.tick ms
     else
       [id, act] = ins / '.'
-      API-FNS[id] io, act
+      API-FNS[id] io, act.replace '{SPACE}' ' '
   A.equal expect, out * ' '

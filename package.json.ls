@@ -31,6 +31,8 @@ dependencies:
   stylus       : \0.49.3
   'wait.for'   : \0.6.3
   x11          : \1.0.3
+  # for custom scripts only...
+  moment       : \2.10.3
 devDependencies:
   chai         : \~3.0.0
   chalk        : \~0.4.0

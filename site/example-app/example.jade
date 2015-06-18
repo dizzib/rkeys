@@ -77,10 +77,16 @@ block layout
       +keys('[ ] .')
 
   section
+    h2 Custom scripts
+    p Snippets of JavaScript or LiveScript can create commands at runtime.
+    +keys('0to9', 'jkl:3')
+    +key('type:Hello!').w-2
+    +key('now time now')
+
+  section
     h2 Shell exec
     p Check rkeys node console for standard output messages.
-    +key('echo:foo,bar,baz exec echo')
-    +key('xterm exec xterm')
+    +keys('echo:foo,bar,baz exec echo', 'xterm exec xterm')
 
   section
     h2: a(href='http://fortawesome.github.io/Font-Awesome/icons') Font Awesome icons

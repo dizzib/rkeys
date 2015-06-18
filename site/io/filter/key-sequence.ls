@@ -27,7 +27,7 @@ module.exports = ({command, direction, id}) ->
   if _.isArray command then command = command[direction] # explicit down/up
   else return unless direction is DOWN # single command on down only
 
-  command ||= Cmd.apply-aliases id
+  command ||= Cmd.apply-aliases id.replace ' ' \space
   seq = command.replace /,/g ' ' .split ' '
   seq = _.map seq, -> if Keyco.is-keysym (c = Cmd.get-command it) then c else it
   apply-next sequence = seq

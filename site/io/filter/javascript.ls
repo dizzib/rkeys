@@ -2,7 +2,7 @@ _  = require \lodash
 Vm = require \vm
 
 const DIRECTIVE = \javascript
-const SANDBOX   = log:log, _:_
+const SANDBOX   = log:console.log, require:require, _:_
 
 module.exports = ->
   return false unless (cmd =  it.command)?
