@@ -216,7 +216,7 @@ The first word of a command can specify a **directive** to alter the functionali
   execute shell command *cmd* on rkeydown.
 * *id*: **javascript** *script* :
   dynamically generate a command at runtime using [JavaScript].
-  The script must evaluate to a command string.
+  The *script* must evaluate to an action or command string.
 * *id*: **livescript** *script* :
   As above but using [LiveScript].
 * *id*: **nop** :
