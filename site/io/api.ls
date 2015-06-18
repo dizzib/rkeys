@@ -27,7 +27,7 @@ function apply-filters io, direction, act
   Fc rkey-event
 
 function parse-act act
-  [id, p-str] = if act is \: then [\:, ''] else act / \:
+  [id, p-str] = if act is \: then [\: ''] else act / \:
   cmd = Cmd.get-command id
   return [id, cmd] unless p-str?length
   p-arr = p-str / \,
@@ -36,5 +36,5 @@ function parse-act act
 
 function replace-params s, p-arr
   return s unless _.isString s
-  for p, i in p-arr then s .= replace "$#i", p
+  for p, i in p-arr then s .= replace "$#i" p
   s
