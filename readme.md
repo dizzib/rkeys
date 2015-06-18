@@ -214,6 +214,11 @@ The first word of a command can specify a **directive** to alter the functionali
   and ButtonRelease on rkeyup.
 * *id*: **exec** *cmd* :
   execute shell command *cmd* on rkeydown.
+* *id*: **javascript** *script* :
+  dynamically generate a command at runtime using [JavaScript].
+  The script must evaluate to a command string.
+* *id*: **livescript** *script* :
+  As above but using [LiveScript].
 * *id*: **nop** :
   no-operation. Useful as a placeholder to be redefined at runtime.
 
@@ -242,6 +247,10 @@ Examples:
 * `speakeys-onstart: exec qdbus-qt4 org.kde.simon /ActionManager
   triggerCommand 'Filter' 'pause' > /dev/null`:
   pause the [Simon] speech recognition engine.
+* `type: javascript '$0'.split('').join(',')`:
+  Convert a string into a sequence of keystrokes and emit them.
+* `now: livescript (require \moment)!format 'DD/MM/YYYY_HH:mm:ss' .split '' .join ','`:
+  Type the current date and time.
 
 ### overriding default configuration at runtime
 
@@ -318,6 +327,7 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 [float left]: https://developer.mozilla.org/en-US/docs/Web/CSS/float
 [Font Awesome]: http://fortawesome.github.io/Font-Awesome/
 [jade]: http://jade-lang.com
+[JavaScript]: https://en.wikipedia.org/wiki/JavaScript
 [jquery]: http://jquery.com
 [keysym]: https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
 [keysyms]: https://github.com/sidorares/node-x11/blob/master/lib/keysyms.js
