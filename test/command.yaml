@@ -2,7 +2,7 @@ abc: [+a b, -a CEE]
 bar: $0 $1
 cee: +CEE -d
 dig: 0,1,9
-dly: 9 50 a 100
+dly: 9 05 a 95
 hi : exec echo hi
 js1: javascript var x='$0'; x+=' s'
 ls1: livescript x=\$0; x+=' s'

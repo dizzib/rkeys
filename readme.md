@@ -90,19 +90,19 @@ Some examples:
 * `+key('VBOX-HOST+m show virtualbox menu fa-navicon')`:
   a chord using a [custom alias](#VBOX-HOST), some descriptive text (not displayed)
   and an icon.
-* <a name="sequences"></a>`+key('a,b,c')`:
-  emit the keystroke sequence `a` `b` `c` on touchstart with no auto-repeat.
+* <a name="sequences"></a>`+key('a,b,3')`:
+  emit the keystroke sequence `a` `b` `3` on touchstart with no auto-repeat.
   A keystroke is a KeyPress immediately followed by a KeyRelease.
-* `+key('a,b,c,1000')`:
+* `+key('a,b,3,1000')`:
   as above but auto-repeating every second until touchend.
   Integers `0` to `9` denote digits whereas longer integers denote time
   delay in milliseconds. Here the trailing delay indicates time to auto-repeat.
-* `+key('a,500,b,500,c,1000')`:
+* `+key('a,500,b,500,3,1000')`:
   as above but with interim pauses of 0.5 seconds.
   This might be necessary if a sequence is firing too quickly for all keystrokes
   to take effect, for example if a slow application needs more time to react.
-* `+key('C+A+F3,250,Super_L+a fa-gear')`:
-  emit two chords separated by a 250 millisecond delay.
+* `+key('C+A+F3,05,Super_L+a fa-gear')`:
+  emit two chords separated by a 5 millisecond delay.
 * `+key('button:3')`:
   invoke the [button](#button) command with parameter `3`
   to simulate the right mouse button.

@@ -35,7 +35,7 @@ module.exports = ({command, direction, id}) ->
   function apply-next seq
     return unless seq.length
     # int 0..9 denotes digit, otherwise delay in milliseconds
-    if (ins = seq.0).length > 1 and ms = parseInt ins, 10
+    if (ins = seq.0).length > 1 and ms = _.parseInt ins
       if seq.length > 1 # more instructions to come
         tid = setTimeout apply-next, ms, seq.slice 1
         return delay-tids[id] = tid

@@ -43,7 +43,7 @@ describe 'action' ->
     test 'symbols'  -> run-test 'D.<,>' 'd:XK_less u:XK_less d:XK_greater u:XK_greater'
     test 'xyz dn'   -> run-test 'D.x,y,z' 'd:x u:x d:y u:y d:z u:z'
     test 'xyz up  ' -> run-test 'U.x,y,z' ''
-    test-seq-delay '9,50,a,100'
+    test-seq-delay '9,05,a,95'
 describe 'command' ->
   describe 'symbols and letters' ->
     test 'c dn'     -> run-test 'D.cee' 'd:c u:d'
@@ -75,18 +75,18 @@ describe 'command' ->
 
 function test-seq-delay act
   describe 'sequence delay with auto-repeat' ->
-    test '1'      -> run-test "D.#act 49" 'd:9 u:9'
-    test '2'      -> run-test "D.#act 50" 'd:9 u:9 d:a u:a'
-    test '3'      -> run-test "D.#act 149" 'd:9 u:9 d:a u:a'
-    test '4'      -> run-test "D.#act 150" 'd:9 u:9 d:a u:a d:9 u:9'
+    test '1'      -> run-test "D.#act 4" 'd:9 u:9'
+    test '2'      -> run-test "D.#act 5" 'd:9 u:9 d:a u:a'
+    test '3'      -> run-test "D.#act 99" 'd:9 u:9 d:a u:a'
+    test '4'      -> run-test "D.#act 100" 'd:9 u:9 d:a u:a d:9 u:9'
     test 'once'   -> run-test "D.#act U.#act 500" 'd:9 u:9 d:a u:a'
-    test 'twice'  -> run-test "D.#act 200 U.#act 500" 'd:9 u:9 d:a u:a d:9 u:9 d:a u:a'
-    test 'cancel' -> run-test "D.#act U.#act 20 D.#act U.#act 500" 'd:9 u:9 d:9 u:9 d:a u:a'
+    test 'twice'  -> run-test "D.#act 150 U.#act 500" 'd:9 u:9 d:a u:a d:9 u:9 d:a u:a'
+    test 'cancel' -> run-test "D.#act U.#act 4 D.#act U.#act 500" 'd:9 u:9 d:9 u:9 d:a u:a'
 
 function run-test instructions , expect
   const API-FNS = D:Api.rkeydown, U:Api.rkeyup
   for ins in instructions / ' '
-    if ms = parseInt ins, 10
+    if ms = _.parseInt ins
       clock.tick ms
     else
       [id, act] = ins / '.'
