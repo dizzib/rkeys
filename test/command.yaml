@@ -1,19 +1,29 @@
+CEE: alias c
+DEE: alias d e
+
 abc: [+a b, -a CEE]
 bar: $0 $1
 cee: +CEE -d
 dig: 0,1,9
 dly: 9 05 a 95
 hi : exec echo hi
-js1: javascript var x='$0'; x+=' s'
-ls1: livescript x=\$0; x+=' s'
 nop: nop
 sym: <
 sqs: < >
 sqc: C+x S+A+y
 xyz: x y z
 
-CEE: alias c
-DEE: alias d e
+# script
+js1: javascript var x='$0'; x+=' s'
+js2: |
+  javascript
+  var x='J';
+  x+=' 2'
+ls1: livescript x=\$0; x+=' s'
+ls2: |
+  livescript
+  x=\L
+  x+=' 2'
 
 # sidechain
 sc1: 1

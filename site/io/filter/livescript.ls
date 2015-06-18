@@ -1,14 +1,14 @@
 _  = require \lodash
 Ls = require \LiveScript
 
-const DIRECTIVE = 'livescript '
+const DIRECTIVE = \livescript
 
 module.exports = ->
-  return false unless it.command?
-  return false if _.isArray it.command
-  return false unless _.startsWith it.command, DIRECTIVE
+  return false unless (cmd =  it.command)?
+  return false if _.isArray cmd
+  return false unless _.startsWith cmd, DIRECTIVE
 
-  code = it.command.substring DIRECTIVE.length
+  code = _.trim cmd.substring DIRECTIVE.length
   try
     log 2, js = Ls.compile code, bare:true header:false
   catch e
