@@ -1,25 +1,26 @@
-require \../site/args
+const SITE = '../../site'
+require "#SITE/args"
   ..dirs = [ __dirname ]
   ..verbosity = 1
 
 test = it
 <- require \wait.for .launchFiber
-global.log = require \../site/log
+global.log = require "#SITE/log"
 
 A = require \chai .assert
 _ = require \lodash
 L = require \lolex
-C = require \../site/io/command
-R = require \../site/io/rkey
+C = require "#SITE/io/command"
+R = require "#SITE/io/rkey"
 
 out = []
 io  = emit: (id, msg)-> out.push "io:#id,#msg"
 require \child_process
   ..exec = -> out.push "ex:#it"
-require \../site/io/x11/buttonsim
+require "#SITE/io/x11/buttonsim"
   ..down = -> out.push "bd:#it"
   ..up   = -> out.push "bu:#it"
-require \../site/io/x11/keysim
+require "#SITE/io/x11/keysim"
   ..down = -> out.push "d:#it"
   ..up   = -> out.push "u:#it"
 
