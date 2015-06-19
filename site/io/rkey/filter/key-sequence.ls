@@ -2,16 +2,14 @@ _      = require \lodash
 Cmd    = require \../../command
 Keyco  = require \../../x11/keycode
 Keysim = require \../../x11/keysim
-
-const DOWN = 0
-const UP   = 1
+D      = require \../constants .directions
 
 delay-tids = {} # for cancelling a running sequence, keyed by command id
 aurep-tids = {} # for cancelling auto-repeat, keyed by command id
 
 module.exports = ({command, direction, id}) ->
   # rkeyup cancels auto-repeat
-  if direction is UP
+  if direction is D.UP
     if tid = aurep-tids[id]
       unless tid is \cancelled
         clearTimeout tid
@@ -20,7 +18,7 @@ module.exports = ({command, direction, id}) ->
       aurep-tids[id] = \cancelled
 
   # rkeydown cancels an already running sequence
-  if direction is DOWN
+  if direction is D.DOWN
     if tid = aurep-tids[id]
       clearTimeout tid
       delete aurep-tids[id]
@@ -29,7 +27,7 @@ module.exports = ({command, direction, id}) ->
       delete delay-tids[id]
 
   if _.isArray command then command = command[direction] # explicit down/up
-  else return unless direction is DOWN # single command on down only
+  else return unless direction is D.DOWN # single command on down only
 
   command ||= Cmd.apply-aliases id.replace ' ' \space
   seq = command.replace /,/g ' ' .split ' '

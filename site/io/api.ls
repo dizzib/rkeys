@@ -1,16 +1,17 @@
 _    = require \lodash
 Io   = require \socket.io
-Actw = require \./x11/active-window
+Awin = require \./x11/active-window
+D    = require \./rkey/constants .directions
 Rkey = require \./rkey
 Rks  = require \./rkeystrokes
 
 module.exports = (http) ->
-  Actw.on \changed, -> io.emit \active-window-changed, Actw.title
+  Awin.on \changed, -> io.emit \active-window-changed, Awin.title
   (io = Io http).on \connection, (socket) ->
     log 0, "connect #{ip = socket.conn.remoteAddress}"
     socket
       ..on \disconnect , -> log 0, "disconnect #ip"
-      ..on \rkeydown   , -> Rkey it, 0, io
-      ..on \rkeyup     , -> Rkey it, 1, io
+      ..on \rkeydown   , -> Rkey it, D.DOWN, io
+      ..on \rkeyup     , -> Rkey it, D.UP, io
       ..on \rkeystrokes, Rks
-    Actw.emit \changed
+    Awin.emit \changed
