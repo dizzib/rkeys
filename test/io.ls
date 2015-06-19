@@ -6,11 +6,11 @@ test = it
 <- require \wait.for .launchFiber
 global.log = require \../site/log
 
-A   = require \chai .assert
-_   = require \lodash
-L   = require \lolex
-Api = require \../site/io/api
-C   = require \../site/io/command
+A = require \chai .assert
+_ = require \lodash
+L = require \lolex
+C = require \../site/io/command
+R = require \../site/io/rkey
 
 out = []
 io  = emit: (id, msg)-> out.push "io:#id,#msg"
@@ -92,11 +92,11 @@ function test-seq-delay act
     test 'stop 2' -> run-test "D.#act U.#act 4 D.#act 150 U.#act 500" 'd:9 u:9 d:9 u:9 d:a u:a d:9 u:9 d:a u:a'
 
 function run-test instructions , expect
-  const API-FNS = D:Api.rkeydown, U:Api.rkeyup
+  const DIRECTIONS = D:0 U:1
   for ins in instructions / ' '
     if ms = _.parseInt ins
       clock.tick ms
     else
-      [id, act] = ins / '.'
-      API-FNS[id] io, act.replace '{SPACE}' ' '
+      [dirn, act] = ins / '.'
+      R act.replace('{SPACE}' ' '), DIRECTIONS[dirn], io
   A.equal expect, out * ' '

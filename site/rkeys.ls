@@ -56,7 +56,7 @@ start-https!
 ## helpers
 
 function start-http
-  Api.init http = Http.createServer express
+  Api http = Http.createServer express
   W4m http, \listen, Args.port
   log 0, "Express http server listening on port #{Args.port}"
 
@@ -68,7 +68,7 @@ function start-https
   log "found ssl cert #{cert-path = certs.0}"
   key  = Fs.readFileSync key-path
   cert = Fs.readFileSync cert-path
-  Api.init https = Https.createServer (key:key, cert:cert), express
+  Api https = Https.createServer (key:key, cert:cert), express
   W4m https, \listen, Args.port-ssl
   log 0, "Express https server listening on port #{Args.port-ssl}"
 
