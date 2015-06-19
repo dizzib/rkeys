@@ -4,8 +4,10 @@ Fc  = require \./rkey/filter-chain
 Sc  = require \./rkey/side-chain
 
 module.exports = (act, direction, io) ->
-  log 2, rkey-event = act:act, direction:direction, io:io
+  rkey-event = act:act, direction:direction
   [rkey-event.id, rkey-event.command] = parse-act act
+  log 2, rkey-event
+  rkey-event.io = io
   Sc rkey-event
   Fc rkey-event
 
