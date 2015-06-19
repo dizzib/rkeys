@@ -1,5 +1,5 @@
 _   = require \lodash
-Sim = require \../x11/buttonsim
+Sim = require \../../x11/buttonsim
 
 module.exports = ({command, direction, id}) ->
   return false unless command?

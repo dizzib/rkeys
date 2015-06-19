@@ -1,7 +1,7 @@
 _   = require \lodash
 Cmd = require \./command
-Fc  = require \./filter-chain
-Sc  = require \./side-chain
+Fc  = require \./rkey/filter-chain
+Sc  = require \./rkey/side-chain
 
 module.exports = (act, direction, io) ->
   log 2, rkey-event = act:act, direction:direction, io:io

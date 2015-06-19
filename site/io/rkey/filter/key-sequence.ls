@@ -1,7 +1,7 @@
 _      = require \lodash
-Cmd    = require \../command
-Keyco  = require \../x11/keycode
-Keysim = require \../x11/keysim
+Cmd    = require \../../command
+Keyco  = require \../../x11/keycode
+Keysim = require \../../x11/keysim
 
 const DOWN = 0
 const UP   = 1

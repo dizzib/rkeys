@@ -1,7 +1,7 @@
 _      = require \lodash
-Cmd    = require \../command
-Keyco  = require \../x11/keycode
-Keysim = require \../x11/keysim
+Cmd    = require \../../command
+Keyco  = require \../../x11/keycode
+Keysim = require \../../x11/keysim
 
 # emitted key or key-chord follows rkeydown/up just like a real keyboard
 

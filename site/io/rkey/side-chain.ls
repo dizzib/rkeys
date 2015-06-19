@@ -1,4 +1,4 @@
-Co = require \./command
+Co = require \../command
 Fc = require \./filter-chain
 
 module.exports = (rkey-event) ->
