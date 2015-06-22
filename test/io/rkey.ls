@@ -1,32 +1,5 @@
-const SITE = '../../site'
-require "#SITE/args"
-  ..dirs = [ __dirname ]
-  ..verbosity = 1
-
-test = it
-<- require \wait.for .launchFiber
-global.log = require "#SITE/log"
-
 A = require \chai .assert
 _ = require \lodash
-L = require \lolex
-C = require "#SITE/io/command"
-R = require "#SITE/io/rkey"
-
-out = []
-io  = emit: (id, msg)-> out.push "io:#id,#msg"
-require \child_process
-  ..exec = -> out.push "ex:#it"
-require "#SITE/io/x11/buttonsim"
-  ..down = -> out.push "bd:#it"
-  ..up   = -> out.push "bu:#it"
-require "#SITE/io/x11/keysim"
-  ..down = -> out.push "d:#it"
-  ..up   = -> out.push "u:#it"
-
-var clock
-beforeEach -> clock := L.install global
-afterEach -> out := []
 
 describe 'action' ->
   describe 'symbols and letters' ->
@@ -99,7 +72,8 @@ function test-seq-delay act
     test 'stop 1' -> run-test "D.#act U.#act 4 D.#act U.#act 500" 'd:9 u:9 d:9 u:9 d:a u:a'
     test 'stop 2' -> run-test "D.#act U.#act 4 D.#act 150 U.#act 500" 'd:9 u:9 d:9 u:9 d:a u:a d:9 u:9 d:a u:a'
 
-function run-test instructions , expect
+function run-test instructions, expect
+  R = require \../../site/io/rkey
   const DIRECTIONS = D:0 U:1
   for ins in instructions / ' '
     if ms = _.parseInt ins

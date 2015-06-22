@@ -1,6 +1,6 @@
 _    = require \lodash
 Io   = require \socket.io
-Awin = require \./active-window
+Awin = require \./active-window .init!
 D    = require \./rkey/constants .directions
 Rkey = require \./rkey
 Rks  = require \./rkeystrokes
@@ -13,4 +13,4 @@ module.exports = (http) ->
       ..on \rkeydown   , -> Rkey it, D.DOWN, io
       ..on \rkeyup     , -> Rkey it, D.UP, io
       ..on \rkeystrokes, Rks
-    Awin.init io
+    Awin.add-io(io).emit!

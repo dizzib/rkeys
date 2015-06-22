@@ -3,8 +3,13 @@ Xaw = require \./x11/active-window
 
 ios = []
 
-module.exports =
-  init: (io) ->
+module.exports = me =
+  add-io: (io) ->
     ios.push io
-    Xaw.on \changed -> for io in ios then io.emit \active-window-changed Xaw.title
-    Xaw.emit \changed
+    me
+  emit: ->
+    for io in ios then io.emit \active-window-changed Xaw.title
+  init: ->
+    ios.clear
+    Xaw.on \changed me.emit
+    me
