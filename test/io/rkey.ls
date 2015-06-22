@@ -67,6 +67,13 @@ describe 'command' ->
     test 'layout:x' -> run-test 'D.layout:x U.layout:x' 'io:layout,x io:layout,default'
     test 'nop'      -> run-test 'D.nop U.nop' ''
     test 'shell'    -> run-test 'D.hi U.hi' 'ex:echo hi'
+    describe 'type' ->
+      const TYPE = 'D.type:O,{SPACE}k:'
+      test 'type 0'   -> run-test "#TYPE" 'd:O u:O'
+      test 'type 1'   -> run-test "#TYPE 1" 'd:O u:O d:comma u:comma'
+      test 'type 2'   -> run-test "#TYPE 2" 'd:O u:O d:comma u:comma d:space u:space'
+      test 'type 3'   -> run-test "#TYPE 3" 'd:O u:O d:comma u:comma d:space u:space d:k u:k'
+      test 'type 4'   -> run-test "#TYPE 999" 'd:O u:O d:comma u:comma d:space u:space d:k u:k d:XK_colon u:XK_colon'
     describe 'script' ->
       test 'js 1'     -> run-test 'D.js1:J' 'd:J u:J d:s u:s'
       test 'js 2'     -> run-test 'D.js2' 'd:J u:J d:2 u:2'

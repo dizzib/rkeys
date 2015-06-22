@@ -12,10 +12,12 @@ module.exports = (act, direction, io) ->
   Fc rkey-event
 
 function parse-act act
-  [id, p-str] = if act is \: then [\: ''] else act / \:
+  cidx = act.indexOf \:
+  id = if act is \: then \: else if cidx > 0 then act.substr 0 cidx else act
+  p-str = if cidx > 0 then act.substr cidx + 1 else ''
   cmd = Cmd.get-command id
   return [id, cmd] unless p-str?length
-  p-arr = p-str / \,
+  p-arr = if _.contains cmd, \$1 then p-str / \, else [p-str]
   return [id, (replace-params cmd, p-arr)] unless _.isArray cmd
   [id, [(replace-params cmd.0, p-arr), (replace-params cmd.1, p-arr)]]
 

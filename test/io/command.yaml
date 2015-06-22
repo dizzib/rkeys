@@ -28,6 +28,9 @@ ls2: |
   x+=' 2'
 lserr: livescript x='
 
+# redefine type delay
+TYPE-DELAY: alias 1
+
 # sidechain
 sc1: 1
 sc2: 2
