@@ -1,13 +1,13 @@
 L = require \lolex
 const SITE = '../../site'
 
-before (done )->
+before (done) ->
   require "#SITE/args"
     ..dirs = [ __dirname ]
     ..verbosity = 1
   <- require \wait.for .launchFiber
   global.log = require "#SITE/log"
-  global.io  = emit: (id, msg)-> global.out.push "io:#id,#msg"
+  global.io  = emit: (id, msg) -> global.out.push "io:#id,#msg"
   require \child_process
     ..exec = -> global.out.push "ex:#it"
   require "#SITE/io/x11/buttonsim"

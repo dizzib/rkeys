@@ -11,6 +11,7 @@ C.version P.version
 C.usage '[Options] [directory ...]'
 C.option '-g, --gen-ssl-cert', 'generate a self-signed ssl certificate'
 C.option '-p, --port <port>', "listening port (default:#PORT)", PORT
+C.option '-s, --servant-to <host[:port]>', 'run as a servant, forwarding active-window-changed events to the specified rkeys master'
 C.option '-v, --verbosity <level>', "verbosity 0=min 2=max (default:#VERBOSITY)", VERBOSITY
 C.allowUnknownOption! # ignore mocha args
 C.parse process.argv

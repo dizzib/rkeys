@@ -15,7 +15,7 @@ module.exports = me = (new Evem!) with do
       me.title-prev = me.title
     read-active-window-title!
   title:''
-  title-prev:''
+  title-prev:'' # to workaround duplicate events race condition
 
 function read-active-window-title cb
   err, p <- X.GetProperty 0, Root, X.atoms._NET_ACTIVE_WINDOW, 0, 0, 10000000

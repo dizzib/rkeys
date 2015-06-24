@@ -27,7 +27,7 @@ dependencies:
   morgan       : \1.5.1
   nib          : \1.1.0
   shelljs      : \0.3.0
-  'socket.io'  : \1.3.2
+  'socket.io'  : \1.3.5
   stylus       : \0.49.3
   'wait.for'   : \0.6.3
   x11          : \1.0.3
@@ -41,3 +41,4 @@ devDependencies:
   gntp         : \~0.1.1
   lolex        : \~1.2.1
   mocha        : \~2.2.5
+  proxyquire   : \~1.5.0

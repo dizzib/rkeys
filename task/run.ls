@@ -14,7 +14,7 @@ module.exports =
 ## helpers
 
 function get-start-site-args
-  "server #{Args.app-dirs * ' '}".trim!
+  "server -v 1 #{Args.app-dirs * ' '}".trim!
 
 function kill-node args, cb
   # can't use WaitFor as we need the return code
