@@ -8,12 +8,14 @@ module.exports = me = (new Evem!) with do
     err, atom <- X.InternAtom false, \_NET_ACTIVE_WINDOW
     return log "X.InternAtom _NET_ACTIVE_WINDOW failed", err if err
     X.ChangeWindowAttributes Root, eventMask:X11.eventMask.PropertyChange
-    X.on \event, ->
+    X.on \event ->
       return unless it.atom is X.atoms._NET_ACTIVE_WINDOW
       <- read-active-window-title
-      me.emit \changed
+      me.emit \changed unless me.title is me.title-prev
+      me.title-prev = me.title
     read-active-window-title!
   title:''
+  title-prev:''
 
 function read-active-window-title cb
   err, p <- X.GetProperty 0, Root, X.atoms._NET_ACTIVE_WINDOW, 0, 0, 10000000
