@@ -6,8 +6,8 @@ Proxreq = require \proxyquire
 Args    = require "#SITE/args"
 Servant = Proxreq "#SITE/io/servant" do
   \socket.io/node_modules/socket.io-client :ioc-stub = (uri) ->
-    global.out.push "ctor:#uri"
-    (new Evem!) with emit: -> global.out.push "emit:#{it.toString!}"
+    out.push "ctor:#uri"
+    (new Evem!) with emit: -> out.push "emit:#{it.toString!}"
 
 describe 'servant' ->
   beforeEach ->
