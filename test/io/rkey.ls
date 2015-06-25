@@ -42,6 +42,7 @@ describe 'command' ->
     test 'shell'    -> run-test 'D.hi U.hi' 'ex:echo hi'
     describe 'type' ->
       const TYPE = 'D.type:O,{SPACE}k:'
+      test 'trailing space' -> run-test 'D.type:x{SPACE} 10' 'd:x u:x d:space u:space'
       test 'type 0'   -> run-test "#TYPE" 'd:O u:O'
       test 'type 1'   -> run-test "#TYPE 1" 'd:O u:O d:comma u:comma'
       test 'type 2'   -> run-test "#TYPE 2" 'd:O u:O d:comma u:comma d:space u:space'
