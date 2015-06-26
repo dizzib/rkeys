@@ -1,0 +1,16 @@
+// for previewing readme.md in development
+head
+  style
+    include ../node_modules/github-markdown-css/github-markdown.css
+    :stylus
+      .markdown-body
+        min-width 200px
+        max-width 790px
+        margin    0 auto
+        padding   30px
+
+        code
+          border  solid 1px
+body
+  .markdown-body
+    include:markdown readme.md

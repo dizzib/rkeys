@@ -24,13 +24,9 @@ tasks  =
     ixt   : \ls
     oxt   : \js
     xsub  : 'json.js->json'
-  markdown:
-    cmd : markdown
-    ixt : \md
-    oxt : \html
   static:
     cmd : 'cp --target-directory $OUT $IN'
-    pat : '{rkeys,example-app/*.ls,*.{css,eot,jade,js,otf,styl,svg,ttf,wav,woff,woff2,yaml}}'
+    pat : '{rkeys,example-app/*.ls,*.{css,eot,jade,js,md,otf,styl,svg,ttf,wav,woff,woff2,yaml}}'
 
 module.exports = me = (new Emitter!) with
   all: ->
@@ -103,11 +99,6 @@ function get-opath t, ipath
   return p or ipath unless (xsub = t.xsub?split '->')?
   p.replace xsub.0, xsub.1
 
-function markdown ipath, opath, cb
-  e, html <- Md cat ipath
-  html.to opath unless e?
-  cb e
-
 function prune-empty-dirs
   unless pwd! is Dir.BUILD then return log 'bypass prune-empty-dirs'
   code, out <- exec "find . -type d -empty -delete"
@@ -128,14 +119,14 @@ function start-watching tid
     log act, tid, ipath
     <- WFib
     switch act
-      | \add, \change
+      | \add \change
         try opath = W4 compile, t, ipath
         catch e then return G.err e
         G.ok opath
         me.emit \built
       | \unlink
         Assert.equal pwd!, Dir.BUILD
-        try W4m Fs, \unlink, opath = get-opath t, ipath
+        try W4m Fs, \unlink opath = get-opath t, ipath
         catch e then throw e unless e.code is \ENOENT # not found i.e. already deleted
         G.ok "Delete #opath"
         me.emit \built

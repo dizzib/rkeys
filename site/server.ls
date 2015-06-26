@@ -23,16 +23,17 @@ X11boot = require \./io/x11/boot # note: X11 is not initialised for tests
 Api     = require \./io/api
 
 const DIR-UI = "#__dirname/ui"
-
 log "dirs: #{Args.dirs * ' '}"
+dirs = Args.dirs ++ DIR-UI # order matters
+dirs = dirs ++ __dirname if process.env.NODE_ENV is \development
 
 express = Express!
-  ..set \port, Args.port
+  ..set \port Args.port
   ..use Morgan \dev
   # jade
-  ..set 'view engine', \jade
-  ..set \views, Args.dirs ++ DIR-UI # order matters
-  ..get /^\/([_A-Za-z\-\/]+)$/, (req, res) -> res.render req.params.0
+  ..set 'view engine' \jade
+  ..set \views dirs # order matters
+  ..get /^\/([_A-Za-z\-\/]+)$/ (req, res) -> res.render req.params.0
 
 # 3rd-party library js, css, etc are served by these static handlers
 for d in Args.dirs then express.use Express.static d
@@ -57,7 +58,7 @@ start-https!
 
 function start-http
   Api http = Http.createServer express
-  W4m http, \listen, Args.port
+  W4m http, \listen Args.port
   log 0, "Express http server listening on port #{Args.port}"
 
 function start-https
@@ -69,13 +70,13 @@ function start-https
   key  = Fs.readFileSync key-path
   cert = Fs.readFileSync cert-path
   Api https = Https.createServer (key:key, cert:cert), express
-  W4m https, \listen, Args.port-ssl
+  W4m https, \listen Args.port-ssl
   log 0, "Express https server listening on port #{Args.port-ssl}"
 
 function use-livescript dir
-  express.use "*.js", (req, res, next) ->
+  express.use "*.js" (req, res, next) ->
     lspath = Path.resolve Path.join dir, "#{req.params.0}.ls"
-    return next! unless test \-e, lspath
+    return next! unless test \-e lspath
     b = Bify lspath, { basedir:dir, paths:[ DIR-UI ]}
     log "compile #lspath"
     (err, buf) <- b.transform Lsify .bundle
@@ -88,7 +89,7 @@ function use-stylus dir
     dest   : dir-css = "/tmp/rkeys/#dir/css"
     compile: (str, path) ->
       Stylus(str)
-        .set \filename, path
-        .set \paths, [ dir, DIR-UI ] # allow @require of rkeys mixins
+        .set \filename path
+        .set \paths [ dir, DIR-UI ] # allow @require of rkeys mixins
         .use Nib!
   express.use Express.static dir-css
