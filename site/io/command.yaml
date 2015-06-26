@@ -45,7 +45,7 @@ button: button $0
 layout: [ broadcast layout $0, broadcast layout default ]
 
 # type a character sequence with overridable TYPE-DELAY
-type: livescript (_.map '$0' -> switch it |','=>\comma |' '=>\space |_=>it).join ',0TYPE-DELAY,'
+type: livescript (_.map params.0, -> switch it |','=>\comma |' '=>\space |_=>it).join ',0TYPE-DELAY,'
 TYPE-DELAY: alias 5 # delay between keystrokes in milliseconds
 
 # sound effect aliases

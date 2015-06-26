@@ -43,6 +43,7 @@ describe 'command' ->
     describe 'type' ->
       const TYPE = 'D.type:O,{SPACE}k:'
       test 'trailing space' -> run-test 'D.type:x{SPACE} 10' 'd:x u:x d:space u:space'
+      test 'apostrop' -> run-test "D.type:x' 10" 'd:x u:x d:XK_apostrophe u:XK_apostrophe'
       test 'type 0'   -> run-test "#TYPE" 'd:O u:O'
       test 'type 1'   -> run-test "#TYPE 1" 'd:O u:O d:comma u:comma'
       test 'type 2'   -> run-test "#TYPE 2" 'd:O u:O d:comma u:comma d:space u:space'
@@ -50,7 +51,7 @@ describe 'command' ->
       test 'type 4'   -> run-test "#TYPE 999" 'd:O u:O d:comma u:comma d:space u:space d:k u:k d:XK_colon u:XK_colon'
     describe 'script' ->
       test 'js 1'     -> run-test 'D.js1:J' 'd:J u:J d:s u:s'
-      test 'js 2'     -> run-test 'D.js2' 'd:J u:J d:2 u:2'
+      test 'js 2'     -> run-test 'D.js2:j' 'd:j u:j d:2 u:2'
       test 'js err1'  -> run-test 'D.jserr1' ''
       test 'js err2'  -> run-test 'D.jserr2' ''
       test 'ls 1'     -> run-test 'D.ls1:L' 'd:L u:L d:s u:s'

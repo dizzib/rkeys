@@ -14,18 +14,18 @@ sqc: C+x S+A+y
 xyz: x y z
 
 # script
-js1: javascript var x='$0'; x+= _.padLeft('s', 2)
+js1: javascript var x = '$0'; x += _.padLeft('s', 2)
 js2: |
   javascript
-  var x='J';
-  x+=' 2'
-jserr1: javascript var x='
+  var x = params[0];
+  x += ' 2'
+jserr1: javascript var x ='
 jserr2: javascript 2
-ls1: livescript x=\$0; x+=' s'
+ls1: livescript x = \$0; x += ' s'
 ls2: |
   livescript
-  x=\L
-  x+=' 2'
+  x = \L
+  x += ' 2'
 lserr: livescript x='
 
 # redefine type delay
