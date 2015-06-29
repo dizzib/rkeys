@@ -27,14 +27,14 @@ module.exports = me =
       notify-http-clients! if local-focus-is-on-servant h
 
 function local-focus-is-on-servant
-  _.contains Xaw.title.toUpperCase!, it.toUpperCase!
+  _.contains Xaw.current.title.toUpperCase!, it.toUpperCase!
 
 function notify-http-clients
   s = _.find servants, (v, k) -> local-focus-is-on-servant k
-  t = Xaw.title
+  t = Xaw.current.title
   t = "#t (#{s.title})" if s?
   log 2 \notify-http-clients AWC, t
   for io in http-ios then io.emit AWC, t
 
 function notify-master
-  Ser.master?emit \servant hostname:Os.hostname!, event:{id:AWC, title:Xaw.title}
+  Ser.master?emit \servant hostname:Os.hostname!, event:{id:AWC, title:Xaw.current.title}

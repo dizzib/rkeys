@@ -11,7 +11,7 @@ Xaw     = require "#SITE/io/x11/active-window"
 
 describe 'active-window' ->
   beforeEach ->
-    Xaw.title = ''
+    Xaw.current.title = ''
 
   describe 'as master, should notify http clients' ->
     beforeEach ->
@@ -64,14 +64,14 @@ describe 'active-window' ->
       assert "emit:#MSGID,S0,#AWC,blue;emit:#MSGID,S0,#AWC,cyan"
 
     test 'connect to master' ->
-      Xaw.title = 'green'
+      Xaw.current.title = 'green'
       servant-stub.master._emit \connect
       assert "emit:#MSGID,S0,#AWC,green"
 
 function assert then A.equal it, out * ';'
 
 function focus
-  Xaw.title = it
+  Xaw.current.title = it
   Xaw.emit \changed
 
 function focus-servant hostname, title

@@ -5,24 +5,30 @@ X    = require \./helper .x
 
 module.exports = me = (new Evem!) with do
   init: ->
-    err, atom <- X.InternAtom false, \_NET_ACTIVE_WINDOW
-    return log "X.InternAtom _NET_ACTIVE_WINDOW failed", err if err
+    err, atom <- X.InternAtom false \_NET_ACTIVE_WINDOW
+    return log "X.InternAtom _NET_ACTIVE_WINDOW failed" err if err
     X.ChangeWindowAttributes Root, eventMask:X11.eventMask.PropertyChange
     X.on \event ->
       return unless it.atom is X.atoms._NET_ACTIVE_WINDOW
-      <- read-active-window-title
-      me.emit \changed unless me.title is me.title-prev
-      me.title-prev = me.title
+      current <- read-active-window-title
+      return if current.title is me.current.title # workaround duplicate events race
+      me.previous = me.current
+      me.current = current
+      me.emit \changed
     read-active-window-title!
-  title:''
-  title-prev:'' # to workaround duplicate events race condition
+  current:
+    title: ''
+    wid  : 0
+  previous:
+    title: ''
+    wid  : 0
 
 function read-active-window-title cb
   err, p <- X.GetProperty 0, Root, X.atoms._NET_ACTIVE_WINDOW, 0, 0, 10000000
-  return log "X.GetProperty _NET_ACTIVE_WINDOW failed", err if err
+  return log "X.GetProperty _NET_ACTIVE_WINDOW failed" err if err
   return unless wid = p.data.readUInt32LE 0 # switching desktop returns 0
   err, p <- X.GetProperty 0, wid, X.atoms.WM_NAME, 0, 0, 10000000
-  return log "X.GetProperty WM_NAME failed: wid=#wid", err if err
-  me.title = p.data.toString!
-  log 2, "read-active-window-title=#{me.title}"
-  cb! if cb
+  return log "X.GetProperty WM_NAME failed: wid=#wid" err if err
+  title = p.data.toString!
+  log 2 "read-active-window-title=#{me.title}"
+  cb title:title, wid:wid if cb
