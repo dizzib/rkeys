@@ -249,6 +249,7 @@ Examples:
   pause the [Simon] speech recognition engine.
 * `type: javascript '$0'.split('').join(',')`:
   Convert a string into a sequence of keystrokes and emit them.
+  A more comprehensive version is defined in the [core command.yaml].
 * `now: livescript (require \moment)!format 'DD/MM/YYYY_HH:mm:ss' .split '' .join ','`:
   Type the current date and time.
 
