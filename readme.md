@@ -16,7 +16,10 @@ A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to
 
 With [node.js] installed on the target [X11] box:
 
-    $ npm install -g rkeys      # might need to prefix with sudo
+    $ npm install -g rkeys      # probably need to prefix with sudo
+
+Note: A couple of [dependencies] use [node-gyp] to compile binaries during install
+so you'll need to have [python] 2.7 and [GCC] installed on your system.
 
 ## run examples
 
@@ -249,7 +252,8 @@ Examples:
   pause the [Simon] speech recognition engine.
 * `type: javascript '$0'.split('').join(',')`:
   Convert a string into a sequence of keystrokes and emit them.
-  A more comprehensive version is defined in the [core command.yaml].
+  A more robust version is in the [core command.yaml]
+  and is ideal for emitting short phrases and sentences.
 * `now: livescript (require \moment)!format 'DD/MM/YYYY_HH:mm:ss' .split '' .join ','`:
   Type the current date and time.
 
@@ -323,10 +327,12 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 [base template]: ./site/ui/template/base.jade
 [ComposeKey]: https://help.ubuntu.com/community/ComposeKey#Compose%20key%20sequences
 [core command.yaml]: ./site/io/command.yaml
+[dependencies]: ./package.json.ls
 [Express]: http://expressjs.com
 [chord]: https://en.wikipedia.org/wiki/Chorded_keyboard
 [float left]: https://developer.mozilla.org/en-US/docs/Web/CSS/float
 [Font Awesome]: http://fortawesome.github.io/Font-Awesome/
+[GCC]: https://gcc.gnu.org
 [jade]: http://jade-lang.com
 [JavaScript]: https://en.wikipedia.org/wiki/JavaScript
 [jquery]: http://jquery.com
@@ -337,6 +343,8 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 [lodash]: https://lodash.com
 [mixins]: ./site/ui/mixin
 [node.js]: http://nodejs.org
+[node-gyp]: https://github.com/TooTallNate/node-gyp
+[python]: https://www.python.org
 [regular expression]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 [Simon]: https://userbase.kde.org/Simon
 [socket.io]: http://socket.io
