@@ -11,7 +11,7 @@ Xaw     = require "#SITE/io/x11/active-window"
 
 describe 'active-window' ->
   beforeEach ->
-    Xaw.current.title = ''
+    Xaw.removeAllListeners!current.title = ''
 
   describe 'as master, should notify http clients' ->
     beforeEach ->

@@ -82,5 +82,5 @@ function run-test instructions, expect
       clock.tick ms
     else
       [dirn, act] = ins / '.'
-      R act.replace('{SPACE}' ' '), DIRECTIONS[dirn], io
+      R act:act.replace('{SPACE}' ' '), direction:DIRECTIONS[dirn], io
   A.equal expect, out * ' '

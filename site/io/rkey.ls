@@ -3,9 +3,9 @@ Cmd = require \./command
 Fc  = require \./rkey/filter-chain
 Sc  = require \./rkey/side-chain
 
-module.exports = (act, direction, io) ->
-  parse-act rkey-event = act:act, direction:direction
-  log 2, rkey-event
+module.exports = (rkey-event, io) ->
+  log 2 rkey-event
+  parse-act rkey-event
   rkey-event.io = io
   Sc rkey-event
   Fc rkey-event

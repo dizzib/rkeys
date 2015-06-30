@@ -16,7 +16,7 @@ module.exports = me =
   init: ->
     http-ios := []
     servants := {}
-    Xaw.removeAllListeners!on \changed me.emit
+    Xaw.on \changed me.emit
     Ser.init!master?on \connect notify-master
     me
   servant:
