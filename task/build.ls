@@ -4,7 +4,6 @@ Cron    = require \cron
 Emitter = require \events .EventEmitter
 Fs      = require \fs
 _       = require \lodash
-Md      = require \marked
 Path    = require \path
 Shell   = require \shelljs/global
 WFib    = require \wait.for .launchFiber
