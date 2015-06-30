@@ -16,7 +16,7 @@ A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to
 
 With [node.js] installed on the target [X11] box:
 
-    $ npm install -g rkeys      # probably need to prefix with sudo
+    $ sudo npm install -g rkeys
 
 Note: A couple of [dependencies] use [node-gyp] to compile binaries during install
 so you'll need to have [python] 2.7 and [GCC] installed on your system.
@@ -313,12 +313,12 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 
 ## developer build and run
 
-    $ npm install -g livescript   # ensure livescript is installed globally
+    $ sudo npm install -g livescript  # ensure livescript is installed globally
     $ git clone git@github.com:dizzib/rkeys.git
     $ cd rkeys
-    $ ./task/bootstrap            # compile the task runner and install dependencies
-    $ node _build/task/repl       # launch the task runner
-    rkeys > b.a                   # build all and run
+    $ ./task/bootstrap                # compile the task runner and install dependencies
+    $ node _build/task/repl           # launch the task runner
+    rkeys > b.a                       # build all and run
 
 ## license
 
