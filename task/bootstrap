@@ -3,7 +3,6 @@
 BLD="_build"
 
 lsc -o $BLD/task -c task/*.ls
-lsc -o $BLD/test/io -c test/io/*.ls
 lsc -o $BLD -c package.json.ls
 
 # npm dependencies
