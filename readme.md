@@ -20,6 +20,9 @@ With [node.js] installed on the target [X11] box:
 
 Note: A couple of [dependencies] use [node-gyp] to compile binaries during install
 so you'll need to have [python] 2.7 and [GCC] installed on your system.
+You might also want to add the `--unsafe-perm` flag so node-gyp
+can write to `/root/.node-gyp` as explained in
+[this issue](https://github.com/TooTallNate/node-gyp/issues/454).
 
 ## run examples
 
