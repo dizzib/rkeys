@@ -42,6 +42,7 @@ function build-cache cfgs
     new RegExp id[1 to -2] * '' # strip surrounding /s
 
 function load-all
+  # Note: Fs.watch doesn't sem to work across a network
   for p in cache.fpaths then Fs.unwatchFile p
   # order matters: later yaml overrides earlier, so load the
   # rkeys yaml first so it can be overridden by apps.
