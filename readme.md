@@ -16,12 +16,12 @@ A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to
 
 With [node.js] installed on the target [X11] box:
 
-    $ sudo npm install -g rkeys
+    $ sudo npm install -g --unsafe-perm rkeys
 
 Note: A couple of [dependencies] use [node-gyp] to compile binaries during install
 so you'll need to have [python] 2.7 and [GCC] installed on your system.
-You might also want to add the `--unsafe-perm` flag so node-gyp
-can write to `/root/.node-gyp` as explained in
+You can remove the `--unsafe-perm` flag if you don't trust node-gyp having root
+permission but the install procedure will be less efficient as explained in
 [this issue](https://github.com/TooTallNate/node-gyp/issues/454).
 
 ## run examples
