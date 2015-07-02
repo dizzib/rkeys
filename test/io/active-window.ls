@@ -1,22 +1,34 @@
 const AWC  = \active-window-changed
 const SITE = '../../site'
 
-A       = require \chai .assert
-Evem    = require \events .EventEmitter
-Proxreq = require \proxyquire
-Aw      = Proxreq "#SITE/io/active-window" do
-  \os        :os-stub = {}
-  \./servant :servant-stub = init: -> servant-stub
-Xaw     = require "#SITE/io/x11/active-window"
+A = require \chai .assert
+E = require \events .EventEmitter
+M = require \mockery
+  ..registerMock \./args args = verbosity:1
+global.log = require "#SITE/log"
 
+test = it
 describe 'active-window' ->
+  var out, T
+  var os, servant, xaw
+
+  after ->
+    M.deregisterAll!
+    M.disable!
+  before ->
+    M.registerMock \os os := {}
+    M.registerMock \./servant servant := init: -> servant
+    M.registerMock \./x11/active-window xaw := (new E!) with current:{}
+    M.enable warnOnUnregistered:false
+    T := require "#SITE/io/active-window"
   beforeEach ->
-    Xaw.removeAllListeners!current.title = ''
+    out := []
+    xaw.removeAllListeners!current.title = ''
 
   describe 'as master, should notify http clients' ->
     beforeEach ->
-      servant-stub.master = null
-      Aw.init!add-http-io io
+      servant.master = null
+      T.init!add-http-io emit: (id, msg) -> out.push "io:#id,#msg"
 
     test 'focus, no servants' ->
       focus \M0
@@ -48,15 +60,15 @@ describe 'active-window' ->
       assert "io:#AWC,S0-in-M0 (purple);io:#AWC,S1-in-M1 (orange);io:#AWC,M2"
 
   describe 'as servant, should notify master' ->
-    const MSGID = \servant
-
     beforeEach ->
-      os-stub.hostname = -> \S0
-      servant-stub.master = ms = new Evem!
+      os.hostname = -> \S0
+      servant.master = ms = new E!
         .._emit = ms.emit # workaround name clash
         ..emit = (msg-id, {hostname, event}) ->
           out.push "emit:#msg-id,#hostname,#{event.id},#{event.title}"
-      Aw.init!
+      T.init!
+
+    const MSGID = \servant
 
     test 'local focus' ->
       focus \blue
@@ -64,15 +76,15 @@ describe 'active-window' ->
       assert "emit:#MSGID,S0,#AWC,blue;emit:#MSGID,S0,#AWC,cyan"
 
     test 'connect to master' ->
-      Xaw.current.title = 'green'
-      servant-stub.master._emit \connect
+      xaw.current.title = 'green'
+      servant.master._emit \connect
       assert "emit:#MSGID,S0,#AWC,green"
 
-function assert then A.equal it, out * ';'
+  function assert then A.equal it, out * ';'
 
-function focus
-  Xaw.current.title = it
-  Xaw.emit \changed
+  function focus
+    xaw.current.title = it
+    xaw.emit \changed
 
-function focus-servant hostname, title
-  Aw.servant.update hostname:hostname, event:{id:AWC, title:title}
+  function focus-servant hostname, title
+    T.servant.update hostname:hostname, event:{id:AWC, title:title}

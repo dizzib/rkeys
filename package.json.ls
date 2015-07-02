@@ -42,4 +42,4 @@ devDependencies:
   gntp                  : \~0.1.1
   lolex                 : \~1.2.1
   mocha                 : \~2.2.5
-  proxyquire            : \~1.5.0
+  mockery               : \~1.4.0

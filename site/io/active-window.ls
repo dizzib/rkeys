@@ -1,7 +1,7 @@
 _   = require \lodash
 Os  = require \os
-Xaw = require \./x11/active-window
 Ser = require \./servant
+Xaw = require \./x11/active-window
 
 const AWC = \active-window-changed
 var http-ios, servants

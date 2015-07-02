@@ -1,30 +1,38 @@
-const SITE = '../../site'
+A = require \chai .assert
+E = require \events .EventEmitter
+M = require \mockery
 
-A       = require \chai .assert
-Evem    = require \events .EventEmitter
-Proxreq = require \proxyquire
-Args    = require "#SITE/args"
-Servant = Proxreq "#SITE/io/servant" do
-  \socket.io/node_modules/socket.io-client :ioc-stub = (uri) ->
-    out.push "ctor:#uri"
-    (new Evem!) with emit: -> out.push "emit:#{it.toString!}"
-
+test = it
 describe 'servant' ->
+  var out, T
+  var args
+
+  after ->
+    M.deregisterAll!
+    M.disable!
+  before ->
+    M.registerMock \../args args := port:7000
+    M.registerMock \socket.io/node_modules/socket.io-client (uri) ->
+      out.push "ctor:#uri"
+      (new E!) with emit: -> out.push "emit:#{it.toString!}"
+    M.enable warnOnUnregistered:false
+    T := require \../../site/io/servant
   beforeEach ->
-    Args.servant-to = 'master'
+    out := []
+    args.servant-to = 'master'
 
   test '--servant-to null' ->
-    Args.servant-to = null
-    A.isNull Servant.init!master
+    args.servant-to = null
+    A.isNull T.init!master
 
   test '--servant-to host' ->
-    Args.servant-to = 'master'
-    Servant.init!master.emit \abc
+    args.servant-to = 'master'
+    T.init!master.emit \abc
     assert 'ctor:http://master:7000 emit:abc'
 
   test '--servant-to host:port' ->
-    Args.servant-to = 'master:8000'
-    Servant.init!master.emit \abc
+    args.servant-to = 'master:8000'
+    T.init!master.emit \abc
     assert 'ctor:http://master:8000 emit:abc'
 
-function assert then A.equal it, out * ' '
+  function assert then A.equal it, out * ' '

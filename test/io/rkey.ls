@@ -1,6 +1,30 @@
+const SITE = '../../site'
+
+require \child_process
+  ..exec = -> out.push "ex:#it"
+require "#SITE/io/x11/buttonsim"
+  ..down = -> out.push "bd:#it"
+  ..up   = -> out.push "bu:#it"
+require "#SITE/io/x11/keysim"
+  ..down = -> out.push "d:#it"
+  ..up   = -> out.push "u:#it"
+require "#SITE/args"
+  ..dirs = [ __dirname ]
+  ..verbosity = 1
+global.log = require "#SITE/log"
+
 A = require \chai .assert
 _ = require \lodash
+L = require \lolex
+C = require "#SITE/io/command"
+T = require "#SITE/io/rkey"
 
+var clock, out
+beforeEach ->
+  clock := L.install global
+  out   := []
+
+test = it
 describe 'action' ->
   describe 'symbols and letters' ->
     test '@'        -> run-test 'D.@' 'd:XK_at'
@@ -75,12 +99,12 @@ function test-seq-delay act
     test 'stop 2' -> run-test "D.#act U.#act 4 D.#act 150 U.#act 500" 'd:9 u:9 d:9 u:9 d:a u:a d:9 u:9 d:a u:a'
 
 function run-test instructions, expect
-  R = require \../../site/io/rkey
   const DIRECTIONS = D:0 U:1
+  io = emit: (id, msg) -> out.push "io:#id,#msg"
   for ins in instructions / ' '
     if ms = _.parseInt ins
       clock.tick ms
     else
       [dirn, act] = ins / '.'
-      R act:act.replace('{SPACE}' ' '), direction:DIRECTIONS[dirn], io
+      T act:act.replace('{SPACE}' ' '), direction:DIRECTIONS[dirn], io
   A.equal expect, out * ' '
