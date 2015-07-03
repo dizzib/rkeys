@@ -16,12 +16,13 @@ A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to
 
 With [node.js] installed on the target [X11] box:
 
-    $ sudo npm install -g --unsafe-perm rkeys
+    $ npm install -g rkeys   # might need to prefix with sudo
 
 Note: A couple of [dependencies] use [node-gyp] to compile binaries during install
 so you'll need to have [python] 2.7 and [GCC] installed on your system.
-Remove the `--unsafe-perm` flag if you don't trust node-gyp with root permission but
-[the install procedure will be less efficient](https://github.com/TooTallNate/node-gyp/issues/454).
+Add the `--unsafe-perm` flag if you're having
+[this permissions issue](https://github.com/TooTallNate/node-gyp/issues/454)
+and you trust node-gyp with root permission.
 
 ## run examples
 
@@ -315,12 +316,12 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 
 ## developer build and run
 
-    $ sudo npm install -g livescript  # ensure livescript is installed globally
+    $ npm install -g livescript  # ensure livescript is installed globally
     $ git clone --branch=dev https://github.com/dizzib/rkeys.git
     $ cd rkeys
-    $ ./task/bootstrap                # compile the task runner and install dependencies
-    $ node _build/task/repl           # launch the task runner
-    rkeys > b.a                       # build all and run
+    $ ./task/bootstrap           # compile the task runner and install dependencies
+    $ node _build/task/repl      # launch the task runner
+    rkeys > b.a                  # build all and run
 
 ## license
 
