@@ -12,7 +12,7 @@ A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to
 * add [sound effects](#sfx): server-side or (experimental) client-side
 * emit special characters using [compose-key sequences][ComposeKey]
 
-## install
+## install globally
 
 With [node.js] installed on the target [X11] box:
 
@@ -20,9 +20,8 @@ With [node.js] installed on the target [X11] box:
 
 Note: A couple of [dependencies] use [node-gyp] to compile binaries during install
 so you'll need to have [python] 2.7 and [GCC] installed on your system.
-You can remove the `--unsafe-perm` flag if you don't trust node-gyp having root
-permission but the install procedure will be less efficient as explained in
-[this issue](https://github.com/TooTallNate/node-gyp/issues/454).
+Remove the `--unsafe-perm` flag if you don't trust node-gyp with root permission but
+[you might see some warnings](https://github.com/TooTallNate/node-gyp/issues/454).
 
 ## run examples
 
