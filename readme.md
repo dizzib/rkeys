@@ -16,7 +16,7 @@ A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to
 
 With [node.js] installed on the target [X11] box:
 
-    $ npm install -g rkeys   # might need to prefix with sudo
+    $ npm install -g rkeys            # might need to prefix with sudo
 
 Note: A couple of [dependencies] use [node-gyp] to compile binaries during install
 so you'll need to have [python] 2.7 and [GCC] installed on your system.
