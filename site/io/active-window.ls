@@ -4,7 +4,9 @@ Ser = require \./servant
 Xaw = require \./x11/active-window
 
 const AWC = \active-window-changed
-var http-ios, servants
+
+http-ios = []
+servants = {}
 
 module.exports = me =
   add-http-io: ->
@@ -13,18 +15,15 @@ module.exports = me =
   emit: ->
     notify-http-clients!
     notify-master!
-  init: ->
-    http-ios := []
-    servants := {}
-    Xaw.on \changed me.emit
-    Ser.init!master?on \connect notify-master
-    me
   servant:
     update: ->
       log 2 \servant.update it
       return unless it.event?id is AWC
       servants[h = it.hostname] = title:it.event.title
       notify-http-clients! if local-focus-is-on-servant h
+
+Xaw.on \changed me.emit
+Ser.init!master?on \connect notify-master
 
 function local-focus-is-on-servant
   _.contains Xaw.current.title.toUpperCase!, it.toUpperCase!

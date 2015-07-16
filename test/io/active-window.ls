@@ -20,16 +20,17 @@ before ->
   M.registerMock \os os := {}
   M.registerMock \./servant servant := init: -> servant
   M.registerMock \./x11/active-window xaw := (new E!) with current:{}
-  M.enable warnOnUnregistered:false
-  T := require "#SITE/io/active-window"
+  M.enable warnOnUnregistered:false useCleanCache:true
 beforeEach ->
+  M.resetCache!
   out := []
   xaw.removeAllListeners!current.title = ''
 
 describe 'as master, should notify http clients' ->
   beforeEach ->
     servant.master = null
-    T.init!add-http-io emit: (id, msg) -> out.push "io:#id,#msg"
+    T := require "#SITE/io/active-window"
+    T.add-http-io emit: (id, msg) -> out.push "io:#id,#msg"
 
   test 'focus, no servants' ->
     focus \M0
@@ -67,7 +68,7 @@ describe 'as servant, should notify master' ->
       .._emit = ms.emit # workaround name clash
       ..emit = (msg-id, {hostname, event}) ->
         out.push "emit:#msg-id,#hostname,#{event.id},#{event.title}"
-    T.init!
+    T := require "#SITE/io/active-window"
 
   const MSGID = \servant
 

@@ -1,6 +1,6 @@
 _    = require \lodash
 Io   = require \socket.io
-Awin = require \./active-window .init!
+Awin = require \./active-window
 D    = require \./rkey/constants .directions
 Rkey = require \./rkey
 
