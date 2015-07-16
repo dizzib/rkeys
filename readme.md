@@ -316,12 +316,11 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 
 ## developer build and run
 
-    $ npm install -g livescript  # ensure livescript is installed globally
     $ git clone --branch=dev https://github.com/dizzib/rkeys.git
     $ cd rkeys
-    $ ./task/bootstrap           # compile the task runner and install dependencies
-    $ node _build/task/repl      # launch the task runner
-    rkeys > b.a                  # build all and run
+    $ npm install     # install dependencies
+    $ npm test        # build all and run tests
+    $ npm start       # start the task runner and rkeys
 
 ## license
 
