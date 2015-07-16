@@ -1,8 +1,6 @@
-_    = require \lodash
-Args = require \./args
-
 global.log = require \./log
 
+Args = require \./args
 return (require \./gen-ssl-cert)! if Args.gen-ssl-cert
 <- require \wait.for .launchFiber
 
