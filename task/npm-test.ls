@@ -4,6 +4,7 @@ _      = require \lodash
 WFib   = require \wait.for .launchFiber
 Build  = require \./build
 DirBld = require \./constants .dir.BUILD
+Dist   = require \./distribute
 Test   = require \./test
 
 cd DirBld
@@ -14,5 +15,6 @@ function run
   <- WFib
   Build.all!
   Build.stop!
+  Dist.prepare!
   res = Test.exec!
   process.exit res.code
