@@ -35,7 +35,7 @@ HelloWorld: [ H e l l o, +Shift_L w -Shift_L o r l d ]
 #
 0to9: livescript [0 to 9].join ','
 jkl : javascript var s=_.repeat('j k l,', $0); _.trimRight(s, ',')
-now : livescript (require \moment)!format 'DD/MM/YYYY_HH:mm:ss' .split '' .join ','
+now : livescript _.map(new Date!toString!, -> it.replace ' ' \space).join ','
 
 # compose key sequences for special characters
 #

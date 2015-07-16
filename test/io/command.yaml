@@ -20,7 +20,7 @@ js2: |
   var x = params[0];
   x += ' 2'
 jserr1: javascript var x ='
-jserr2: javascript 2
+jserr2: javascript require('foo'); return 1;
 ls1: livescript x = \$0; x += ' s'
 ls2: |
   livescript
