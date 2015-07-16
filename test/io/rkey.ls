@@ -1,3 +1,6 @@
+test = it
+<- describe 'rkey'
+
 const SITE = '../../site'
 
 require \child_process
@@ -20,11 +23,12 @@ C = require "#SITE/io/command"
 T = require "#SITE/io/rkey"
 
 var clock, out
+after  -> clock.uninstall!
+before -> clock := L.install!
 beforeEach ->
-  clock := L.install global
-  out   := []
+  clock.reset!
+  out := []
 
-test = it
 describe 'action' ->
   describe 'symbols and letters' ->
     test '@'        -> run-test 'D.@' 'd:XK_at'
