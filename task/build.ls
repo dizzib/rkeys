@@ -13,19 +13,17 @@ Dir     = require \./constants .dir
 Dirname = require \./constants .dirname
 G       = require \./growl
 
-const NMODULES = './node_modules'
-
 pruner = new Cron.CronJob cronTime:'*/10 * * * *', onTick:prune-empty-dirs
 tasks  =
   livescript:
-    cmd   : "#NMODULES/LiveScript/bin/lsc --output $OUT $IN"
+    cmd   : "#{Dir.ROOT}/node_modules/.bin/lsc --output $OUT $IN"
     ignore: /example-app\/.+\.ls/
     ixt   : \ls
     oxt   : \js
     xsub  : 'json.js->json'
   static:
     cmd : 'cp --target-directory $OUT $IN'
-    pat : '{rkeys,example-app/*.ls,*.{css,eot,jade,js,md,otf,styl,svg,ttf,wav,woff,woff2,yaml}}'
+    pat : '{rkeys,example-app/*.ls,*.{css,eot,jade,js,otf,styl,svg,ttf,wav,woff,woff2,yaml}}'
 
 module.exports = me = (new Emitter!) with
   all: ->
@@ -35,9 +33,8 @@ module.exports = me = (new Emitter!) with
     catch e then G.err e
 
   delete-files: ->
-    log "delete-files #{pwd!}"
-    Assert.equal pwd!, Dir.BUILD
-    W4 exec, "bash -O extglob -O dotglob -c 'rm -rf !(node_modules|task)'"
+    log "delete #{Dir.BUILD}"
+    rm \-rf Dir.BUILD
 
   delete-modules: ->
     log "delete-modules #{pwd!}"
@@ -112,6 +109,7 @@ function start-watching tid
     cwd:Dir.ROOT
     ignoreInitial:true
     ignored:t.ignore
+    persistent: false
   w.on \all _.debounce process, 500ms, leading:true trailing:false
 
   function process act, ipath

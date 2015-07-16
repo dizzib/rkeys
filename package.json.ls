@@ -10,9 +10,9 @@ bin        : \./bin/rkeys
 repository :
   type: \git
   url : \https://github.com/dizzib/rkeys
-engines:
-  node: '>=0.10.x'
-  npm : '>=1.0.x'
+scripts:
+  start: './task/bootstrap && node ./_build/task/repl'
+  test : './task/bootstrap && node ./_build/task/npm-test'
 dependencies:
   browserify   : \8.1.3
   commander    : \2.6.0
@@ -33,9 +33,14 @@ dependencies:
 devDependencies:
   chai         : \~3.0.0
   chalk        : \~0.4.0
-  chokidar     : \~1.0.1
+  chokidar     : \1.0.3 # 1.0.4 regresses
   cron         : \~1.0.3
   gntp         : \~0.1.1
+  istanbul     : \~0.3.13
   lolex        : \~1.2.1
   mocha        : \~2.2.5
   mockery      : \~1.4.0
+engines:
+  node: '>=0.10.x'
+  npm : '>=1.0.x'
+preferGlobal: true
