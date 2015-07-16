@@ -1,0 +1,5 @@
+# sidechain
+sc1: 1
+sc2: 2
+/^sc1$/: exec sc1
+/^sc2$/: [exec sc2d, exec sc2u]

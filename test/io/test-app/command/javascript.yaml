@@ -1,0 +1,8 @@
+# javascript
+js1: javascript var x = '$0'; x += _.padLeft('s', 2)
+js2: |
+  javascript
+  var x = params[0];
+  x += ' 2'
+jserr1: javascript var x ='
+jserr2: javascript require('foo'); return 1;

@@ -1,0 +1,17 @@
+CEE: alias c
+DEE: alias d e
+
+abc: [+a b, -a CEE]
+bar: $0 $1
+cee: +CEE -d
+dig: 0,1,9
+dly: 9 05 a 95
+hi : exec echo hi
+nop: nop
+sym: <
+sqs: < >
+sqc: C+x S+A+y
+xyz: x y z
+
+# include file and directory
+include: ./command ./command/include.test

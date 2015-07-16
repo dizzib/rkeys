@@ -23,7 +23,7 @@ tasks  =
     xsub  : 'json.js->json'
   static:
     cmd : 'cp --target-directory $OUT $IN'
-    pat : '{rkeys,example-app/*.ls,*.{css,eot,jade,js,otf,styl,svg,ttf,wav,woff,woff2,yaml}}'
+    pat : '{rkeys,example-app/*.ls,*.{css,eot,jade,js,otf,styl,svg,ttf,wav,woff,woff2,yaml,yml},*.test}'
 
 module.exports = me = (new Emitter!) with
   all: ->

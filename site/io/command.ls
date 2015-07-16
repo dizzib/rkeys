@@ -47,7 +47,7 @@ function load-all
   # order matters: later yaml overrides earlier, so load the
   # rkeys yaml first so it can be overridden by apps.
   dirs  = [ __dirname ] ++ Args.dirs
-  cache.fpaths = _.flatten [ls "#d/*.yaml" for d in dirs]
+  cache.fpaths = _.flatten [ls ["#d/*.yaml" "#d/*.yml"] for d in dirs]
   build-cache [ load-file p for p in cache.fpaths ]
   for p in cache.fpaths then Fs.watchFile p, load-all
 
@@ -63,7 +63,7 @@ function load-file path
     delete cfg.include
     for p-inc in paths = (v - \,) / ' '
       p = Path.resolve dir, p-inc
-      ps = if test \-d p then ls "#p/*.yaml" else [ p ]
+      ps = if test \-d p then ls ["#p/*.yaml" "#p/*.yml"]  else [ p ]
       for p in ps then cfg = _.extend cfg, load-file p
 
   # resolve relative paths

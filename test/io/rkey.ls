@@ -9,7 +9,7 @@ require "#SITE/io/x11/keysim"
   ..down = -> out.push "d:#it"
   ..up   = -> out.push "u:#it"
 require "#SITE/args"
-  ..dirs = [ __dirname ]
+  ..dirs = [ "#__dirname/test-app" ]
   ..verbosity = 1
 global.log = require "#SITE/log"
 
