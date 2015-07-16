@@ -3,9 +3,9 @@ Gntp  = require \gntp
 Util  = require \util
 Const = require \./constants
 
-const INFO    = create-note \info   , Chalk.stripColor
-const ERROR   = create-note \error  , Chalk.red
-const SUCCESS = create-note \success, Chalk.green
+const INFO    = create-note \info    Chalk.stripColor
+const ERROR   = create-note \error   Chalk.red
+const SUCCESS = create-note \success Chalk.green
 
 module.exports =
   alert: (e, opts)    -> send ERROR, e, (sticky:true) <<< opts
@@ -16,8 +16,8 @@ module.exports =
 if enabled = (growl-at = process.env.growl-at)?
   log "growl at #growl-at"
   client = new Gntp.Client! <<< host:growl-at
-  client.on \response, -> register! if it.type is '-ERROR'
-  client.on \error, -> log "growl.error: [#{it.parseInfo.error.code}] #{it.parseInfo.error.text}"
+  client.on \response -> register! if it.type is '-ERROR'
+  client.on \error -> log "growl.error: [#{it.parseInfo.error.code}] #{it.parseInfo.error.text}"
   register!
 else log "growl disabled"
 

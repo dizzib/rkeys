@@ -39,7 +39,7 @@ for c in COMMANDS then c.display = "#{Chalk.bold CHALKS[c.level] c.cmd} #{c.desc
 
 rl = Rl.createInterface input:process.stdin, output:process.stdout
   ..setPrompt "#{Consts.APPNAME} >"
-  ..on \line, (cmd) ->
+  ..on \line (cmd) ->
     <- WFib
     rl.pause!
     for c in COMMANDS when cmd is c.cmd.trim!

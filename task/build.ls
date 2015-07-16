@@ -13,7 +13,7 @@ Dir     = require \./constants .dir
 Dirname = require \./constants .dirname
 G       = require \./growl
 
-pruner = new Cron.CronJob cronTime:'*/10 * * * *', onTick:prune-empty-dirs
+pruner = new Cron.CronJob cronTime:'*/10 * * * *' onTick:prune-empty-dirs
 tasks  =
   livescript:
     cmd   : "#{Dir.ROOT}/node_modules/.bin/lsc --output $OUT $IN"
@@ -54,17 +54,11 @@ function compile t, ipath, cb
   Assert.equal pwd!, Dir.BUILD
   ipath-abs = Path.resolve Dir.ROOT, ipath
   odir = Path.dirname opath = get-opath t, ipath
-  mkdir \-p, odir # stylus fails if outdir doesn't exist
-  switch typeof t.cmd
-  | \string =>
-    cmd = t.cmd.replace(\$IN, "'#ipath-abs'").replace \$OUT, "'#odir'"
-    log cmd
-    code, res <- exec cmd
-    log code, res if code
-    cb (if code then res else void), opath
-  | \function =>
-    e <- t.cmd ipath-abs, opath
-    cb e, opath
+  mkdir \-p odir # stylus fails if outdir doesn't exist
+  log cmd = t.cmd.replace(\$IN "'#ipath-abs'").replace \$OUT "'#odir'"
+  code, res <- exec cmd
+  log code, res if code
+  cb (if code then res else void), opath
 
 function compile-batch tid
   t = tasks[tid]
