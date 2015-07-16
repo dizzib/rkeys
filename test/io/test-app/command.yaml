@@ -14,4 +14,4 @@ sqc: C+x S+A+y
 xyz: x y z
 
 # include file and directory
-include: ./command ./command/include.test
+include: ./command/include.test ./command ./missing-file
