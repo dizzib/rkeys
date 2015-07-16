@@ -2,7 +2,6 @@ global.log = require \./log
 
 Args = require \./args
 return (require \./gen-ssl-cert)! if Args.gen-ssl-cert
-<- require \wait.for .launchFiber
 
 Bify    = require \browserify
 ErrHan  = require \errorhandler
@@ -16,13 +15,14 @@ Nib     = require \nib
 Path    = require \path
 Shell   = require \shelljs/global
 Stylus  = require \stylus
-W4m     = require \wait.for .forMethod
-X11boot = require \./io/x11/boot # note: X11 is not initialised for tests
-Api     = require \./io/api
 
-const DIR-UI = "#__dirname/ui"
+err <- (require \./io/x11/boot)!
+return log err if err
+
+Api = require \./io/api
+
 log "dirs: #{Args.dirs * ' '}"
-dirs = Args.dirs ++ DIR-UI # order matters
+dirs = Args.dirs ++ const DIR-UI = "#__dirname/ui" # order matters
 dirs = dirs ++ __dirname if process.env.NODE_ENV is \development
 
 express = Express!
@@ -49,27 +49,31 @@ express
   # see http://stackoverflow.com/questions/16525362/how-do-you-set-jade-basedir-option-in-an-express-app-the-basedir-option-is-r
   ..locals.basedir = DIR-UI
 
-start-http!
-start-https!
+start-http -> log it if it
+start-https -> log it if it
 
 ## helpers
 
-function start-http
+function start-http cb
   Api http = Http.createServer express
-  W4m http, \listen Args.port
-  log 0, "Express http server listening on port #{Args.port}"
+  err <- http.listen Args.port
+  return cb err if err
+  log 0 "Express http server listening on port #{Args.port}"
+  cb!
 
-function start-https
+function start-https cb
   keys  = ls [ Path.join d, '/*key.pem' for d in Args.dirs ]
   certs = ls [ Path.join d, '/*cert.pem' for d in Args.dirs ]
-  return unless keys.length and certs.length
+  return cb! unless keys.length and certs.length
   log "found ssl key #{key-path = keys.0}"
   log "found ssl cert #{cert-path = certs.0}"
   key  = Fs.readFileSync key-path
   cert = Fs.readFileSync cert-path
   Api https = Https.createServer (key:key, cert:cert), express
-  W4m https, \listen Args.port-ssl
-  log 0, "Express https server listening on port #{Args.port-ssl}"
+  err <- https.listen Args.port-ssl
+  return cb err if err
+  log 0 "Express https server listening on port #{Args.port-ssl}"
+  cb!
 
 function use-livescript dir
   express.use "*.js" (req, res, next) ->

@@ -28,7 +28,6 @@ dependencies:
   shelljs      : \0.3.0
   'socket.io'  : \1.3.5
   stylus       : \0.49.3
-  'wait.for'   : \0.6.3
   x11          : \1.0.3
 devDependencies:
   chai         : \~3.0.0
@@ -40,6 +39,7 @@ devDependencies:
   lolex        : \~1.2.1
   mocha        : \~2.2.5
   mockery      : \~1.4.0
+  'wait.for'   : \~0.6.3
 engines:
   node: '>=0.10.x'
   npm : '>=1.0.x'

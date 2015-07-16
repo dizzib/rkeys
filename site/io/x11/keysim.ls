@@ -7,8 +7,10 @@ module.exports =
   down: -> simulate H.xtest.KeyPress, it
   up  : -> simulate H.xtest.KeyRelease, it
 
+# prevent stuck keys on exit
 downkeys = []
-process.on \exit, release-keys
+for sig in <[ SIGINT SIGHUP SIGTERM ]> then process.on sig, process.exit
+process.on \exit release-keys
 
 function fake-input type, keycode
   H.xtest.FakeInput type, keycode, 0, H.root, 0, 0
