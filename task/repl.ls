@@ -10,21 +10,22 @@ Build  = require \./build
 Consts = require \./constants
 DirBld = require \./constants .dir.BUILD
 Dist   = require \./distribute
-Run    = require \./run
+Inst   = require \./install
+Site   = require \./site
 G      = require \./growl
 Test   = require \./test
 
 const CHALKS = [Chalk.stripColor, Chalk.yellow, Chalk.red]
 const COMMANDS =
-  * cmd:'h   ' lev:0 desc:'help  - show commands'         fn:show-help
-  * cmd:'b.a ' lev:0 desc:'build - all'                   fn:Build.all
-  * cmd:'b.d ' lev:0 desc:'build - delete'                fn:Build.delete-files
-  * cmd:'b.nd' lev:0 desc:'build - npm delete'            fn:Build.delete-modules
-  * cmd:'b.nr' lev:0 desc:'build - npm refresh'           fn:Build.refresh-modules
-  * cmd:'b.r ' lev:0 desc:'build - recycle'               fn:Run.recycle-site
-  * cmd:'t   ' lev:0 desc:'test  - run'                   fn:Test.run
-  * cmd:'d.lo' lev:1 desc:'dist  - publish to local'      fn:Dist.publish-local
-  * cmd:'d.PU' lev:2 desc:'dist  - publish to public npm' fn:Dist.publish-public
+  * cmd:'h   ' level:0 desc:'help    - show commands'         fn:show-help
+  * cmd:'i.d ' level:0 desc:'install - delete node_modules'   fn:Inst.delete-modules
+  * cmd:'i.r ' level:0 desc:'install - refresh node_modules'  fn:Inst.refresh-modules
+  * cmd:'b.a ' level:0 desc:'build   - all'                   fn:build-all
+  * cmd:'b.d ' level:0 desc:'build   - delete'                fn:Build.delete-files
+  * cmd:'b.r ' level:0 desc:'build   - recycle'               fn:Site.recycle
+  * cmd:'t   ' level:0 desc:'test    - run'                   fn:Test.run
+  * cmd:'d.lo' level:1 desc:'distrib - publish to local'      fn:Dist.publish-local
+  * cmd:'d.PU' level:2 desc:'distrib - publish to public npm' fn:Dist.publish-public
 
 max-level = if Args.reggie-server-port then 2 else 0
 commands = _.filter COMMANDS, -> it.level <= max-level
@@ -34,7 +35,7 @@ config.fatal  = true # shelljs doesn't raise exceptions, so set this process to 
 
 cd DirBld # for safety, set working directory to build
 
-for c in COMMANDS then c.display = "#{Chalk.bold CHALKS[c.lev] c.cmd} #{c.desc}"
+for c in COMMANDS then c.display = "#{Chalk.bold CHALKS[c.level] c.cmd} #{c.desc}"
 
 rl = Rl.createInterface input:process.stdin, output:process.stdout
   ..setPrompt "#{Consts.APPNAME} >"
@@ -49,16 +50,22 @@ rl = Rl.createInterface input:process.stdin, output:process.stdout
 
 Build.on \built ->
   Dist.prepare!
+  <- Site.stop
   err <- Test.run
-  return if err
-  Run.recycle-site!
+  return log err if err
+  err <- Site.start
+  log err if err
 Build.start!
-Run.recycle-site!
+Site.recycle!
 
 _.delay show-help, 500ms
 _.delay (-> rl.prompt!), 750ms
 
 # helpers
+
+function build-all
+  try Build.all!
+  catch e then G.err e
 
 function show-help
   for c in COMMANDS then log c.display

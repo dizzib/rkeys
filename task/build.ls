@@ -27,25 +27,12 @@ tasks  =
 
 module.exports = me = (new Emitter!) with
   all: ->
-    try
-      for tid of tasks then compile-batch tid
-      me.emit \built
-    catch e then G.err e
+    for tid of tasks then compile-batch tid
+    me.emit \built
 
   delete-files: ->
     log "delete #{Dir.BUILD}"
     rm \-rf Dir.BUILD
-
-  delete-modules: ->
-    log "delete-modules #{pwd!}"
-    Assert.equal pwd!, Dir.BUILD
-    rm '-rf' "./node_modules"
-
-  refresh-modules: ->
-    Assert.equal pwd!, Dir.BUILD
-    W4 exec, 'npm -v'
-    W4 exec, 'npm prune'
-    W4 exec, 'npm install'
 
   start: ->
     G.say 'build started'
