@@ -23,7 +23,6 @@ dependencies:
   LiveScript   : \1.3.0
   lodash       : \3.5.0
   lsify        : \0.1.0
-  marked       : \0.3.3
   morgan       : \1.5.1
   nib          : \1.1.0
   shelljs      : \0.3.0
