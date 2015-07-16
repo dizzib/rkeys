@@ -11,7 +11,7 @@ module.exports = me =
   init: ->
     ks2kc := get-keysym-to-keycode-mapping!
   is-keysym: ->
-    _.isString it and it.substring(0, PREFIX.length) is PREFIX
+    _.startsWith it, PREFIX
   get-keycodes: (key) ->
     keysym = get-keysym key
     return log "Invalid keysym #keysym" unless kc = ks2kc[keysym]

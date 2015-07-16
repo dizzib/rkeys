@@ -1,30 +1,33 @@
 test = it
 <- describe 'rkey'
 
-const SITE = '../../site'
-
-require \child_process
-  ..exec = -> out.push "ex:#it"
-require "#SITE/io/x11/buttonsim"
-  ..down = -> out.push "bd:#it"
-  ..up   = -> out.push "bu:#it"
-require "#SITE/io/x11/keysim"
-  ..down = -> out.push "d:#it"
-  ..up   = -> out.push "u:#it"
-require "#SITE/args"
-  ..dirs = [ "#__dirname/test-app" ]
-  ..verbosity = 1
-global.log = require "#SITE/log"
-
 A = require \chai .assert
 _ = require \lodash
 L = require \lolex
-C = require "#SITE/io/command"
-T = require "#SITE/io/rkey"
+M = require \mockery
 
-var clock, out
-after  -> clock.uninstall!
-before -> clock := L.install!
+const SITE = '../../site'
+var clock, out, T
+
+after  ->
+  clock.uninstall!
+  M.deregisterAll!
+  M.disable!
+before ->
+  clock := L.install!
+  M.enable warnOnUnregistered:false useCleanCache:true
+  M.registerMock \child_process exec: (cmd, cb) -> out.push "ex:#cmd"
+  M.registerMock \./args verbosity:1
+  M.registerMock \../args dirs: [ "#__dirname/test-app" ]
+  M.registerMock \../../x11/buttonsim do
+    down: -> out.push "bd:#it"
+    up  : -> out.push "bu:#it"
+  M.registerMock \../../x11/keycode is-keysym: -> _.startsWith it, \XK_
+  M.registerMock \../../x11/keysim do
+    down: -> out.push "d:#it"
+    up  : -> out.push "u:#it"
+  global.log = require "#SITE/log"
+  T := require "#SITE/io/rkey"
 beforeEach ->
   clock.reset!
   out := []
