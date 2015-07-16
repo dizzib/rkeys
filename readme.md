@@ -1,4 +1,5 @@
 ## rkeys
+[![Build Status](https://travis-ci.org/dizzib/rkeys.svg?branch=master)](https://travis-ci.org/dizzib/rkeys)
 
 A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to remote [X11]:
 
