@@ -19,7 +19,7 @@ With [node.js] installed on the target [X11] box:
 
     $ npm install -g rkeys            # might need to prefix with sudo
 
-Note: A couple of [dependencies] use [node-gyp] to compile binaries during install
+Note: [socket.io] uses [node-gyp] to compile binaries during install
 so you'll need to have [python] 2.7 and [GCC] installed on your system.
 Add the `--unsafe-perm` flag if you're having
 [this permissions issue](https://github.com/TooTallNate/node-gyp/issues/454)
