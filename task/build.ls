@@ -17,7 +17,7 @@ pruner = new Cron.CronJob cronTime:'*/10 * * * *' onTick:prune-empty-dirs
 tasks  =
   livescript:
     cmd   : "#{Dir.ROOT}/node_modules/.bin/lsc --output $OUT $IN"
-    ignore: /example-app\/.+\.ls/
+    ignore: '**/example-app/*.ls'
     ixt   : \ls
     oxt   : \js
     xsub  : 'json.js->json'
