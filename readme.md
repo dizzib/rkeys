@@ -29,7 +29,7 @@ and you trust node-gyp with root permission.
 
     $ rkeys
 
-then navigate your tablet to `http://your-rkeys-server:7000/example`:
+then navigate your remote tablet to `http://your-rkeys-server:7000/example`:
 
 ![example screenshot](http://dizzib.github.io/rkeys/example-app.png)
 
