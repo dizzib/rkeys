@@ -5,7 +5,6 @@ _      = require \lodash
 Rl     = require \readline
 Shell  = require \shelljs/global
 WFib   = require \wait.for .launchFiber
-Args   = require \./args
 Build  = require \./build
 Consts = require \./constants
 DirBld = require \./constants .dir.BUILD
@@ -24,11 +23,8 @@ const COMMANDS =
   * cmd:'b.d ' level:0 desc:'build   - delete'                fn:Build.delete-files
   * cmd:'b.r ' level:0 desc:'build   - recycle'               fn:Site.recycle
   * cmd:'t   ' level:0 desc:'test    - run'                   fn:Test.run
-  * cmd:'d.lo' level:1 desc:'distrib - publish to local'      fn:Dist.publish-local
+  * cmd:'d.lo' level:1 desc:'distrib - publish to local dir'  fn:Dist.publish-local
   * cmd:'d.PU' level:2 desc:'distrib - publish to public npm' fn:Dist.publish-public
-
-max-level = if Args.reggie-server-port then 2 else 0
-commands = _.filter COMMANDS, -> it.level <= max-level
 
 config.fatal  = true # shelljs doesn't raise exceptions, so set this process to die on error
 #config.silent = true # otherwise too much noise
