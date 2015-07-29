@@ -34,7 +34,7 @@ devDependencies:
   chalk        : \~0.4.0
   chokidar     : \~1.0.4
   cron         : \~1.0.3
-  gntp         : \~0.1.1
+  growly       : \~1.2.0
   istanbul     : \~0.3.13
   lolex        : \~1.2.1
   mocha        : \~2.2.5
