@@ -1,4 +1,4 @@
-## rkeys
+# rkeys
 [![Build Status](https://travis-ci.org/dizzib/rkeys.svg?branch=master)](https://travis-ci.org/dizzib/rkeys)
 
 A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to remote [X11]:
@@ -37,7 +37,7 @@ See this example's [jade](./site/example-app/example.jade), [stylus](./site/exam
 and [yaml](./site/example-app/command.yaml).
 Also see [some real-world examples](https://github.com/dizzib/rkeys-apps).
 
-## get started
+## create your first keypad app
 
 An rkeys app is a directory containing at least one jade file.
 Create file `bar.jade` in directory `foo` and add the following lines:
