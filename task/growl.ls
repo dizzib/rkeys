@@ -11,7 +11,8 @@ function send label, item, opts = {}
   Util.log CHALKS[label] text unless opts.nolog
   return unless enabled
   title = "#{Const.APPNAME} #label".toUpperCase!
-  err <- G.notify text, (label:label, title:title) <<< opts
+  # for some reason a '::' causes the growl to fail !?
+  err <- G.notify (text.replace /::/g \:), (label:label, title:title) <<< opts
   log err if err
 
 module.exports =
