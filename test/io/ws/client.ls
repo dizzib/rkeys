@@ -1,13 +1,11 @@
 test = it
 <- describe 'ws/client'
 
-A    = require \chai .assert
 Http = require \http
 Ws   = require \faye-websocket
 T    = require \../../../site/io/ws/client
 
 var msgs, s0
-deq = A.deepEqual
 
 after ->
   s0.close!

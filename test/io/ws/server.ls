@@ -1,7 +1,6 @@
 test = it
 <- describe 'ws/server'
 
-A    = require \chai .assert
 Http = require \http
 Ws   = require \faye-websocket
 T    = require \../../../site/io/ws/server
@@ -10,7 +9,6 @@ const P0 = 7070
 const P1 = 7071
 
 var s0, s1
-deq = A.deepEqual
 
 afterEach ->
   s0.close!

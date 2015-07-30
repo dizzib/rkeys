@@ -4,7 +4,6 @@ test = it
 const AWC  = \active-window-changed
 const SITE = '../../site'
 
-A = require \chai .assert
 E = require \events .EventEmitter
 M = require \mockery
   ..registerMock \./args args = verbosity:1
@@ -82,7 +81,7 @@ describe 'as servant, should notify master' ->
     servant.master._emit \connect
     assert "emit:#MSGID,S0,#AWC,green"
 
-function assert then A.equal it, out * ';'
+function assert then deq it, out * ';'
 
 function focus
   xaw.current.title = it

@@ -1,7 +1,6 @@
 test = it
 <- describe 'rkey'
 
-A = require \chai .assert
 _ = require \lodash
 L = require \lolex
 M = require \mockery
@@ -114,4 +113,4 @@ function run-test instructions, expect
     else
       [dirn, act] = ins / '.'
       T act:act.replace('{SPACE}' ' '), direction:DIRECTIONS[dirn], io
-  A.equal expect, out * ' '
+  deq expect, out * ' '
