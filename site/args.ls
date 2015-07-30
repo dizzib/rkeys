@@ -19,5 +19,8 @@ C.parse process.argv
 C.dirs = if C.args.length then C.args else APPS
 C.port-ssl = 1 + _.parseInt C.port
 C.verbosity = if (v = C.verbosity) in <[0 1 2]> then Math.abs _.parseInt v else 1
+if st = C.servant-to
+  st += ":#{C.port}" unless _.contains st, \:
+  C.servant-to-url = "ws://#st"
 
 module.exports = C
