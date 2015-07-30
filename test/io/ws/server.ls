@@ -1,5 +1,5 @@
 test = it
-<- describe.only 'ws/server'
+<- describe 'ws/server'
 
 A    = require \chai .assert
 Http = require \http
