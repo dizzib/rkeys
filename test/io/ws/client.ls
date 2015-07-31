@@ -5,21 +5,37 @@ Http = require \http
 Ws   = require \faye-websocket
 T    = require \../../../site/io/ws/client
 
-var msgs, s0
+const P0 = 7070
+var msgs, s0, ws
 
-after ->
+afterEach ->
   s0.close!
-before ->
-  s0 := Http.createServer!listen const P0 = 7070
+beforeEach ->
+  s0 := Http.createServer!
   s0.on \upgrade (req, socket, body) ->
     return unless Ws.isWebSocket req
-    ws = new Ws req, socket, body
+    ws := new Ws req, socket, body
     ws.on \message -> msgs.push it.data
-  T.init "ws://localhost:#P0"
-beforeEach ->
+  T.init "ws://localhost:#P0" reconnect-period:25ms
   msgs := []
 
 test 'send' (done) ->
+  s0.listen P0
   T.send \a
-  T.send \b
-  setTimeout (-> deq msgs, <[a b]>; done!), 100ms
+  T.send b:\c
+  setTimeout (-> deq msgs, <[a {"b":"c"}]>; done!), 100ms
+
+test 'connect refused, should keep retrying' (done) ->
+  T.send \a
+  setTimeout (-> s0.listen P0), 100ms
+  setTimeout (-> T.send \b), 150ms
+  setTimeout (-> deq msgs, <[b]>; done!), 300ms
+
+test 'disconnect, should reconnect' (done) ->
+  s0.listen P0
+  T.send \a
+  setTimeout (-> ws.close!; s0.close!), 50ms
+  setTimeout (-> T.send \b), 100ms
+  setTimeout (-> s0.listen P0), 150ms
+  setTimeout (-> T.send \c), 200ms
+  setTimeout (-> deq msgs, <[a c]>; done!), 300ms
