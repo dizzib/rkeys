@@ -20,7 +20,9 @@ module.exports = me =
       notify-http-clients! if local-focus-is-on-servant h
 
 Xaw.on \changed me.emit
-Wc.init(url).on \connect notify-master if url = Args.servant-to-url
+if url = Args.servant-to-url
+  wc = Wc.init url, reconnect-period:2000ms
+  wc.on \connect notify-master if url = Args.servant-to-url
 
 function local-focus-is-on-servant
   _.contains Xaw.current.title.toUpperCase!, it.toUpperCase!

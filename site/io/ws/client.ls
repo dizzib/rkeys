@@ -5,7 +5,7 @@ Ws = require \faye-websocket
 var ws
 
 module.exports = me = (new Em!) with do
-  init: (url, opts = reconnect-period:2000ms) ->
+  init: (url, opts) ->
     function connect
       log 2 "try connect #url"
       ws := new Ws.Client url
