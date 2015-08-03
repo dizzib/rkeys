@@ -22,13 +22,13 @@ beforeEach ->
 describe 'message to server' ->
   function test-port port
     test "port #port" (done) ->
-      T.on \message ->
-        deq it, \foo
+      T.on \foo ->
+        deq it, a:\b
         c.close!
         done!
       c = new Ws.Client "ws://localhost:#port"
       c.on \error -> done new Error it.message
-      c.on \open  -> c.send \foo
+      c.on \open  -> c.send JSON.stringify foo: a:\b
   test-port P0
   test-port P1
 
