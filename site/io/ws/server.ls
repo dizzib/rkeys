@@ -19,5 +19,5 @@ module.exports = me = (new Em!) with do
           log 0 "connect #{socket.remoteAddress}"
           me.emit \connect ws
 
-  broadcast: ->
-    for ws in wsocks then ws.send if _.isString it then it else JSON.stringify it
+  broadcast: (id, data) ->
+    for ws in wsocks then ws.send JSON.stringify "#id":data

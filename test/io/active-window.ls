@@ -6,51 +6,53 @@ const SITE = '../../site'
 
 E = require \events .EventEmitter
 M = require \mockery
-  ..registerMock \./args args = verbosity:1
-global.log = require "#SITE/log"
 
 var out, T
-var os, servant, xaw
+var args, os, wc, ws, xaw
 
 after ->
   M.deregisterAll!
   M.disable!
 before ->
   M.registerMock \os os := {}
-  M.registerMock \./servant servant := init: -> servant
+  M.registerMock \../args args := verbosity:1
+  M.registerMock \./ws/client wc := (new E!) with init: -> wc
+  M.registerMock \./ws/server ws := {}
   M.registerMock \./x11/active-window xaw := (new E!) with current:{}
   M.enable warnOnUnregistered:false useCleanCache:true
+  global.log = require "#SITE/log"
 beforeEach ->
   M.resetCache!
   out := []
+  wc.removeAllListeners!
   xaw.removeAllListeners!current.title = ''
 
 describe 'as master, should notify http clients' ->
   beforeEach ->
-    servant.master = null
+    args.servant-to-url = null
+    ws.broadcast = (id, data) -> out.push "br:#id,#data"
     T := require "#SITE/io/active-window"
-    T.add-http-io emit: (id, msg) -> out.push "io:#id,#msg"
 
   test 'focus, no servants' ->
     focus \M0
     focus \M1
-    assert "io:#AWC,M0;io:#AWC,M1"
+    assert "br:#AWC,M0;br:#AWC,M1"
 
   test 'seen servant focus' ->
     focus \S0-in-M0
     focus-servant \s0 \red
-    assert "io:#AWC,S0-in-M0;io:#AWC,S0-in-M0 (red)"
+    assert "br:#AWC,S0-in-M0;br:#AWC,S0-in-M0 (red)"
 
   test 'unseen servant focus' ->
     focus \S0-in-M0
     focus-servant \s1 \red
-    assert "io:#AWC,S0-in-M0"
+    assert "br:#AWC,S0-in-M0"
 
   test 'focus to unseen servant focus' ->
     focus-servant \s0 \yellow
     focus-servant \s0 \blue
     focus \S0-in-M0
-    assert "io:#AWC,S0-in-M0 (blue)"
+    assert "br:#AWC,S0-in-M0 (blue)"
 
   test 'multiple servants' ->
     focus-servant \s0 \purple
@@ -58,15 +60,15 @@ describe 'as master, should notify http clients' ->
     focus \S0-in-M0
     focus \S1-in-M1
     focus \M2
-    assert "io:#AWC,S0-in-M0 (purple);io:#AWC,S1-in-M1 (orange);io:#AWC,M2"
+    assert "br:#AWC,S0-in-M0 (purple);br:#AWC,S1-in-M1 (orange);br:#AWC,M2"
 
 describe 'as servant, should notify master' ->
   beforeEach ->
+    args.servant-to-url = \master-url
     os.hostname = -> \S0
-    servant.master = ms = new E!
-      .._emit = ms.emit # workaround name clash
-      ..emit = (msg-id, {hostname, event}) ->
-        out.push "emit:#msg-id,#hostname,#{event.id},#{event.title}"
+    wc.send = (id, {hostname, event}) ->
+      out.push "send:#id,#hostname,#{event.id},#{event.title}"
+    ws.broadcast = ->
     T := require "#SITE/io/active-window"
 
   const MSGID = \servant
@@ -74,14 +76,14 @@ describe 'as servant, should notify master' ->
   test 'local focus' ->
     focus \blue
     focus \cyan
-    assert "emit:#MSGID,S0,#AWC,blue;emit:#MSGID,S0,#AWC,cyan"
+    assert "send:#MSGID,S0,#AWC,blue;send:#MSGID,S0,#AWC,cyan"
 
   test 'connect to master' ->
     xaw.current.title = 'green'
-    servant.master._emit \connect
-    assert "emit:#MSGID,S0,#AWC,green"
+    wc.emit \connect
+    assert "send:#MSGID,S0,#AWC,green"
 
-function assert then deq it, out * ';'
+function assert then deq (out * ';'), it
 
 function focus
   xaw.current.title = it

@@ -17,25 +17,25 @@ beforeEach ->
     ws := new Ws req, socket, body
     ws.on \message -> msgs.push it.data
   T.init "ws://localhost:#P0" reconnect-period:25ms
+  T.removeAllListeners!
   msgs := []
 
 test 'send' (done) ->
   s0.listen P0
-  T.send \a
-  T.send b:\c
-  setTimeout (-> deq msgs, <[a {"b":"c"}]>; done!), 100ms
+  T.on \connect -> T.send \a \b
+  setTimeout (-> deq msgs, <[{"a":"b"}]>; done!), 100ms
 
 test 'connect refused, should keep retrying' (done) ->
-  T.send \a
+  T.send \foo \bar
   setTimeout (-> s0.listen P0), 100ms
-  setTimeout (-> T.send \b), 150ms
-  setTimeout (-> deq msgs, <[b]>; done!), 300ms
+  setTimeout (-> T.send \a \b), 150ms
+  setTimeout (-> deq msgs, <[{"a":"b"}]>; done!), 300ms
 
 test 'disconnect, should reconnect' (done) ->
   s0.listen P0
-  T.send \a
+  T.send \a \b
   setTimeout (-> ws.close!; s0.close!), 50ms
-  setTimeout (-> T.send \b), 100ms
+  setTimeout (-> T.send \foo \bar), 100ms
   setTimeout (-> s0.listen P0), 150ms
-  setTimeout (-> T.send \c), 200ms
-  setTimeout (-> deq msgs, <[a c]>; done!), 300ms
+  setTimeout (-> T.send \c \d), 200ms
+  setTimeout (-> deq msgs, <[{"a":"b"} {"c":"d"}]>; done!), 300ms

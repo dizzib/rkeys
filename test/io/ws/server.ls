@@ -33,7 +33,7 @@ describe 'message to server' ->
   test-port P1
 
 describe 'broadcast to all clients' ->
-  function run done, what, expect
+  function run done, id, data, expect
     const PORTS = [P0, P0, P1]
     msgs = []; nconn = 0
     function create-client port
@@ -43,7 +43,6 @@ describe 'broadcast to all clients' ->
     for p in PORTS then create-client p
     T.on \connect ->
       return unless ++nconn is PORTS.length
-      T.broadcast what
+      T.broadcast id, data
       setTimeout (-> deq msgs, expect; done!), 100ms
-  test 'string' -> run it, \x <[x x x]>
-  test 'object' -> run it, a:\b, <[{"a":"b"} {"a":"b"} {"a":"b"}]>
+  test 'object' -> run it, \a \b <[{"a":"b"} {"a":"b"} {"a":"b"}]>

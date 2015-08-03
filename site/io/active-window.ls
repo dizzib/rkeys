@@ -1,17 +1,14 @@
-_   = require \lodash
-Os  = require \os
-Ser = require \./servant
-Xaw = require \./x11/active-window
+_    = require \lodash
+Os   = require \os
+Args = require \../args
+Wc   = require \./ws/client
+Ws   = require \./ws/server
+Xaw  = require \./x11/active-window
 
 const AWC = \active-window-changed
-
-http-ios = []
 servants = {}
 
 module.exports = me =
-  add-http-io: ->
-    http-ios.push it
-    me
   emit: ->
     notify-http-clients!
     notify-master!
@@ -23,7 +20,7 @@ module.exports = me =
       notify-http-clients! if local-focus-is-on-servant h
 
 Xaw.on \changed me.emit
-Ser.init!master?on \connect notify-master
+Wc.init(url).on \connect notify-master if url = Args.servant-to-url
 
 function local-focus-is-on-servant
   _.contains Xaw.current.title.toUpperCase!, it.toUpperCase!
@@ -33,7 +30,8 @@ function notify-http-clients
   t = Xaw.current.title
   t = "#t (#{s.title})" if s?
   log 2 \notify-http-clients AWC, t
-  for io in http-ios then io.emit AWC, t
+  Ws.broadcast AWC, t
 
 function notify-master
-  Ser.master?emit \servant hostname:Os.hostname!, event:{id:AWC, title:Xaw.current.title}
+  return unless Args.servant-to-url
+  Wc.send \servant hostname:Os.hostname!, event:{id:AWC, title:Xaw.current.title}
