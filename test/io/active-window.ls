@@ -15,12 +15,11 @@ after ->
   M.disable!
 before ->
   M.registerMock \os os := {}
-  M.registerMock \../args args := verbosity:1
+  M.registerMock \../args args := {}
   M.registerMock \./ws/client wc := (new E!) with init: -> wc
   M.registerMock \./ws/server ws := {}
   M.registerMock \./x11/active-window xaw := (new E!) with current:{}
   M.enable warnOnUnregistered:false useCleanCache:true
-  global.log = require "#SITE/log"
 beforeEach ->
   M.resetCache!
   out := []

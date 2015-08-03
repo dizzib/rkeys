@@ -36,7 +36,7 @@ function build-cache cfgs
         _.remove sc, -> it.id is id
         sc.push id:id, cmd:cmd, rx:create-sidechain-rx id
       else cs[id] = cmd
-  log 2, cache
+  log2 cache
 
   function create-sidechain-rx id
     new RegExp id[1 to -2] * '' # strip surrounding /s

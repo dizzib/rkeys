@@ -1,8 +1,8 @@
-_    = require \lodash
 Args = require \./args
 
-module.exports = (level, ...args) ->
-  unless _.isNumber level and args?length
-    args = [level] ++ args
-    level = 1
-  console.log ...args if level <= Args.verbosity
+function get-logger level
+  if level <= Args.verbosity then console.log else ->
+
+global.log  = get-logger 1
+global.log0 = get-logger 0
+global.log2 = get-logger 2

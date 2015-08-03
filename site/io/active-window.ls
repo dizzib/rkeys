@@ -14,7 +14,7 @@ module.exports = me =
     notify-master!
   servant:
     update: ->
-      log 2 \servant.update it
+      log2 \servant.update it
       return unless it.event?id is AWC
       servants[h = it.hostname] = title:it.event.title
       notify-http-clients! if local-focus-is-on-servant h
@@ -31,7 +31,7 @@ function notify-http-clients
   s = _.find servants, (v, k) -> local-focus-is-on-servant k
   t = Xaw.current.title
   t = "#t (#{s.title})" if s?
-  log 2 \notify-http-clients AWC, t
+  log2 \notify-http-clients AWC, t
   Ws.broadcast AWC, t
 
 function notify-master

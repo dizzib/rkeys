@@ -4,7 +4,7 @@ Fc  = require \./rkey/filter-chain
 Sc  = require \./rkey/side-chain
 
 module.exports = (rkey-event) ->
-  log 2 rkey-event
+  log2 rkey-event
   parse-act rkey-event
   Sc rkey-event
   Fc rkey-event

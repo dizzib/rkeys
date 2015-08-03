@@ -11,7 +11,7 @@ module.exports = ->
 
   code = _.trim cmd.substring DIRECTIVE.length
   try
-    log 2 cmd = Vm.runInNewContext code, SANDBOX <<< params:it.params
+    log2 cmd = Vm.runInNewContext code, SANDBOX <<< params:it.params
     unless _.isString cmd
       log "must evaluate to a string command, not #cmd\n#code"
       return true # bail

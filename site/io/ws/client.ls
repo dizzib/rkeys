@@ -7,14 +7,14 @@ var ws
 module.exports = me = (new Em!) with do
   init: (url, opts) ->
     function connect
-      log 2 "try connect #url"
+      log2 "try connect #url"
       ws := new Ws.Client url
-      ws.on \error -> log 0 it.message
+      ws.on \error -> log0 it.message
       ws.on \open  ->
-        log 0 "opened #url"
+        log0 "opened #url"
         me.emit \connect
       ws.on \close ->
-        log 0 "closed #url"
+        log0 "closed #url"
         me.emit \disconnect
         setTimeout connect, opts.reconnect-period
     connect!

@@ -10,7 +10,7 @@ module.exports = ->
 
   code = _.trim cmd.substring DIRECTIVE.length
   try
-    log 2, js = Ls.compile code, bare:true header:false
+    log2 js = Ls.compile code, bare:true header:false
   catch e
     log "#e\n#code"
     return true # bail

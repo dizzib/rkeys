@@ -17,7 +17,7 @@ module.exports = me = (new Evem!) with do
       return unless s?
       return if s.wid is me.current.wid # dedupe duplicate events race
       me.current = s
-      log 2 "active-window=#{Util.inspect s}"
+      log2 "active-window=#{Util.inspect s}"
       me.emit \changed
     get-active-window-state cb
   current:

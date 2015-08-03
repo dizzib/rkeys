@@ -17,7 +17,6 @@ before ->
   clock := L.install!
   M.enable warnOnUnregistered:false useCleanCache:true
   M.registerMock \child_process exec: (cmd, cb) -> out.push "ex:#cmd"
-  M.registerMock \./args verbosity:1
   M.registerMock \../args dirs: [ "#__dirname/test-app" ]
   M.registerMock \../../ws/server broadcast: (id, data) -> out.push "br:{#id:#data}"
   M.registerMock \../../x11/buttonsim do
@@ -27,7 +26,6 @@ before ->
   M.registerMock \../../x11/keysim do
     down: -> out.push "d:#it"
     up  : -> out.push "u:#it"
-  global.log = require "#SITE/log"
   T := require "#SITE/io/rkey"
 beforeEach ->
   clock.reset!

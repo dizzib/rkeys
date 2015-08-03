@@ -13,7 +13,7 @@ after ->
   M.deregisterAll!
   M.disable!
 before ->
-  M.registerMock \./rkey -> log 'xx' res.push it
+  M.registerMock \./rkey -> res.push it
   M.enable warnOnUnregistered:false
   s0 := Http.createServer!listen P0
   T := require \../../site/io/api

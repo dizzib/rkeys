@@ -1,7 +1,5 @@
-global.log = require \./log
-
-Args = require \./args
-return (require \./gen-ssl-cert)! if Args.gen-ssl-cert
+require \./log
+return (require \./gen-ssl-cert)! if (Args = require \./args).gen-ssl-cert
 
 Bify    = require \browserify
 ErrHan  = require \errorhandler
@@ -60,7 +58,7 @@ start-http (err, s0) ->
 function start-http cb
   s = Http.createServer express
   err <- s.listen p = Args.port
-  log 0 "Express http server listening on port #p" unless err
+  log0 "Express http server listening on port #p" unless err
   cb err, s
 
 function start-https cb
@@ -73,7 +71,7 @@ function start-https cb
   cert = Fs.readFileSync cert-path
   s = Https.createServer (key:key, cert:cert), express
   err <- s.listen p = Args.port-ssl
-  log 0 "Express https server listening on port #p" unless err
+  log0 "Express https server listening on port #p" unless err
   cb err, s
 
 function use-livescript dir
