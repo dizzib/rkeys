@@ -2,18 +2,18 @@
 # 'illegal invocation' errors, since console.log expects 'this' to be console.
 window.log = -> console.log ...&
 
-socket = io!
+# set global web socket instance
+window.ws = new WebSocket "ws://#{location.host}"
+ws.onmessage = ->
+  msg = JSON.parse it.data
+  return switch-layout l if l = msg.layout
+  if title = msg.active-window-changed
+    $ 'div[data-active-window-title]' .each ->
+      rxstr = ($el = $ this).attr \data-active-window-title
+      rx = new RegExp rxstr
+      $el.toggle rx.test title
 
-# active window
-socket.on \active-window-changed, (title) ->
-  $ 'div[data-active-window-title]' .each ->
-    rxstr = ($el = $ this).attr \data-active-window-title
-    rx = new RegExp rxstr
-    $el.toggle rx.test title
-
-# layouts
 function switch-layout
   $ ".layout:not(.#it)" .hide!
   $ ".layout.#it" .show!
-socket.on \layout, switch-layout
 switch-layout \default

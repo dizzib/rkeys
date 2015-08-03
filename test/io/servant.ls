@@ -1,5 +1,5 @@
 test = it
-<- describe 'servant'
+<- describe.skip 'servant'
 
 A = require \chai .assert
 E = require \events .EventEmitter

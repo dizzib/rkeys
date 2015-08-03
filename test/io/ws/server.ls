@@ -17,7 +17,7 @@ beforeEach ->
   s0 := Http.createServer!listen P0
   s1 := Http.createServer!listen P1
   T.removeAllListeners!
-  T.init [s0, s1]
+  T.init [s0, s1, null]
 
 describe 'message to server' ->
   function test-port port

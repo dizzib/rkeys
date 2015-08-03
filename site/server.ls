@@ -49,17 +49,19 @@ express
   # see http://stackoverflow.com/questions/16525362/how-do-you-set-jade-basedir-option-in-an-express-app-the-basedir-option-is-r
   ..locals.basedir = DIR-UI
 
-start-http -> log it if it
-start-https -> log it if it
+start-http (err, s0) ->
+  return log err if err
+  err, s1 <- start-https
+  return log err if err
+  Api.init [s0, s1]
 
 ## helpers
 
 function start-http cb
-  Api http = Http.createServer express
-  err <- http.listen Args.port
-  return cb err if err
-  log 0 "Express http server listening on port #{Args.port}"
-  cb!
+  s = Http.createServer express
+  err <- s.listen p = Args.port
+  log 0 "Express http server listening on port #p" unless err
+  cb err, s
 
 function start-https cb
   keys  = ls [ Path.join d, '/*key.pem' for d in Args.dirs ]
@@ -69,11 +71,10 @@ function start-https cb
   log "found ssl cert #{cert-path = certs.0}"
   key  = Fs.readFileSync key-path
   cert = Fs.readFileSync cert-path
-  Api https = Https.createServer (key:key, cert:cert), express
-  err <- https.listen Args.port-ssl
-  return cb err if err
-  log 0 "Express https server listening on port #{Args.port-ssl}"
-  cb!
+  s = Https.createServer (key:key, cert:cert), express
+  err <- s.listen p = Args.port-ssl
+  log 0 "Express https server listening on port #p" unless err
+  cb err, s
 
 function use-livescript dir
   express.use "*.js" (req, res, next) ->

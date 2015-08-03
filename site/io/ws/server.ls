@@ -7,7 +7,7 @@ var wsocks
 module.exports = me = (new Em!) with do
   init: (http-servers) ->
     wsocks := []
-    for s in http-servers
+    for s in http-servers when s
       s.on \upgrade (req, socket, body) ->
         return unless Ws.isWebSocket req
         wsocks.push ws = new Ws req, socket, body
