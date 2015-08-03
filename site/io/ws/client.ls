@@ -12,9 +12,10 @@ module.exports = me = (new Em!) with do
       ws.on \error -> log 0 it.message
       ws.on \open  ->
         log 0 "opened #url"
-        me.emit \connect ws
+        me.emit \connect
       ws.on \close ->
         log 0 "closed #url"
+        me.emit \disconnect
         setTimeout connect, opts.reconnect-period
     connect!
     me
