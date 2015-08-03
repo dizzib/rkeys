@@ -16,5 +16,4 @@ module.exports =
     connect!
 
   send: ->
-    return ws.send it if _.isString it
-    ws.send JSON.stringify it
+    ws.send if _.isString it then it else JSON.stringify it

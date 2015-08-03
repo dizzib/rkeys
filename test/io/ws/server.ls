@@ -32,15 +32,18 @@ describe 'message to server' ->
   test-port P0
   test-port P1
 
-test 'broadcast to all clients' (done) ->
-  const PORTS = [P0, P0, P1]
-  msgs = []; nconn = 0
-  function create-client port
-    c = new Ws.Client "ws://localhost:#port"
-    c.on \error -> done new Error it.message
-    c.on \message -> msgs.push it.data
-  for p in PORTS then create-client p
-  T.on \connect ->
-    return unless ++nconn is PORTS.length
-    T.broadcast \x
-    setTimeout (-> deq msgs, <[x x x]>; done!), 100ms
+describe 'broadcast to all clients' ->
+  function run done, what, expect
+    const PORTS = [P0, P0, P1]
+    msgs = []; nconn = 0
+    function create-client port
+      c = new Ws.Client "ws://localhost:#port"
+      c.on \error -> done new Error it.message
+      c.on \message -> msgs.push it.data
+    for p in PORTS then create-client p
+    T.on \connect ->
+      return unless ++nconn is PORTS.length
+      T.broadcast what
+      setTimeout (-> deq msgs, expect; done!), 100ms
+  test 'string' -> run it, \x <[x x x]>
+  test 'object' -> run it, a:\b, <[{"a":"b"} {"a":"b"} {"a":"b"}]>

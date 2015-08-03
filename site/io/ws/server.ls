@@ -1,4 +1,5 @@
 Em = require \events .EventEmitter
+_  = require \lodash
 Ws = require \faye-websocket
 
 var wsocks
@@ -17,4 +18,4 @@ module.exports = me = (new Em!) with do
           me.emit \connect ws
 
   broadcast: ->
-    for ws in wsocks then ws.send it
+    for ws in wsocks then ws.send if _.isString it then it else JSON.stringify it
