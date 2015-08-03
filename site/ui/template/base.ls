@@ -3,7 +3,7 @@
 window.log = -> console.log ...&
 
 # set global web socket instance
-window.ws = new WebSocket "ws://#{location.host}"
+window.ws = new ReconnectingWebSocket "ws://#{location.host}" null maxReconnectInterval:5000ms
 ws.onmessage = ->
   msg = JSON.parse it.data
   return switch-layout l if l = msg.layout
