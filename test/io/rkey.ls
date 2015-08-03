@@ -4,6 +4,7 @@ test = it
 _ = require \lodash
 L = require \lolex
 M = require \mockery
+U = require \util
 
 const SITE = '../../site'
 var clock, out, T
@@ -18,6 +19,7 @@ before ->
   M.registerMock \child_process exec: (cmd, cb) -> out.push "ex:#cmd"
   M.registerMock \./args verbosity:1
   M.registerMock \../args dirs: [ "#__dirname/test-app" ]
+  M.registerMock \../../ws/server broadcast: -> out.push "br:#{U.inspect it}"
   M.registerMock \../../x11/buttonsim do
     down: -> out.push "bd:#it"
     up  : -> out.push "bu:#it"
@@ -67,7 +69,7 @@ describe 'command' ->
   describe 'directive' ->
     test 'btn 1 dn' -> run 'D.button:1' 'bd:1'
     test 'btn 2 up' -> run 'U.button:2' 'bu:2'
-    test 'layout:x' -> run 'D.layout:x U.layout:x' 'io:layout,x io:layout,default'
+    test 'layout:x' -> run 'D.layout:x U.layout:x' "br:{ layout: 'x' } br:{ layout: 'default' }"
     test 'nop'      -> run 'D.nop U.nop' ''
     test 'shell'    -> run 'D.hi U.hi' 'ex:echo hi'
     describe 'type' ->
@@ -106,11 +108,10 @@ function test-seq-delay act
 
 function run instructions, expect
   const DIRECTIONS = D:0 U:1
-  io = emit: (id, msg) -> out.push "io:#id,#msg"
   for ins in instructions / ' '
     if ms = _.parseInt ins
       clock.tick ms
     else
       [dirn, act] = ins / '.'
-      T act:act.replace('{SPACE}' ' '), direction:DIRECTIONS[dirn], io
+      T act:act.replace('{SPACE}' ' '), direction:DIRECTIONS[dirn]
   deq expect, out * ' '
