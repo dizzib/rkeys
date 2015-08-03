@@ -2,8 +2,12 @@
 # 'illegal invocation' errors, since console.log expects 'this' to be console.
 window.log = -> console.log ...&
 
-# set global web socket instance
-window.ws = new ReconnectingWebSocket "ws://#{location.host}" null maxReconnectInterval:5000ms
+# set global web socket instance and helper
+opts = maxReconnectInterval:5000ms
+prot = location.protocol.replace \http \ws
+window.ws = new ReconnectingWebSocket "#prot//#{location.host}" null opts
+window.ws-send = (event-id, data) -> ws.send JSON.stringify "#event-id":data
+
 ws.onmessage = ->
   msg = JSON.parse it.data
   return switch-layout l if l = msg.layout

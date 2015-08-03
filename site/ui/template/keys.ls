@@ -16,5 +16,5 @@ function set-event-handler touch-evname, direction
   $ \.key .on touch-evname, ->
     return if ($key = $ this).hasClass direction # ignore duplicates
     $key.toggleClass 'down up'
-    ws.send JSON.stringify "rkey#direction": $key.attr \id
+    ws-send "rkey#direction" $key.attr \id
     false
