@@ -11,7 +11,7 @@ window.ws-send = (event-id, data) -> ws.send JSON.stringify "#event-id":data
 ws.onmessage = ->
   msg = JSON.parse it.data
   return switch-layout l if l = msg.layout
-  if title = msg.active-window-changed
+  if title = msg.'active-window-changed'
     $ 'div[data-active-window-title]' .each ->
       rxstr = ($el = $ this).attr \data-active-window-title
       rx = new RegExp rxstr
