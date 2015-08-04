@@ -19,12 +19,6 @@ With [node.js] installed on the target [X11] box:
 
     $ npm install -g rkeys            # might need to prefix with sudo
 
-Note: [socket.io] uses [node-gyp] to compile binaries during install
-so you'll need to have [python] 2.7 and [GCC] installed on your system.
-Add the `--unsafe-perm` flag if you're having
-[this permissions issue](https://github.com/TooTallNate/node-gyp/issues/454)
-and you trust node-gyp with root permission.
-
 ## run examples
 
     $ rkeys
@@ -37,7 +31,7 @@ See this example's [jade](./site/example-app/example.jade), [stylus](./site/exam
 and [yaml](./site/example-app/command.yaml).
 Also see [some real-world examples](https://github.com/dizzib/rkeys-apps).
 
-## create your first keypad app
+## create your first keypad
 
 An rkeys app is a directory containing at least one jade file.
 Create file `bar.jade` in directory `foo` and add the following lines:
