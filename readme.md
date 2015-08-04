@@ -1,5 +1,4 @@
-# rkeys
-[![Build Status](https://travis-ci.org/dizzib/rkeys.svg?branch=master)](https://travis-ci.org/dizzib/rkeys)
+# rkeys [![Build Status][badge-travis-svg]][badge-travis-url]
 
 A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to remote [X11]:
 
@@ -321,6 +320,8 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 
 [MIT](./LICENSE)
 
+[badge-travis-svg]: https://travis-ci.org/dizzib/rkeys.svg?branch=master
+[badge-travis-url]: https://travis-ci.org/dizzib/rkeys
 [base template]: ./site/ui/template/base.jade
 [ComposeKey]: https://help.ubuntu.com/community/ComposeKey#Compose%20key%20sequences
 [core command.yaml]: ./site/io/command.yaml
