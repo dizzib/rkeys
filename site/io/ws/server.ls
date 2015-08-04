@@ -11,12 +11,13 @@ module.exports = me = (new Em!) with do
       s.on \upgrade (req, socket, body) ->
         return unless Ws.isWebSocket req
         wsocks.push ws = new Ws req, socket, body
-        ws.on \close -> log0 "disconnect #{socket.remoteAddress}"
+        addr = socket.remoteAddress
+        ws.on \close -> log0 "disconnect #addr"
         ws.on \message ->
           msg = JSON.parse it.data
           me.emit (_.keys msg).0, (_.values msg).0
         ws.on \open ->
-          log0 "connect #{socket.remoteAddress}"
+          log0 "connect #addr"
           me.emit \connect ws
 
   broadcast: (id, data) ->
