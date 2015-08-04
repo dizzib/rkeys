@@ -1,4 +1,5 @@
-# rkeys [![Build Status][badge-travis-svg]][badge-travis-url]
+# rkeys
+[![Build Status][badge-travis-svg]][badge-travis-url]
 
 A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to remote [X11]:
 
