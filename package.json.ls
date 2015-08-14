@@ -1,5 +1,5 @@
 name       : \rkeys
-version    : \0.11.0
+version    : \0.11.1
 description: "A platform for creating tablet/HTML5 virtual-keyboard apps to send keystrokes to remote X11"
 keywords   : [\chord \chords \key \keyboard \keypad \keys \keystroke \macro 'remote control' \tablet 'virtual keyboard' \X11]
 homepage   : \https://github.com/dizzib/rkeys
