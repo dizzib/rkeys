@@ -171,7 +171,7 @@ with the following mixins and classes:
 ## base template
 
 The [base template] is the foundation of rkeys apps and includes the JavaScript
-libraries [socket.io] to communicate the user's keystrokes to the server,
+libraries [faye-websocket] to communicate the user's keystrokes to the server,
 [jquery] to dynamically manipulate the user interface and
 [lodash] for general purpose functions.
 It includes the following [jade mixins](./site/ui/mixin/base.jade):
@@ -329,6 +329,7 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 [dependencies]: ./package.json.ls
 [Express]: http://expressjs.com
 [chord]: https://en.wikipedia.org/wiki/Chorded_keyboard
+[faye-websocket]: https://github.com/faye/faye-websocket-node
 [float left]: https://developer.mozilla.org/en-US/docs/Web/CSS/float
 [Font Awesome]: http://fortawesome.github.io/Font-Awesome/
 [GCC]: https://gcc.gnu.org
@@ -346,7 +347,6 @@ https on port + 1 (default 7001) at `https://your-rkeys-server:7001`.
 [python]: https://www.python.org
 [regular expression]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 [Simon]: https://userbase.kde.org/Simon
-[socket.io]: http://socket.io
 [SoX]: http://sox.sourceforge.net/Main/HomePage
 [stylus]: https://learnboost.github.io/stylus
 [templates]: ./site/ui/template
