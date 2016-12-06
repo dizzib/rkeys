@@ -17,7 +17,8 @@ Stylus  = require \stylus
 err <- (require \./io/x11/boot)!
 return log err if err
 
-Api = require \./io/api
+Api-http = require \./io/api/http
+Api-ws   = require \./io/api/ws
 
 log "dirs: #{Args.dirs * ' '}"
 dirs = Args.dirs ++ const DIR-UI = "#__dirname/ui" # order matters
@@ -51,7 +52,8 @@ start-http (err, s0) ->
   return log err if err
   err, s1 <- start-https
   return log err if err
-  Api.init [s0, s1]
+  Api-http.init express
+  Api-ws.init [s0, s1]
 
 ## helpers
 

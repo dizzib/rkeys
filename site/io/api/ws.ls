@@ -1,7 +1,7 @@
-Aw = require \./active-window
-D  = require \./rkey/constants .directions
-R  = require \./rkey
-S  = require \./ws/server
+Aw = require \../active-window
+D  = require \../rkey/constants .directions
+R  = require \../rkey
+S  = require \../ws/server
 
 module.exports =
   init: (http-servers) ->

@@ -1,29 +1,29 @@
 test = it
-<- describe 'api'
+<- describe 'api: web socket interface'
 
 Http = require \http
 Ws   = require \faye-websocket
 M    = require \mockery
 
-const P0 = 7070
-var aw, res, s0, T
+const PORT = 7070
+var actual, aw, s0, T
 
 after ->
   s0.close!
   M.deregisterAll!
   M.disable!
 before ->
-  M.registerMock \./active-window aw := servant: update: -> res.push "up:#it"
-  M.registerMock \./rkey -> res.push it
+  M.registerMock \../active-window aw := servant: update: -> actual.push "up:#it"
+  M.registerMock \../rkey -> actual.push it
   M.enable warnOnUnregistered:false
-  s0 := Http.createServer!listen P0
-  T := require \../../site/io/api
+  s0 := Http.createServer!listen PORT
+  T := require \../../../site/io/api/ws
   T.init [s0]
 beforeEach ->
-  res := []
+  actual := []
 
 test 'on connect should emit active window event' (done) ->
-  c = new Ws.Client "ws://localhost:#P0"
+  c = new Ws.Client "ws://localhost:#PORT"
   aw.emit = ->
     c.close!
     aw.emit = ->
@@ -32,12 +32,12 @@ test 'on connect should emit active window event' (done) ->
 describe 'send message to api' ->
   function run id, data, expect
     test id, (done) ->
-      c = new Ws.Client "ws://localhost:#P0"
+      c = new Ws.Client "ws://localhost:#PORT"
       c.on \error -> done new Error it.message
       c.on \open  ->
         c.send JSON.stringify "#id":data
         c.close!
-        setTimeout (-> deq res, expect; done!), 50ms
+        setTimeout (-> deq actual, expect; done!), 50ms
   run \rkeydown \abc [{act:\abc direction:0}]
   run \rkeyup   \def [{act:\def direction:1}]
   run \servant  \xyz [\up:xyz]

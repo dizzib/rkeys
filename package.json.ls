@@ -14,6 +14,7 @@ scripts:
   start: './task/bootstrap && node ./_build/task/repl'
   test : './task/bootstrap && node ./_build/task/npm-test'
 dependencies:
+  'body-parser'   : \1.12.3
   browserify      : \8.1.3
   commander       : \2.6.0
   errorhandler    : \1.3.2
@@ -39,6 +40,7 @@ devDependencies:
   lolex        : \~1.2.1
   mocha        : \~2.2.5
   mockery      : \~1.4.0
+  request      : \~2.79.0
   'wait.for'   : \~0.6.3
 engines:
   node: '>=0.10.x'
