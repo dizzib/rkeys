@@ -7,7 +7,7 @@ M = require \mockery
 U = require \util
 
 const SITE = '../../site'
-var clock, out, T
+var actual, clock, T
 
 after  ->
   clock.uninstall!
@@ -16,20 +16,20 @@ after  ->
 before ->
   clock := L.install!
   M.enable warnOnUnregistered:false useCleanCache:true
-  M.registerMock \child_process exec: (cmd, cb) -> out.push "ex:#cmd"
+  M.registerMock \child_process exec: (cmd, cb) -> actual.push "ex:#cmd"
   M.registerMock \../args dirs: [ "#__dirname/test-app" ]
-  M.registerMock \../../ws/server broadcast: (id, data) -> out.push "br:{#id:#data}"
+  M.registerMock \../../ws/server broadcast: (id, data) -> actual.push "br:{#id:#data}"
   M.registerMock \../../x11/buttonsim do
-    down: -> out.push "bd:#it"
-    up  : -> out.push "bu:#it"
+    down: -> actual.push "bd:#it"
+    up  : -> actual.push "bu:#it"
   M.registerMock \../../x11/keycode is-keysym: -> _.startsWith it, \XK_
   M.registerMock \../../x11/keysim do
-    down: -> out.push "d:#it"
-    up  : -> out.push "u:#it"
+    down: -> actual.push "d:#it"
+    up  : -> actual.push "u:#it"
   T := require "#SITE/io/rkey"
 beforeEach ->
   clock.reset!
-  out := []
+  actual := []
 
 describe 'action' ->
   describe 'symbols and letters' ->
@@ -112,4 +112,4 @@ function run instructions, expect
     else
       [dirn, act] = ins / '.'
       T act:act.replace('{SPACE}' ' '), direction:DIRECTIONS[dirn]
-  deq (out * ' '), expect
+  deq (actual * ' '), expect
