@@ -55,15 +55,16 @@ xterm: exec xterm -fg red
 
 # sound sidechain
 #
-/^d$/: PLAY-SOUND SFX-BLIP
-/^e$/: PLAY-SOUND SFX-CHIRP
-/^f$/: PLAY-SOUND SFX-DROID
-/^g$/: PLAY-SOUND SFX-NOISE
-/^h$/: [ PLAY-SOUND SFX-TICK, PLAY-SOUND SFX-TOCK ]
+/.*/:
+  /^d$/: PLAY-SOUND SFX-BLIP
+  /^e$/: PLAY-SOUND SFX-CHIRP
+  /^f$/: PLAY-SOUND SFX-DROID
+  /^g$/: PLAY-SOUND SFX-NOISE
+  /^h$/: [ PLAY-SOUND SFX-TICK, PLAY-SOUND SFX-TOCK ]
 # uncomment the following line to make any abc sequence chirp
-#/^abc/: PLAY-SOUND SFX-CHIRP
+#  /^abc/: PLAY-SOUND SFX-CHIRP
 # uncomment the following line to play a noise on any other key
-#/.*/: PLAY-SOUND SFX-NOISE
+#  /.*/: PLAY-SOUND SFX-NOISE
 #
 # set up the shell command to play a sound. This is heavily
 # dependent on the sytem so you may need to tweak it.

@@ -7,6 +7,6 @@ module.exports =
   init: (http-servers) ->
     S.init http-servers
     S.on \connect  -> Aw.emit!
-    S.on \servant  -> Aw.servant.update it
-    S.on \rkeydown -> R act:it, direction:D.DOWN
-    S.on \rkeyup   -> R act:it, direction:D.UP
+    S.on \servant  -> Aw.servant.update it.act
+    S.on \rkeydown -> R act:it.act, direction:D.DOWN, from:"ws #{it.ip}"
+    S.on \rkeyup   -> R act:it.act, direction:D.UP  , from:"ws #{it.ip}"

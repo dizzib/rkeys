@@ -1,5 +1,17 @@
 # sidechain
 sc1: 1
 sc2: 2
-/^sc1$/: exec sc1
-/^sc2$/: [exec sc2d, exec sc2u]
+
+/.*/: # A
+  /^sc1$/: EXEC A-sc1
+  /sc1/: EXEC should not execute
+  /^sc2$/: [exec A-sc2d, exec A-sc2u]
+
+/http/: # B should be bypassed
+  /^sc1$/: EXEC B-sc1
+  /^sc2$/: [exec B-sc2d, exec B-sc2u]
+
+/127\.0\.0\.1/: # C localhost with regular-expression parameter substitution
+  /^sc(.*)$/: EXEC C-$0,$1
+
+EXEC: alias exec

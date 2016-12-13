@@ -38,6 +38,6 @@ describe 'send message to api' ->
         c.send JSON.stringify "#id":data
         c.close!
         setTimeout (-> deq actual, expect; done!), 50ms
-  run \rkeydown \abc [{act:\abc direction:0}]
-  run \rkeyup   \def [{act:\def direction:1}]
+  run \rkeydown \abc [{act:\abc direction:0 from:'ws ::ffff:127.0.0.1'}]
+  run \rkeyup   \def [{act:\def direction:1 from:'ws ::ffff:127.0.0.1'}]
   run \servant  \xyz [\up:xyz]

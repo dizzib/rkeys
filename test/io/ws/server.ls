@@ -23,7 +23,7 @@ describe 'message to server' ->
   function test-port port
     test "port #port" (done) ->
       T.on \foo ->
-        deq it, a:\b
+        deq it.act, a:\b
         c.close!
         done!
       c = new Ws.Client "ws://localhost:#port"

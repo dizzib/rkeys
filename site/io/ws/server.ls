@@ -15,7 +15,7 @@ module.exports = me = (new Em!) with do
         ws.on \close -> log0 "disconnect #addr"
         ws.on \message ->
           msg = JSON.parse it.data
-          me.emit (_.keys msg).0, (_.values msg).0
+          me.emit (_.keys msg).0, {act:(_.values msg).0, ip:addr}
         ws.on \open ->
           log0 "connect #addr"
           me.emit \connect ws

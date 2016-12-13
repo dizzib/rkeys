@@ -24,12 +24,13 @@ beforeEach ->
   actual := []
 
 describe 'send message to api' ->
+  const FROM = 'http ::ffff:127.0.0.1'
   function run id, data, expect
     test id, (done) ->
       err, res <- R.post "http://localhost:#PORT/api/#id" form:data
       done new Error err if err
       deq actual, expect
       done!
-  run \rkeydown   \abc [{act:\abc direction:0}]
-  run \rkeydownup \abc [{act:\abc direction:0} {act:\abc direction:1}]
-  run \rkeyup     \def [{act:\def direction:1}]
+  run \rkeydown   \abc [{act:\abc direction:0 from:FROM}]
+  run \rkeydownup \abc [{act:\abc direction:0 from:FROM} {act:\abc direction:1 from:FROM}]
+  run \rkeyup     \def [{act:\def direction:1 from:FROM}]

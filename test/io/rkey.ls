@@ -88,10 +88,10 @@ describe 'command' ->
       test 'ls 2'     -> run 'D.ls2' 'd:L u:L d:2 u:2'
       test 'ls error' -> run 'D.lserr' ''
   describe 'sidechain' ->
-    test '1 dn'     -> run 'D.sc1' 'ex:sc1 d:1'
+    test '1 dn'     -> run 'D.sc1' 'ex:A-sc1 ex:C-sc1,1 d:1'
     test '1 up'     -> run 'U.sc1' 'u:1'
-    test '2 dn'     -> run 'D.sc2' 'ex:sc2d d:2'
-    test '2 up'     -> run 'U.sc2' 'ex:sc2u u:2'
+    test '2 dn'     -> run 'D.sc2' 'ex:A-sc2d ex:C-sc2,2 d:2'
+    test '2 up'     -> run 'U.sc2' 'ex:A-sc2u u:2'
 
 function test-seq-delay act
   describe 'sequence delay with auto-repeat' ->
@@ -111,5 +111,5 @@ function run instructions, expect
       clock.tick ms
     else
       [dirn, act] = ins / '.'
-      T act:act.replace('{SPACE}' ' '), direction:DIRECTIONS[dirn]
+      T act:act.replace('{SPACE}' ' '), direction:DIRECTIONS[dirn], from:'ws ::ffff:127.0.0.1'
   deq (actual * ' '), expect

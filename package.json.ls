@@ -21,7 +21,7 @@ dependencies:
   express         : \4.11.1
   'faye-websocket': \0.10.0
   jade            : \1.9.2
-  'js-yaml'       : \3.2.5
+  'js-yaml'       : \3.7.0
   LiveScript      : \1.3.0
   lodash          : \3.5.0
   lsify           : \0.1.0
